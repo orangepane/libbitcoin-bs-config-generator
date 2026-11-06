@@ -53,22 +53,6 @@ bs --config bs.cfg      # run with the file you generated
 bs --settings           # print every setting and its current value
 ```
 
-## Where this came from
-
-The first version of this tool kept the 2015 Material Design Lite shell it
-inherited through two forks. The rebuild replaced that surface: the data engine
-and the presets were kept, the shell, the controls and the information
-architecture were written again. The parent project plan said not to redesign;
-this repository records that the decision was superseded, and why: the inherited
-shell could not be made usable or accessible without replacing it.
-
-## Version
-
-This generator targets libbitcoin server **v4**, which is a release candidate.
-The last stable release, v3.8.0, reads a different settings format: a v4 file
-will not work there, and this page has no migration mode for v3.8
-configurations.
-
 ## Privacy
 
 No backend, no accounts, no telemetry, no analytics, no third-party requests.
@@ -82,4 +66,4 @@ GPL-3.0; see [LICENSE](LICENSE). Derived from
 itself a fork of
 [paritytech/parity-config-generator](https://github.com/paritytech/parity-config-generator).
 
-This is a community tool, not an official libbitcoin project.
+Independent project, maintained by orangepane.

@@ -337,7 +337,7 @@ export function ArtifactPane ({
       </div>
 
       <p className="compat">
-        Targets bs v4 (release candidate). A v3.8 configuration is not compatible with v4.
+        Targets bs v4. A v3.8 configuration is not compatible with v4.
       </p>
     </section>
   );
