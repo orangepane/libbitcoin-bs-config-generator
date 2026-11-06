@@ -1,21 +1,14 @@
 import { useId, useMemo } from 'react';
 import type { StartPanelProps } from './types';
 import { networkSetting, sectionList } from '../catalog';
-import { PRESETS, applyPreset, buildArtifact } from '../config';
+import { PRESETS } from '../config';
 
 // The Start view. One decision, network, then a preset as a starting point.
 // Applying is one click and is not confirmed: it is visible in the diff pane
 // and reversible with Reset.
 
-function changeSentence (count: number): string {
-  if (count === 0) return 'Changes nothing from the defaults';
-  if (count === 1) return 'Changes 1 setting from the defaults';
-  return `Changes ${count} settings from the defaults`;
-}
-
 export function StartPanel ({
   catalog,
-  defaults,
   settings,
   presetId,
   modified,
@@ -42,16 +35,6 @@ export function StartPanel ({
   const fallback =
     networkDefinition && typeof networkDefinition.default === 'string' ? networkDefinition.default : 'mainnet';
   const network = typeof selected === 'string' && selected !== '' ? selected : fallback;
-
-  // Each preset's resulting diff, so a starting point can state its cost before
-  // it is applied. Derived from the same functions the artifact uses.
-  const counts = useMemo(() => {
-    const result: Record<string, number> = {};
-    for (const preset of PRESETS) {
-      result[preset.id] = buildArtifact(applyPreset(defaults, preset), defaults, catalog).changedCount;
-    }
-    return result;
-  }, [catalog, defaults]);
 
   if (!networkDefinition || !networkSection) {
     return (
@@ -105,23 +88,19 @@ export function StartPanel ({
         <ul className="preset-list">
           {PRESETS.map((preset) => {
             const applied = presetId === preset.id && !modified;
-            const count = counts[preset.id] ?? 0;
 
             return (
               <li className="preset-card" key={preset.id} data-applied={applied ? 'true' : 'false'}>
                 <h3 className="preset-title">{preset.title}</h3>
                 <p className="preset-rationale">{preset.rationale}</p>
-                <p className="preset-count">
-                  {changeSentence(count)}
-                  {applied ? '. Applied.' : ''}
-                </p>
                 <button
                   className="btn"
                   type="button"
-                  aria-label={`Apply ${preset.title}`}
+                  disabled={applied}
+                  aria-label={applied ? `Applied ${preset.title}` : `Apply ${preset.title}`}
                   onClick={() => onPreset(preset.id)}
                 >
-                  Apply
+                  {applied ? 'Applied' : 'Apply'}
                 </button>
               </li>
             );

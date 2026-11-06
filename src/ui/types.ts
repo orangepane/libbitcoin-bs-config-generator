@@ -46,7 +46,6 @@ export interface SettingsListProps {
 
 export interface StartPanelProps {
   catalog: Catalog;
-  defaults: Settings;
   settings: Settings;
   presetId: string | null;
   modified: boolean;

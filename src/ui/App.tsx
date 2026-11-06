@@ -373,7 +373,6 @@ export function App () {
           {view === 'start' ? (
             <StartPanel
               catalog={catalog}
-              defaults={defaults}
               settings={state.settings}
               presetId={state.presetId}
               modified={state.modified}

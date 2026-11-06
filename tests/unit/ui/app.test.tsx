@@ -23,6 +23,25 @@ describe('undo', () => {
     expect(screen.queryByRole('button', { name: /^Undo/ })).toBeNull();
   });
 
+  it('names the applied preset on its own button', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    expect(screen.getByRole('button', { name: 'Apply Wallet server' })).toBeEnabled();
+
+    await user.click(screen.getByRole('button', { name: 'Apply Wallet server' }));
+    expect(screen.getByRole('button', { name: 'Applied Wallet server' })).toBeDisabled();
+    expect(screen.queryByRole('button', { name: 'Apply Wallet server' })).toBeNull();
+
+    // An edit leaves the draft no longer equal to the preset, so the card offers
+    // the preset again rather than claiming it is applied.
+    await user.click(screen.getByRole('button', { name: 'All' }));
+    await user.type(screen.getByRole('searchbox', { name: 'Search settings' }), 'verbose');
+    await user.click(screen.getByRole('switch', { name: /verbose/i }));
+    await user.click(screen.getByRole('button', { name: 'Start' }));
+    expect(screen.getByRole('button', { name: 'Apply Wallet server' })).toBeEnabled();
+  });
+
   it('is cleared by the next edit', async () => {
     const user = userEvent.setup();
     render(<App />);
