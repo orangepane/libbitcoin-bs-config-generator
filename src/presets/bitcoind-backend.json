@@ -1,0 +1,10 @@
+{
+  "bitcoind": {
+    "bind": ["127.0.0.1:8280"],
+    "connections": 100
+  },
+  "bitcoind_zmq": {
+    "bind": ["127.0.0.1:8380"],
+    "connections": 100
+  }
+}

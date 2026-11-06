@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    name: Lint, unit tests, build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
+  e2e:
+    name: End-to-end journeys (chromium)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-traces
+          path: test-results/
+          retention-days: 7
+
+  no-third-party-requests:
+    name: No third-party runtime URLs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Product contract C2: the page loads nothing from another origin at
+      # runtime. That means no webfonts, no CDN, no icon font, no analytics,
+      # ever. The "nothing leaves your browser" claim has to be literally true.
+      # Fonts and icons are local or inline SVG. If this grep matches, the
+      # build is not self-contained, whatever the feature was for.
+      - name: Fail on fonts.googleapis.com, fonts.gstatic.com, cdn.*, unpkg, jsdelivr
+        run: |
+          if git grep -nIE 'fonts\.googleapis\.com|fonts\.gstatic\.com|cdn\.|unpkg|jsdelivr' -- src; then
+            echo "::error::Third-party runtime URL found in src/. The page must load nothing from another origin."
+            exit 1
+          fi
+          echo "No third-party runtime URLs in src/."

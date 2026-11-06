@@ -1,0 +1,6 @@
+{
+  "electrum": {
+    "bind": ["0.0.0.0:8580"],
+    "connections": 100
+  }
+}

@@ -1,0 +1,3249 @@
+{
+  "__internal": {
+    "platform": {
+      "name": "Platform",
+      "description": {
+        "Windows": "Config for Windows",
+        "Linux": "Config for Linux",
+        "Mac OS": "Config for Mac OS"
+      },
+      "default": null,
+      "values": [
+        "Windows",
+        "Linux",
+        "Mac OS"
+      ],
+      "control": "select"
+    }
+  },
+  "__meta": {
+    "project": "libbitcoin server (bs)",
+    "version": "v4",
+    "source": "https://libbitcoin.org/configuration/reference.html",
+    "snapshot": "2026-11-06"
+  },
+  "log": {
+    "section": "Log",
+    "description": "Which kinds of events are logged, and where log files are written.",
+    "advanced": false,
+    "application": {
+      "name": "Application",
+      "description": "Enable application logging.",
+      "default": true,
+      "control": "flag"
+    },
+    "fault": {
+      "name": "Fault",
+      "description": "Enable local fault logging.",
+      "default": true,
+      "control": "flag"
+    },
+    "maximum_size": {
+      "name": "Maximum Size",
+      "description": "The maximum byte size of each pair of rotated log files.",
+      "default": 1000000,
+      "control": "number",
+      "min": 0
+    },
+    "news": {
+      "name": "News",
+      "description": "Enable news logging.",
+      "default": true,
+      "control": "flag"
+    },
+    "path": {
+      "name": "Path",
+      "description": "The log files directory.",
+      "default": "",
+      "control": "path"
+    },
+    "protocol": {
+      "name": "Protocol",
+      "description": "Enable protocol logging.",
+      "default": false,
+      "control": "flag"
+    },
+    "proxy": {
+      "name": "Proxy",
+      "description": "Enable proxy logging.",
+      "default": false,
+      "control": "flag"
+    },
+    "quitting": {
+      "name": "Quitting",
+      "description": "Enable quitting logging.",
+      "default": false,
+      "control": "flag"
+    },
+    "remote": {
+      "name": "Remote",
+      "description": "Enable remote fault logging.",
+      "default": true,
+      "control": "flag"
+    },
+    "session": {
+      "name": "Session",
+      "description": "Enable session logging.",
+      "default": true,
+      "control": "flag"
+    },
+    "symbols": {
+      "name": "Symbols",
+      "description": "Path to a directory containing Windows symbol (.pdb) files.",
+      "default": "",
+      "control": "path"
+    },
+    "verbose": {
+      "name": "Verbose",
+      "description": "Enable verbose logging.",
+      "default": false,
+      "control": "flag"
+    }
+  },
+  "database": {
+    "section": "Database",
+    "description": "The store: its directory and store-wide options.",
+    "advanced": false,
+    "gpu_scan_minimum": {
+      "name": "GPU Scan Minimum",
+      "description": "Minimum transactions for a silent payment scan to use the GPU.",
+      "default": 65536,
+      "control": "number",
+      "min": 0
+    },
+    "interval_depth": {
+      "name": "Interval Depth",
+      "description": "The interval depth for merkle proof optimization.",
+      "default": 11,
+      "control": "number",
+      "min": 0
+    },
+    "mark_unconfirmable": {
+      "name": "Mark Unconfirmable",
+      "description": "Save unconfirmable block state (prevents revalidation).",
+      "default": true,
+      "control": "flag"
+    },
+    "path": {
+      "name": "Path",
+      "description": "The blockchain database directory.",
+      "default": "bitcoin",
+      "control": "path"
+    },
+    "turbo": {
+      "name": "Turbo",
+      "description": "Allow individual non-validation queries to use all CPUs.",
+      "default": true,
+      "control": "flag"
+    }
+  },
+  "table.candidate": {
+    "section": "Store Table: Candidate",
+    "description": "Sizing of the table.candidate store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The number of buckets provisioned in the candidate table head.",
+      "default": 950001,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the candidate table head.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.confirmed": {
+    "section": "Store Table: Confirmed",
+    "description": "Sizing of the table.confirmed store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The number of buckets provisioned in the confirmed table head.",
+      "default": 950001,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the confirmed table head.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.duplicate": {
+    "section": "Store Table: Duplicate",
+    "description": "Sizing of the table.duplicate store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The minimum number of buckets in the duplicate table head.",
+      "default": 1024,
+      "control": "number",
+      "min": 0
+    },
+    "expected": {
+      "name": "Expected",
+      "description": "The expected element count of the duplicate table.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the duplicate table.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the duplicate table body.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.ecdsa": {
+    "section": "Store Table: ECDSA",
+    "description": "Sizing of the table.ecdsa store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of each batch_ecdsa table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of each batch_ecdsa table body.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.filter_bk": {
+    "section": "Store Table: Filter BK",
+    "description": "Sizing of the table.filter_bk store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The number of buckets in the filter_bk table head (0 disables).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the filter_bk table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the filter_bk table body.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.filter_tx": {
+    "section": "Store Table: Filter TX",
+    "description": "Sizing of the table.filter_tx store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The number of buckets in the filter_tx table head (0 disables).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the filter_tx table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the filter_tx table body.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.header": {
+    "section": "Store Table: Header",
+    "description": "Sizing of the table.header store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The number of buckets in the header table head, dynamic default.",
+      "default": 385181,
+      "control": "number",
+      "min": 0
+    },
+    "expected": {
+      "name": "Expected",
+      "description": "The expected element count of the header table.",
+      "default": 962953,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the header table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the header table body.",
+      "default": 124220679,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.input": {
+    "section": "Store Table: Input",
+    "description": "Sizing of the table.input store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the input table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the input table body.",
+      "default": 67269346,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.ins": {
+    "section": "Store Table: Ins",
+    "description": "Sizing of the table.ins store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The number of buckets in the ins table head, dynamic default.",
+      "default": 1345386900,
+      "control": "number",
+      "min": 0
+    },
+    "expected": {
+      "name": "Expected",
+      "description": "The expected element count of the ins table.",
+      "default": 3363467251,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the ins table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the ins table body.",
+      "default": 1749002971,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.output": {
+    "section": "Store Table: Output",
+    "description": "Sizing of the table.output store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the output table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the output table body.",
+      "default": 1278023220,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.outs": {
+    "section": "Store Table: Outs",
+    "description": "Sizing of the table.outs store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The number of buckets in the outs table head, dynamic default (0 disables address index).",
+      "default": 748385817,
+      "control": "number",
+      "min": 0
+    },
+    "expected": {
+      "name": "Expected",
+      "description": "The expected element count of the outs table.",
+      "default": 3741929086,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the outs table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the outs table body.",
+      "default": 336773618,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.pool": {
+    "section": "Store Table: Pool",
+    "description": "Sizing of the table.pool store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The number of buckets in the pool table head, dynamic default (0 disables).",
+      "default": 4000000,
+      "control": "number",
+      "min": 0
+    },
+    "expected": {
+      "name": "Expected",
+      "description": "The expected element count of the pool table.",
+      "default": 10000000,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the pool table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the pool table body.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.presilent": {
+    "section": "Store Table: Presilent",
+    "description": "Sizing of the table.presilent store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of each batch_presilent table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of each batch_presilent table body.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.prevalid": {
+    "section": "Store Table: Prevalid",
+    "description": "Sizing of the table.prevalid store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of each batch_prevalid table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of each batch_prevalid table body.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.prevout": {
+    "section": "Store Table: Prevout",
+    "description": "Sizing of the table.prevout store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The minimum number of buckets in the prevout table head.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the prevout table.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the prevout table body.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.scan": {
+    "section": "Store Table: Scan",
+    "description": "Sizing of the table.scan store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The number of buckets provisioned in the scan table head.",
+      "default": 950001,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the scan table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the scan table body.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.schnorr": {
+    "section": "Store Table: Schnorr",
+    "description": "Sizing of the table.schnorr store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of each batch_schnorr table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of each batch_schnorr table body.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.silent": {
+    "section": "Store Table: Silent",
+    "description": "Sizing of the table.silent store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of each batch_silent table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of each batch_silent table body.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.spends": {
+    "section": "Store Table: Spends",
+    "description": "Sizing of the table.spends store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the spends table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the spends table body.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.state": {
+    "section": "Store Table: State",
+    "description": "Sizing of the table.state store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The number of buckets provisioned in the state table head.",
+      "default": 950001,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the state table head.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.strong": {
+    "section": "Store Table: Strong",
+    "description": "Sizing of the table.strong store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The number of buckets provisioned in the strong table head.",
+      "default": 1359871695,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the strong table head.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.tx": {
+    "section": "Store Table: TX",
+    "description": "Sizing of the table.tx store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The number of buckets in the tx table head, dynamic default.",
+      "default": 543948678,
+      "control": "number",
+      "min": 0
+    },
+    "expected": {
+      "name": "Expected",
+      "description": "The expected element count of the tx table.",
+      "default": 1359871695,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the tx table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the tx table body.",
+      "default": 870317885,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.txs": {
+    "section": "Store Table: TXs",
+    "description": "Sizing of the table.txs store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The number of buckets in the txs table head.",
+      "default": 950001,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the txs table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the txs table body.",
+      "default": 54471017,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "table.wtxid": {
+    "section": "Store Table: WTXID",
+    "description": "Sizing of the table.wtxid store table; dynamic defaults autotune to installed memory.",
+    "advanced": true,
+    "buckets": {
+      "name": "Buckets",
+      "description": "The number of buckets in the wtxid table head, dynamic default (0 disables).",
+      "default": 4000000,
+      "control": "number",
+      "min": 0
+    },
+    "expected": {
+      "name": "Expected",
+      "description": "The expected element count of the wtxid table.",
+      "default": 10000000,
+      "control": "number",
+      "min": 0
+    },
+    "rate": {
+      "name": "Rate",
+      "description": "The percentage expansion of the wtxid table body.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "size": {
+      "name": "Size",
+      "description": "The minimum allocation of the wtxid table body.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "bitcoin": {
+    "section": "Chain Parameters",
+    "description": "Chain parameters: genesis block, soft fork activation, checkpoints, milestone and minimum work. network selects the defaults of every network-dependent setting, including ports, seeds, wallet prefixes and table sizing.",
+    "advanced": false,
+    "bip16_activation_time": {
+      "name": "BIP16 Activation Time",
+      "description": "The activation time for BIP16 in unix time.",
+      "default": 1333238400,
+      "control": "number",
+      "min": 0
+    },
+    "bip34_activation_sample": {
+      "name": "BIP34 Activation Sample",
+      "description": "The number of blocks considered for BIP34 style soft fork activation.",
+      "default": 1000,
+      "control": "number",
+      "min": 0
+    },
+    "bip34_activation_threshold": {
+      "name": "BIP34 Activation Threshold",
+      "description": "The number of new version blocks required for BIP34 style soft fork activation.",
+      "default": 750,
+      "control": "number",
+      "min": 0
+    },
+    "bip34_enforcement_threshold": {
+      "name": "BIP34 Enforcement Threshold",
+      "description": "The number of new version blocks required for BIP34 style soft fork enforcement.",
+      "default": 950,
+      "control": "number",
+      "min": 0
+    },
+    "bip34_freeze": {
+      "name": "BIP34 Freeze",
+      "description": "The block height to freeze the BIP34 softfork for BIP90.",
+      "default": 227931,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_coinbase_activation_height": {
+      "name": "BIP54 Coinbase Activation Height",
+      "description": "The minimum BIP54 coinbase activation height.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_coinbase_speedy_trial": {
+      "name": "BIP54 Coinbase Speedy Trial",
+      "description": "Check the BIP54 coinbase threshold before timeout (speedy trial).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip54_coinbase_start": {
+      "name": "BIP54 Coinbase Start",
+      "description": "The median time past to start BIP54 coinbase signaling (4294967295 for always active).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_coinbase_threshold": {
+      "name": "BIP54 Coinbase Threshold",
+      "description": "The signaling blocks per period to lock in BIP54 coinbase, zero to disable.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_coinbase_timeout": {
+      "name": "BIP54 Coinbase Timeout",
+      "description": "The median time past to time out BIP54 coinbase signaling.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_sigops_activation_height": {
+      "name": "BIP54 Sigops Activation Height",
+      "description": "The minimum BIP54 sigops activation height.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_sigops_speedy_trial": {
+      "name": "BIP54 Sigops Speedy Trial",
+      "description": "Check the BIP54 sigops threshold before timeout (speedy trial).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip54_sigops_start": {
+      "name": "BIP54 Sigops Start",
+      "description": "The median time past to start BIP54 sigops signaling (4294967295 for always active).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_sigops_threshold": {
+      "name": "BIP54 Sigops Threshold",
+      "description": "The signaling blocks per period to lock in BIP54 sigops, zero to disable.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_sigops_timeout": {
+      "name": "BIP54 Sigops Timeout",
+      "description": "The median time past to time out BIP54 sigops signaling.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_timespan_activation_height": {
+      "name": "BIP54 Timespan Activation Height",
+      "description": "The minimum BIP54 timespan activation height.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_timespan_speedy_trial": {
+      "name": "BIP54 Timespan Speedy Trial",
+      "description": "Check the BIP54 timespan threshold before timeout (speedy trial).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip54_timespan_start": {
+      "name": "BIP54 Timespan Start",
+      "description": "The median time past to start BIP54 timespan signaling (4294967295 for always active).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_timespan_threshold": {
+      "name": "BIP54 Timespan Threshold",
+      "description": "The signaling blocks per period to lock in BIP54 timespan, zero to disable.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_timespan_timeout": {
+      "name": "BIP54 Timespan Timeout",
+      "description": "The median time past to time out BIP54 timespan signaling.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_timewarp_activation_height": {
+      "name": "BIP54 Timewarp Activation Height",
+      "description": "The minimum BIP54 timewarp activation height.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_timewarp_speedy_trial": {
+      "name": "BIP54 Timewarp Speedy Trial",
+      "description": "Check the BIP54 timewarp threshold before timeout (speedy trial).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip54_timewarp_start": {
+      "name": "BIP54 Timewarp Start",
+      "description": "The median time past to start BIP54 timewarp signaling (4294967295 for always active).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_timewarp_threshold": {
+      "name": "BIP54 Timewarp Threshold",
+      "description": "The signaling blocks per period to lock in BIP54 timewarp, zero to disable.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_timewarp_timeout": {
+      "name": "BIP54 Timewarp Timeout",
+      "description": "The median time past to time out BIP54 timewarp signaling.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_txsize_activation_height": {
+      "name": "BIP54 Tx Size Activation Height",
+      "description": "The minimum BIP54 tx size activation height.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_txsize_speedy_trial": {
+      "name": "BIP54 Tx Size Speedy Trial",
+      "description": "Check the BIP54 tx size threshold before timeout (speedy trial).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip54_txsize_start": {
+      "name": "BIP54 Tx Size Start",
+      "description": "The median time past to start BIP54 tx size signaling (4294967295 for always active).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_txsize_threshold": {
+      "name": "BIP54 Tx Size Threshold",
+      "description": "The signaling blocks per period to lock in BIP54 tx size, zero to disable.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip54_txsize_timeout": {
+      "name": "BIP54 Tx Size Timeout",
+      "description": "The median time past to time out BIP54 tx size signaling.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip65_freeze": {
+      "name": "BIP65 Freeze",
+      "description": "The block height to freeze the BIP65 softfork for BIP90.",
+      "default": 388381,
+      "control": "number",
+      "min": 0
+    },
+    "bip66_freeze": {
+      "name": "BIP66 Freeze",
+      "description": "The block height to freeze the BIP66 softfork for BIP90.",
+      "default": 363725,
+      "control": "number",
+      "min": 0
+    },
+    "bip9_activation_period": {
+      "name": "BIP9 Activation Period",
+      "description": "The number of blocks in a BIP9 signaling period.",
+      "default": 2016,
+      "control": "number",
+      "min": 0
+    },
+    "bip9_bit0_activation_height": {
+      "name": "BIP9 Bit 0 Activation Height",
+      "description": "The minimum BIP9 bit 0 activation height.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip9_bit0_speedy_trial": {
+      "name": "BIP9 Bit 0 Speedy Trial",
+      "description": "Check the BIP9 bit 0 threshold before timeout (speedy trial).",
+      "default": false,
+      "control": "flag"
+    },
+    "bip9_bit0_start": {
+      "name": "BIP9 Bit 0 Start",
+      "description": "The median time past to start BIP9 bit 0 signaling (4294967295 for always active).",
+      "default": 1462060800,
+      "control": "number",
+      "min": 0
+    },
+    "bip9_bit0_threshold": {
+      "name": "BIP9 Bit 0 Threshold",
+      "description": "The signaling blocks per period to lock in BIP9 bit 0, zero to disable.",
+      "default": 1916,
+      "control": "number",
+      "min": 0
+    },
+    "bip9_bit0_timeout": {
+      "name": "BIP9 Bit 0 Timeout",
+      "description": "The median time past to time out BIP9 bit 0 signaling.",
+      "default": 1493596800,
+      "control": "number",
+      "min": 0
+    },
+    "bip9_bit1_activation_height": {
+      "name": "BIP9 Bit 1 Activation Height",
+      "description": "The minimum BIP9 bit 1 activation height.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "bip9_bit1_speedy_trial": {
+      "name": "BIP9 Bit 1 Speedy Trial",
+      "description": "Check the BIP9 bit 1 threshold before timeout (speedy trial).",
+      "default": false,
+      "control": "flag"
+    },
+    "bip9_bit1_start": {
+      "name": "BIP9 Bit 1 Start",
+      "description": "The median time past to start BIP9 bit 1 signaling (4294967295 for always active).",
+      "default": 1479168000,
+      "control": "number",
+      "min": 0
+    },
+    "bip9_bit1_threshold": {
+      "name": "BIP9 Bit 1 Threshold",
+      "description": "The signaling blocks per period to lock in BIP9 bit 1, zero to disable.",
+      "default": 1916,
+      "control": "number",
+      "min": 0
+    },
+    "bip9_bit1_timeout": {
+      "name": "BIP9 Bit 1 Timeout",
+      "description": "The median time past to time out BIP9 bit 1 signaling.",
+      "default": 1510704000,
+      "control": "number",
+      "min": 0
+    },
+    "bip9_bit2_activation_height": {
+      "name": "BIP9 Bit 2 Activation Height",
+      "description": "The minimum BIP9 bit 2 activation height.",
+      "default": 709632,
+      "control": "number",
+      "min": 0
+    },
+    "bip9_bit2_speedy_trial": {
+      "name": "BIP9 Bit 2 Speedy Trial",
+      "description": "Check the BIP9 bit 2 threshold before timeout (speedy trial).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip9_bit2_start": {
+      "name": "BIP9 Bit 2 Start",
+      "description": "The median time past to start BIP9 bit 2 signaling (4294967295 for always active).",
+      "default": 1619222400,
+      "control": "number",
+      "min": 0
+    },
+    "bip9_bit2_threshold": {
+      "name": "BIP9 Bit 2 Threshold",
+      "description": "The signaling blocks per period to lock in BIP9 bit 2, zero to disable.",
+      "default": 1815,
+      "control": "number",
+      "min": 0
+    },
+    "bip9_bit2_timeout": {
+      "name": "BIP9 Bit 2 Timeout",
+      "description": "The median time past to time out BIP9 bit 2 signaling.",
+      "default": 1628640000,
+      "control": "number",
+      "min": 0
+    },
+    "block_spacing_seconds": {
+      "name": "Block Spacing Seconds",
+      "description": "The target block period.",
+      "default": 600,
+      "control": "number",
+      "min": 0
+    },
+    "checkpoint": {
+      "name": "Checkpoint",
+      "description": "The blockchain checkpoints.",
+      "default": [
+        "00000000000000004d9b4ef50f0f9d686fd69db2e03af35a100370c64632a983:295000",
+        "0000000000000001ae8c72a0b0c301f67e3afca10e819efa9041e458e9bd7e40:279000",
+        "000000000000003887df1f29024b06fc2200b55f8af8f35453d7be294df2d214:250000",
+        "00000000000001c108384350f74090433e7fcf79a606b8e797f065b130575932:225430",
+        "00000000000001b4f4b433e81ee46494af945cf96014816a4e2370f11b23df4e:216116",
+        "000000000000048b95347e83192f69cf0366076336c639f9b7228e9ba171342e:210000",
+        "000000000000059f452a5f7340de6682a977387c17010ff6e6c3bd83ca8b1317:193000",
+        "000000000000099e61ea72015e79632f216fe6cb33d7899acb35b75c8303b763:168000",
+        "00000000000005b12ffd4cd315cd34ffd4a594f430ac814c91184a0d42d2b0fe:134444",
+        "00000000000291ce28027faea320c8d2b054b2e0fe44a773f3eefb151d6bdc97:105000",
+        "0000000000573993a3c9e41ce34471c079dcf5f52a0e824a81e7f953b8661a20:74000",
+        "000000002dd5588a74784eaa7ab0507a18ad16a236e7b1ce69f00d7ddfb5d0a6:33333",
+        "0000000069e244f73d78e8fd29ba2fd2ed618bd6fa2ee92559f542fdb26e7c1d:11111"
+      ],
+      "control": "list"
+    },
+    "genesis_block": {
+      "name": "Genesis Block",
+      "description": "The hexadecimal encoding of the genesis block.",
+      "default": "0100000000000000000000000000000000000000000000000000000000000000000000003ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a29ab5f49ffff001d1dac2b7c0101000000010000000000000000000000000000000000000000000000000000000000000000ffffffff4d04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73ffffffff0100f2052a01000000434104678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5fac00000000",
+      "control": "text"
+    },
+    "initial_block_subsidy_bitcoin": {
+      "name": "Initial Block Subsidy Bitcoin",
+      "description": "The initial block subsidy.",
+      "default": 50,
+      "control": "number",
+      "min": 0
+    },
+    "milestone": {
+      "name": "Milestone",
+      "description": "A block presumed to be valid but not required to be present.",
+      "default": "000000000000000000010b93c9ea1c29fea277383f0f7d1f26de8b5802e885ff:950000",
+      "control": "text"
+    },
+    "minimum_work": {
+      "name": "Minimum Work",
+      "description": "The minimum work for any branch to be considered valid.",
+      "default": "000000000000000000000000000000000000000052b2559353df4117b7348b64",
+      "control": "text"
+    },
+    "network": {
+      "name": "Network",
+      "description": {
+        "mainnet": "Main Network",
+        "testnet3": "Test Network 3",
+        "testnet4": "Test Network 4",
+        "signet": "Signed Test Network",
+        "regtest": "Regression Test Network"
+      },
+      "default": "mainnet",
+      "control": "select",
+      "values": [
+        "Mainnet [mainnet]",
+        "Testnet3 [testnet3]",
+        "Testnet4 [testnet4]",
+        "Signet [signet]",
+        "Regtest [regtest]"
+      ]
+    },
+    "proof_of_work_limit": {
+      "name": "Proof Of Work Limit",
+      "description": "The proof of work limit.",
+      "default": 486604799,
+      "control": "number",
+      "min": 0
+    },
+    "retargeting_factor": {
+      "name": "Retargeting Factor",
+      "description": "The difficulty retargeting factor.",
+      "default": 4,
+      "control": "number",
+      "min": 0
+    },
+    "retargeting_interval_seconds": {
+      "name": "Retargeting Interval Seconds",
+      "description": "The difficulty retargeting period.",
+      "default": 1209600,
+      "control": "number",
+      "min": 0
+    },
+    "subsidy_interval": {
+      "name": "Subsidy Interval",
+      "description": "The subsidy halving period.",
+      "default": 210000,
+      "control": "number",
+      "min": 0
+    },
+    "timestamp_limit_seconds": {
+      "name": "Timestamp Limit Seconds",
+      "description": "The future timestamp allowance.",
+      "default": 7200,
+      "control": "number",
+      "min": 0
+    }
+  },
+  "forks": {
+    "section": "Forks",
+    "description": "The consensus rules enforced. The defaults are mainnet.",
+    "advanced": false,
+    "bip112": {
+      "name": "BIP112",
+      "description": "Add check-sequence-verify op code (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip113": {
+      "name": "BIP113",
+      "description": "Use median time past for locktime (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip141": {
+      "name": "BIP141",
+      "description": "Segregated witness consensus layer (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip143": {
+      "name": "BIP143",
+      "description": "Witness version 0 (SegWit) (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip147": {
+      "name": "BIP147",
+      "description": "Prevent dummy value malleability (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip16": {
+      "name": "BIP16",
+      "description": "Add pay-to-script-hash processing (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip30": {
+      "name": "BIP30",
+      "description": "Disallow collision of unspent transaction hashes (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip34": {
+      "name": "BIP34",
+      "description": "Require coinbase input includes block height (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip341": {
+      "name": "BIP341",
+      "description": "Witness version 1 (taproot) (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip342": {
+      "name": "BIP342",
+      "description": "Validation of taproot script (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip42": {
+      "name": "BIP42",
+      "description": "Finite monetary supply (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip54_coinbase": {
+      "name": "BIP54 Coinbase",
+      "description": "Require coinbase locktime of parent height and non-final sequence (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip54_sigops": {
+      "name": "BIP54 Sigops",
+      "description": "Limit legacy signature operations per transaction (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip54_timespan": {
+      "name": "BIP54 Timespan",
+      "description": "Require non-negative retarget timespans (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip54_timewarp": {
+      "name": "BIP54 Timewarp",
+      "description": "Limit timestamp regression on retarget blocks (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip54_txsize": {
+      "name": "BIP54 Tx Size",
+      "description": "Disallow 64 byte witness-stripped transactions (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip65": {
+      "name": "BIP65",
+      "description": "Add check-locktime-verify op code (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip66": {
+      "name": "BIP66",
+      "description": "Require strict signature encoding (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip68": {
+      "name": "BIP68",
+      "description": "Add relative locktime enforcement (soft fork).",
+      "default": true,
+      "control": "flag"
+    },
+    "bip90": {
+      "name": "BIP90",
+      "description": "Freeze BIP34, BIP65, and BIP66 activation at the BIP90 heights (hard fork).",
+      "default": false,
+      "control": "flag"
+    },
+    "block_storm_patch": {
+      "name": "Block Storm Patch",
+      "description": "Assume block_storm_patch activation if enabled (testnet4).",
+      "default": false,
+      "control": "flag"
+    },
+    "difficult": {
+      "name": "Difficult",
+      "description": "Require difficult blocks (use false for testnet).",
+      "default": true,
+      "control": "flag"
+    },
+    "ltc_retarget_overflow_patch": {
+      "name": "LTC Retarget Overflow Patch",
+      "description": "Fix target overflow for very low difficulty (litecoin).",
+      "default": false,
+      "control": "flag"
+    },
+    "ltc_scrypt_proof_of_work": {
+      "name": "LTC Scrypt Proof Of Work",
+      "description": "Use scrypt hashing for proof of work (litecoin).",
+      "default": false,
+      "control": "flag"
+    },
+    "ltc_time_warp_patch": {
+      "name": "LTC Time Warp Patch",
+      "description": "Fix time warp bug (litecoin).",
+      "default": false,
+      "control": "flag"
+    },
+    "retarget": {
+      "name": "Retarget",
+      "description": "Retarget difficulty (use false for regtest).",
+      "default": true,
+      "control": "flag"
+    },
+    "time_warp_patch": {
+      "name": "Time Warp Patch",
+      "description": "Assume time_warp_patch activation if enabled (testnet4).",
+      "default": false,
+      "control": "flag"
+    }
+  },
+  "wallet": {
+    "section": "Wallet",
+    "description": "Address and key prefixes, used by the client interfaces for addresses, keys and descriptors. They do not affect the node or the store.",
+    "advanced": false,
+    "hd_private_prefix": {
+      "name": "HD Private Prefix",
+      "description": "The extended private key prefix (use '70615956' for testnet).",
+      "default": 76066276,
+      "control": "number",
+      "min": 0
+    },
+    "hd_public_prefix": {
+      "name": "HD Public Prefix",
+      "description": "The extended public key prefix (use '70617039' for testnet).",
+      "default": 76067358,
+      "control": "number",
+      "min": 0
+    },
+    "p2kh_prefix": {
+      "name": "P2KH Prefix",
+      "description": "The pay-to-public-key-hash address prefix (use '111' for testnet).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "p2sh_prefix": {
+      "name": "P2SH Prefix",
+      "description": "The pay-to-script-hash address prefix (use '196' for testnet).",
+      "default": 5,
+      "control": "number",
+      "min": 0
+    },
+    "silent_prefix": {
+      "name": "Silent Prefix",
+      "description": "The silent payment address prefix (use 'tsp' for testnet).",
+      "default": "sp",
+      "control": "text"
+    },
+    "wif_prefix": {
+      "name": "WIF Prefix",
+      "description": "The wallet import format prefix (use '239' for testnet).",
+      "default": 128,
+      "control": "number",
+      "min": 0
+    },
+    "witness_prefix": {
+      "name": "Witness Prefix",
+      "description": "The witness address prefix (use 'tb' for testnet).",
+      "default": "bc",
+      "control": "text"
+    }
+  },
+  "node": {
+    "section": "Node",
+    "description": "The node: validation threads, batching and GPU use, the download window, fee policy, and what is served to peers.",
+    "advanced": false,
+    "allowed_deviation": {
+      "name": "Allowed Deviation",
+      "description": "Allowable underperformance standard deviation (0 disables).",
+      "default": 1.5,
+      "control": "decimal",
+      "min": 0
+    },
+    "announcement_cache": {
+      "name": "Announcement Cache",
+      "description": "Limit of per channel cached peer block and tx announcements, to avoid replay.",
+      "default": 42,
+      "control": "number",
+      "min": 0
+    },
+    "batch_silent": {
+      "name": "Batch Silent",
+      "description": "Count of silent payment transactions to index in each batch (0 disables).",
+      "default": 1000000,
+      "control": "number",
+      "min": 0
+    },
+    "batch_verify": {
+      "name": "Batch Verify",
+      "description": "Count of signatures to verify in each batch (0 disables).",
+      "default": 1000000,
+      "control": "number",
+      "min": 0
+    },
+    "compact_missing_percent": {
+      "name": "Compact Missing Percent",
+      "description": "Maximum percent of a compact block not pooled to fill it.",
+      "default": 50,
+      "control": "number",
+      "min": 0
+    },
+    "compact_timeout_seconds": {
+      "name": "Compact Timeout Seconds",
+      "description": "Time to await a compact block fill before downloading the block (0 disables).",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "currency_window_minutes": {
+      "name": "Currency Window Minutes",
+      "description": "Time from present that blocks are considered current (0 disables).",
+      "default": 1440,
+      "control": "number",
+      "min": 0
+    },
+    "delay_inbound": {
+      "name": "Delay Inbound",
+      "description": "Block inbound peer/client (excluding admin/native) until current.",
+      "default": true,
+      "control": "flag"
+    },
+    "fee_estimate_horizon": {
+      "name": "Fee Estimate Horizon",
+      "description": "Fee estimation horizon, limited to 1008 (0 disables).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "limited_blocks": {
+      "name": "Limited Blocks",
+      "description": "Limit block service to recent blocks.",
+      "default": false,
+      "control": "flag"
+    },
+    "maximum_concurrency": {
+      "name": "Maximum Concurrency",
+      "description": "Maximum number of blocks to download concurrently (0 disables).",
+      "default": 50000,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_height": {
+      "name": "Maximum Height",
+      "description": "Maximum block height to populate (unlimited).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "memory_priority": {
+      "name": "Memory Priority",
+      "description": "Set the process to high memory priority.",
+      "default": true,
+      "control": "flag"
+    },
+    "minimum_bump_rate": {
+      "name": "Minimum Bump Rate",
+      "description": "Minimum fee rate increment for conflicting tx acceptance.",
+      "default": 0.0,
+      "control": "decimal",
+      "min": 0
+    },
+    "minimum_fee_rate": {
+      "name": "Minimum Fee Rate",
+      "description": "Minimum fee rate for non-conflicting tx acceptance.",
+      "default": 1e-06,
+      "control": "decimal",
+      "min": 0
+    },
+    "provide_blocks": {
+      "name": "Provide Blocks",
+      "description": "Serve blocks to network connections.",
+      "default": true,
+      "control": "flag"
+    },
+    "provide_filters": {
+      "name": "Provide Filters",
+      "description": "Serve client filters to network connections.",
+      "default": false,
+      "control": "flag"
+    },
+    "provide_privacy": {
+      "name": "Provide Privacy",
+      "description": "Provide opportunistic connection encryption.",
+      "default": false,
+      "control": "flag"
+    },
+    "provide_witness": {
+      "name": "Provide Witness",
+      "description": "Serve witness data to network connections.",
+      "default": true,
+      "control": "flag"
+    },
+    "require_blocks": {
+      "name": "Require Blocks",
+      "description": "Require block service of outbound connections.",
+      "default": true,
+      "control": "flag"
+    },
+    "require_witness": {
+      "name": "Require Witness",
+      "description": "Require witness service of outbound connections.",
+      "default": true,
+      "control": "flag"
+    },
+    "sample_period_seconds": {
+      "name": "Sample Period Seconds",
+      "description": "Sampling period for drop of stalled channels (0 disables).",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "silent_start_height": {
+      "name": "Silent Start Height",
+      "description": "Minimum height of silent payment indexation.",
+      "default": 4294967295,
+      "control": "number",
+      "min": 0
+    },
+    "thread_priority": {
+      "name": "Thread Priority",
+      "description": "Set validation threads to high processing priority.",
+      "default": true,
+      "control": "flag"
+    },
+    "threads": {
+      "name": "Threads",
+      "description": "The number of threads in the validation threadpool (0 uses hardware threads).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "use_gpu": {
+      "name": "Use GPU",
+      "description": "Use the GPU where available.",
+      "default": true,
+      "control": "flag"
+    }
+  },
+  "network": {
+    "section": "Network",
+    "description": "Settings shared by all P2P connections: threads, connection timing, send rate, and address allow and deny lists.",
+    "advanced": false,
+    "blacklist": {
+      "name": "Blacklist",
+      "description": "IP address to disallow, allows all others.",
+      "default": [],
+      "control": "list"
+    },
+    "connect_timeout_seconds": {
+      "name": "Connect Timeout Seconds",
+      "description": "The time limit for connection establishment.",
+      "default": 5,
+      "control": "number",
+      "min": 0
+    },
+    "rate_limit": {
+      "name": "Rate Limit",
+      "description": "The per channel send rate limit in bytes per second (unlimited).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "retry_timeout_seconds": {
+      "name": "Retry Timeout Seconds",
+      "description": "The time delay for failed connection retry.",
+      "default": 1,
+      "control": "number",
+      "min": 0
+    },
+    "threads": {
+      "name": "Threads",
+      "description": "The minimum number of threads in the network threadpool (0 uses hardware threads, at most 32).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "whitelist": {
+      "name": "Whitelist",
+      "description": "IP address to allow, prohibits all others.",
+      "default": [],
+      "control": "list"
+    }
+  },
+  "peer": {
+    "section": "Peer",
+    "description": "The P2P protocol: version range, supported messages, address gossip, and the network identifier.",
+    "advanced": false,
+    "address_lower": {
+      "name": "Address Lower",
+      "description": "The lower bound for address selection divisor.",
+      "default": 5,
+      "control": "number",
+      "min": 0
+    },
+    "address_upper": {
+      "name": "Address Upper",
+      "description": "The upper bound for address selection divisor.",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "channel_heartbeat_minutes": {
+      "name": "Channel Heartbeat Minutes",
+      "description": "The time between ping messages (0 disables).",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "enable_address": {
+      "name": "Enable Address",
+      "description": "Enable address gossip.",
+      "default": true,
+      "control": "flag"
+    },
+    "enable_address_v2": {
+      "name": "Enable Address V2",
+      "description": "Enable privacy network (Tor and I2P) address gossip.",
+      "default": true,
+      "control": "flag"
+    },
+    "enable_alert": {
+      "name": "Enable Alert",
+      "description": "Enable alert messages.",
+      "default": false,
+      "control": "flag"
+    },
+    "enable_compact": {
+      "name": "Enable Compact",
+      "description": "Enable compact block messages.",
+      "default": true,
+      "control": "flag"
+    },
+    "enable_memory_pool": {
+      "name": "Enable Memory Pool",
+      "description": "Enable memory pool messages.",
+      "default": false,
+      "control": "flag"
+    },
+    "enable_not_found": {
+      "name": "Enable Not Found",
+      "description": "Enable not found messages.",
+      "default": true,
+      "control": "flag"
+    },
+    "enable_reject": {
+      "name": "Enable Reject",
+      "description": "Enable reject messages.",
+      "default": false,
+      "control": "flag"
+    },
+    "enable_relay": {
+      "name": "Enable Relay",
+      "description": "Enable transaction relay.",
+      "default": true,
+      "control": "flag"
+    },
+    "enable_witness_tx": {
+      "name": "Enable Witness TX",
+      "description": "Enable witness transaction identifier relay.",
+      "default": false,
+      "control": "flag"
+    },
+    "gossip_i2p": {
+      "name": "Gossip I2P",
+      "description": "Gossip I2P addresses.",
+      "default": false,
+      "control": "flag"
+    },
+    "gossip_ipv4": {
+      "name": "Gossip IPv4",
+      "description": "Gossip internet protocol version 4 (IPv4) addresses.",
+      "default": true,
+      "control": "flag"
+    },
+    "gossip_ipv6": {
+      "name": "Gossip IPv6",
+      "description": "Gossip internet protocol version 6 (IPv6) addresses.",
+      "default": false,
+      "control": "flag"
+    },
+    "gossip_tor": {
+      "name": "Gossip Tor",
+      "description": "Gossip Tor (onion) addresses.",
+      "default": false,
+      "control": "flag"
+    },
+    "handshake_timeout_seconds": {
+      "name": "Handshake Timeout Seconds",
+      "description": "The time limit to complete the connection handshake (0 disables).",
+      "default": 15,
+      "control": "number",
+      "min": 0
+    },
+    "identifier": {
+      "name": "Identifier",
+      "description": "The magic number for message headers.",
+      "default": 3652501241,
+      "control": "number",
+      "min": 0
+    },
+    "invalid_services": {
+      "name": "Invalid Services",
+      "description": "The advertised services that cause a peer to be dropped.",
+      "default": 268435632,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_skew_minutes": {
+      "name": "Maximum Skew Minutes",
+      "description": "The maximum allowable channel clock skew.",
+      "default": 120,
+      "control": "number",
+      "min": 0
+    },
+    "path": {
+      "name": "Path",
+      "description": "The peer address cache file directory.",
+      "default": "",
+      "control": "path"
+    },
+    "protocol_maximum": {
+      "name": "Protocol Maximum",
+      "description": "The maximum network protocol version.",
+      "default": 70016,
+      "control": "number",
+      "min": 0
+    },
+    "protocol_minimum": {
+      "name": "Protocol Minimum",
+      "description": "The minimum network protocol version.",
+      "default": 31800,
+      "control": "number",
+      "min": 0
+    },
+    "user_agent": {
+      "name": "User Agent",
+      "description": "The node user agent string.",
+      "default": "/libbitcoin:4.0.10255/",
+      "control": "text"
+    },
+    "validate_checksum": {
+      "name": "Validate Checksum",
+      "description": "Validate the checksum of network messages.",
+      "default": false,
+      "control": "flag"
+    }
+  },
+  "outbound": {
+    "section": "Outbound",
+    "description": "Connections the node makes to peers: count, seeds, the address pool, and a SOCKS proxy.",
+    "advanced": false,
+    "bind": {
+      "name": "Bind",
+      "description": "IP address to bind outbound connections.",
+      "default": [],
+      "control": "list"
+    },
+    "connect_batch_size": {
+      "name": "Connect Batch Size",
+      "description": "The number of concurrent attempts to establish one connection.",
+      "default": 5,
+      "control": "number",
+      "min": 0
+    },
+    "connect_timeout_seconds": {
+      "name": "Connect Timeout Seconds",
+      "description": "The time limit for connection establishment (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "connections": {
+      "name": "Connections",
+      "description": "The target number of outgoing network connections.",
+      "default": 100,
+      "control": "number",
+      "min": 0
+    },
+    "current_connections": {
+      "name": "Current Connections",
+      "description": "The target number of outgoing connections when current (0 disables).",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "expiration_minutes": {
+      "name": "Expiration Minutes",
+      "description": "The age limit for any connection (0 disables).",
+      "default": 60,
+      "control": "number",
+      "min": 0
+    },
+    "host_pool_capacity": {
+      "name": "Host Pool Capacity",
+      "description": "The maximum number of peer hosts in the pool.",
+      "default": 10000,
+      "control": "number",
+      "min": 0
+    },
+    "inactivity_minutes": {
+      "name": "Inactivity Minutes",
+      "description": "The inactivity time limit for any connection (0 disables).",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_backlog": {
+      "name": "Maximum Backlog",
+      "description": "The maximum write backlog of a channel.",
+      "default": 1048576,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_request": {
+      "name": "Maximum Request",
+      "description": "The maximum allowed request size.",
+      "default": 4000000,
+      "control": "number",
+      "min": 0
+    },
+    "minimum_buffer": {
+      "name": "Minimum Buffer",
+      "description": "The minimum retained read buffer size.",
+      "default": 4096,
+      "control": "number",
+      "min": 0
+    },
+    "password": {
+      "name": "Password",
+      "description": "The SOCKS5 proxy password (optional).",
+      "default": "",
+      "control": "text"
+    },
+    "rate_limit": {
+      "name": "Rate Limit",
+      "description": "The send rate limit in bytes per second (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "seed": {
+      "name": "Seed",
+      "description": "A seed node for initializing the host pool.",
+      "default": [
+        "seed.bitcoin.sipa.be:8333",
+        "dnsseed.bluematt.me:8333",
+        "seed.bitcoin.jonasschnelli.ch:8333",
+        "seed.btc.petertodd.net:8333",
+        "seed.bitcoin.sprovoost.nl:8333",
+        "dnsseed.emzy.de:8333",
+        "seed.bitcoin.wiz.biz:8333",
+        "seed.mainnet.achownodes.xyz:8333"
+      ],
+      "control": "list"
+    },
+    "seeding_timeout_seconds": {
+      "name": "Seeding Timeout Seconds",
+      "description": "The time limit for obtaining seed connections and addresses.",
+      "default": 30,
+      "control": "number",
+      "min": 0
+    },
+    "socks": {
+      "name": "SOCKS",
+      "description": "The SOCKS5 proxy endpoint (port required).",
+      "default": "localhost",
+      "control": "text"
+    },
+    "username": {
+      "name": "Username",
+      "description": "The SOCKS5 proxy username (optional).",
+      "default": "",
+      "control": "text"
+    }
+  },
+  "inbound": {
+    "section": "Inbound",
+    "description": "Connections peers make to the node: listening addresses, count, and I2P.",
+    "advanced": false,
+    "bind": {
+      "name": "Bind",
+      "description": "IP address to bind for listening (all IPv4).",
+      "default": [
+        "0.0.0.0:8333"
+      ],
+      "control": "list"
+    },
+    "connect_timeout_seconds": {
+      "name": "Connect Timeout Seconds",
+      "description": "The time limit for connection establishment (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "connections": {
+      "name": "Connections",
+      "description": "The target number of incoming network connections.",
+      "default": 100,
+      "control": "number",
+      "min": 0
+    },
+    "enable_loopback": {
+      "name": "Enable Loopback",
+      "description": "Allow connections from the node to itself.",
+      "default": false,
+      "control": "flag"
+    },
+    "expiration_minutes": {
+      "name": "Expiration Minutes",
+      "description": "The age limit for any connection (0 disables).",
+      "default": 60,
+      "control": "number",
+      "min": 0
+    },
+    "inactivity_minutes": {
+      "name": "Inactivity Minutes",
+      "description": "The inactivity time limit for any connection (0 disables).",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "key_path": {
+      "name": "Key Path",
+      "description": "The I2P destination private key file path (created if it does not exist).",
+      "default": "",
+      "control": "path"
+    },
+    "maximum_backlog": {
+      "name": "Maximum Backlog",
+      "description": "The maximum write backlog of a channel.",
+      "default": 1048576,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_request": {
+      "name": "Maximum Request",
+      "description": "The maximum allowed request size.",
+      "default": 4000000,
+      "control": "number",
+      "min": 0
+    },
+    "minimum_buffer": {
+      "name": "Minimum Buffer",
+      "description": "The minimum retained read buffer size.",
+      "default": 4096,
+      "control": "number",
+      "min": 0
+    },
+    "password": {
+      "name": "Password",
+      "description": "The SAM bridge password (optional).",
+      "default": "",
+      "control": "text"
+    },
+    "rate_limit": {
+      "name": "Rate Limit",
+      "description": "The send rate limit in bytes per second (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "sam": {
+      "name": "SAM",
+      "description": "The I2P SAM bridge endpoint (port required).",
+      "default": "localhost",
+      "control": "text"
+    },
+    "self": {
+      "name": "Self",
+      "description": "Address to advertise.",
+      "default": [],
+      "control": "list"
+    },
+    "username": {
+      "name": "Username",
+      "description": "The SAM bridge username (optional).",
+      "default": "",
+      "control": "text"
+    }
+  },
+  "manual": {
+    "section": "Manual Peers",
+    "description": "Persistent connections to specific peers.",
+    "advanced": false,
+    "bind": {
+      "name": "Bind",
+      "description": "IP address to bind manual connections.",
+      "default": [],
+      "control": "list"
+    },
+    "connect_timeout_seconds": {
+      "name": "Connect Timeout Seconds",
+      "description": "The time limit for connection establishment (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "expiration_minutes": {
+      "name": "Expiration Minutes",
+      "description": "The age limit for any connection (0 disables, will attempt reconnect).",
+      "default": 60,
+      "control": "number",
+      "min": 0
+    },
+    "inactivity_minutes": {
+      "name": "Inactivity Minutes",
+      "description": "The inactivity time limit for any connection (0 disables, will attempt reconnect).",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_backlog": {
+      "name": "Maximum Backlog",
+      "description": "The maximum write backlog of a channel.",
+      "default": 1048576,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_request": {
+      "name": "Maximum Request",
+      "description": "The maximum allowed request size.",
+      "default": 4000000,
+      "control": "number",
+      "min": 0
+    },
+    "minimum_buffer": {
+      "name": "Minimum Buffer",
+      "description": "The minimum retained read buffer size.",
+      "default": 4096,
+      "control": "number",
+      "min": 0
+    },
+    "password": {
+      "name": "Password",
+      "description": "The SOCKS5 proxy password (optional).",
+      "default": "",
+      "control": "text"
+    },
+    "peer": {
+      "name": "Peer",
+      "description": "A persistent peer node.",
+      "default": [],
+      "control": "list"
+    },
+    "rate_limit": {
+      "name": "Rate Limit",
+      "description": "The send rate limit in bytes per second (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "socks": {
+      "name": "SOCKS",
+      "description": "The SOCKS5 proxy endpoint (port required).",
+      "default": "localhost",
+      "control": "text"
+    },
+    "username": {
+      "name": "Username",
+      "description": "The SOCKS5 proxy username (optional).",
+      "default": "",
+      "control": "text"
+    }
+  },
+  "admin": {
+    "section": "Admin Console",
+    "description": "The administrative web and websocket interface.",
+    "advanced": false,
+    "allow_opaque_origin": {
+      "name": "Allow Opaque Origin",
+      "description": "Allow requests from opaque origin (see CORS).",
+      "default": false,
+      "control": "flag"
+    },
+    "bind": {
+      "name": "Bind",
+      "description": "IP address to bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "cert_auth": {
+      "name": "Certificate Authentication",
+      "description": "The trusted client certificate directory (*.PEM), enables client authentication.",
+      "default": "",
+      "control": "path"
+    },
+    "cert_path": {
+      "name": "Certificate Path",
+      "description": "The path to the server certificate file (.PEM).",
+      "default": "",
+      "control": "path"
+    },
+    "connect_timeout_seconds": {
+      "name": "Connect Timeout Seconds",
+      "description": "The time limit for connection establishment (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "connections": {
+      "name": "Connections",
+      "description": "The required maximum number of connections.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "default": {
+      "name": "Default",
+      "description": "The path of the default source page.",
+      "default": "index.html",
+      "control": "path"
+    },
+    "expiration_minutes": {
+      "name": "Expiration Minutes",
+      "description": "The maximum connection duration.",
+      "default": 60,
+      "control": "number",
+      "min": 0
+    },
+    "host": {
+      "name": "Host",
+      "description": "The host name (HTTP verification) (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "inactivity_minutes": {
+      "name": "Inactivity Minutes",
+      "description": "The idle timeout (HTTP keep-alive).",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "key_pass": {
+      "name": "Key Pass",
+      "description": "The password to decrypt the server private key file (.PEM), optional.",
+      "default": "",
+      "control": "text"
+    },
+    "key_path": {
+      "name": "Key Path",
+      "description": "The path to the server private key file (.PEM).",
+      "default": "",
+      "control": "path"
+    },
+    "maximum_backlog": {
+      "name": "Maximum Backlog",
+      "description": "The maximum write backlog of a channel.",
+      "default": 10485760,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_buffer": {
+      "name": "Maximum Buffer",
+      "description": "The maximum JSON response buffer size.",
+      "default": 65536,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_request": {
+      "name": "Maximum Request",
+      "description": "The maximum allowed request size.",
+      "default": 4000000,
+      "control": "number",
+      "min": 0
+    },
+    "minimum_buffer": {
+      "name": "Minimum Buffer",
+      "description": "The minimum retained read buffer size.",
+      "default": 4096,
+      "control": "number",
+      "min": 0
+    },
+    "origin": {
+      "name": "Origin",
+      "description": "The allowed origin (see CORS) (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "path": {
+      "name": "Path",
+      "description": "The required root path of source files to be served.",
+      "default": "",
+      "control": "path"
+    },
+    "rate_limit": {
+      "name": "Rate Limit",
+      "description": "The send rate limit in bytes per second (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "safe": {
+      "name": "Safe",
+      "description": "IP address to secure bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "server": {
+      "name": "Server",
+      "description": "The server name (HTTP header).",
+      "default": "libbitcoin/4",
+      "control": "text"
+    }
+  },
+  "native": {
+    "section": "Native REST",
+    "description": "The native libbitcoin REST and websocket interface, and its web pages.",
+    "advanced": false,
+    "allow_opaque_origin": {
+      "name": "Allow Opaque Origin",
+      "description": "Allow requests from opaque origin (see CORS).",
+      "default": false,
+      "control": "flag"
+    },
+    "bind": {
+      "name": "Bind",
+      "description": "IP address to bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "cert_auth": {
+      "name": "Certificate Authentication",
+      "description": "The trusted client certificate directory (*.PEM), enables client authentication.",
+      "default": "",
+      "control": "path"
+    },
+    "cert_path": {
+      "name": "Certificate Path",
+      "description": "The path to the server certificate file (.PEM).",
+      "default": "",
+      "control": "path"
+    },
+    "connect_timeout_seconds": {
+      "name": "Connect Timeout Seconds",
+      "description": "The time limit for connection establishment (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "connections": {
+      "name": "Connections",
+      "description": "The required maximum number of connections.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "default": {
+      "name": "Default",
+      "description": "The path of the default source page.",
+      "default": "index.html",
+      "control": "path"
+    },
+    "expiration_minutes": {
+      "name": "Expiration Minutes",
+      "description": "The maximum connection duration.",
+      "default": 60,
+      "control": "number",
+      "min": 0
+    },
+    "host": {
+      "name": "Host",
+      "description": "The host name (HTTP verification) (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "inactivity_minutes": {
+      "name": "Inactivity Minutes",
+      "description": "The idle timeout (HTTP keep-alive).",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "key_pass": {
+      "name": "Key Pass",
+      "description": "The password to decrypt the server private key file (.PEM), optional.",
+      "default": "",
+      "control": "text"
+    },
+    "key_path": {
+      "name": "Key Path",
+      "description": "The path to the server private key file (.PEM).",
+      "default": "",
+      "control": "path"
+    },
+    "maximum_backlog": {
+      "name": "Maximum Backlog",
+      "description": "The maximum write backlog of a channel.",
+      "default": 1048576,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_buffer": {
+      "name": "Maximum Buffer",
+      "description": "The maximum JSON response buffer size.",
+      "default": 65536,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_request": {
+      "name": "Maximum Request",
+      "description": "The maximum allowed request size.",
+      "default": 4000000,
+      "control": "number",
+      "min": 0
+    },
+    "minimum_buffer": {
+      "name": "Minimum Buffer",
+      "description": "The minimum retained read buffer size.",
+      "default": 4096,
+      "control": "number",
+      "min": 0
+    },
+    "origin": {
+      "name": "Origin",
+      "description": "The allowed origin (see CORS) (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "path": {
+      "name": "Path",
+      "description": "The required root path of source files to be served.",
+      "default": "",
+      "control": "path"
+    },
+    "rate_limit": {
+      "name": "Rate Limit",
+      "description": "The send rate limit in bytes per second (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "safe": {
+      "name": "Safe",
+      "description": "IP address to secure bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "server": {
+      "name": "Server",
+      "description": "The server name (HTTP header).",
+      "default": "libbitcoin/4",
+      "control": "text"
+    },
+    "websocket": {
+      "name": "Websocket",
+      "description": "Enable websocket interface.",
+      "default": true,
+      "control": "flag"
+    }
+  },
+  "bitcoind": {
+    "section": "Bitcoind JSON-RPC / REST",
+    "description": "The bitcoind JSON-RPC and REST interface.",
+    "advanced": false,
+    "allow_opaque_origin": {
+      "name": "Allow Opaque Origin",
+      "description": "Allow requests from opaque origin (see CORS).",
+      "default": false,
+      "control": "flag"
+    },
+    "bind": {
+      "name": "Bind",
+      "description": "IP address to bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "cert_auth": {
+      "name": "Certificate Authentication",
+      "description": "The trusted client certificate directory (*.PEM), enables client authentication.",
+      "default": "",
+      "control": "path"
+    },
+    "cert_path": {
+      "name": "Certificate Path",
+      "description": "The path to the server certificate file (.PEM).",
+      "default": "",
+      "control": "path"
+    },
+    "connect_timeout_seconds": {
+      "name": "Connect Timeout Seconds",
+      "description": "The time limit for connection establishment (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "connections": {
+      "name": "Connections",
+      "description": "The required maximum number of connections.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "credential": {
+      "name": "Credential",
+      "description": "The 'username:password[:method,...]' authorization (not secure).",
+      "default": [],
+      "control": "list"
+    },
+    "expiration_minutes": {
+      "name": "Expiration Minutes",
+      "description": "The maximum connection duration.",
+      "default": 60,
+      "control": "number",
+      "min": 0
+    },
+    "host": {
+      "name": "Host",
+      "description": "The host name (HTTP verification) (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "inactivity_minutes": {
+      "name": "Inactivity Minutes",
+      "description": "The idle timeout (HTTP keep-alive).",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "key_pass": {
+      "name": "Key Pass",
+      "description": "The password to decrypt the server private key file (.PEM), optional.",
+      "default": "",
+      "control": "text"
+    },
+    "key_path": {
+      "name": "Key Path",
+      "description": "The path to the server private key file (.PEM).",
+      "default": "",
+      "control": "path"
+    },
+    "maximum_backlog": {
+      "name": "Maximum Backlog",
+      "description": "The maximum write backlog of a channel.",
+      "default": 1048576,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_buffer": {
+      "name": "Maximum Buffer",
+      "description": "The maximum JSON response buffer size.",
+      "default": 65536,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_request": {
+      "name": "Maximum Request",
+      "description": "The maximum allowed request size.",
+      "default": 8004096,
+      "control": "number",
+      "min": 0
+    },
+    "minimum_buffer": {
+      "name": "Minimum Buffer",
+      "description": "The minimum retained read buffer size.",
+      "default": 4096,
+      "control": "number",
+      "min": 0
+    },
+    "origin": {
+      "name": "Origin",
+      "description": "The allowed origin (see CORS) (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "rate_limit": {
+      "name": "Rate Limit",
+      "description": "The send rate limit in bytes per second (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "safe": {
+      "name": "Safe",
+      "description": "IP address to secure bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "server": {
+      "name": "Server",
+      "description": "The server name (HTTP header).",
+      "default": "libbitcoin/4",
+      "control": "text"
+    },
+    "subversion": {
+      "name": "Subversion",
+      "description": "The subversion identity (getnetworkinfo).",
+      "default": "/libbitcoin:server/",
+      "control": "text"
+    },
+    "version": {
+      "name": "Version",
+      "description": "The version identity (getnetworkinfo).",
+      "default": 0.0,
+      "control": "decimal",
+      "min": 0
+    }
+  },
+  "bitcoind_zmq": {
+    "section": "Bitcoind ZMQ",
+    "description": "The bitcoind ZMQ notification interface.",
+    "advanced": false,
+    "bind": {
+      "name": "Bind",
+      "description": "IP address to bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "cert": {
+      "name": "Certificate",
+      "description": "The Z85 encoded public key of an authorized client (empty allows all clients).",
+      "default": [],
+      "control": "list"
+    },
+    "connect_timeout_seconds": {
+      "name": "Connect Timeout Seconds",
+      "description": "The time limit for connection establishment (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "connections": {
+      "name": "Connections",
+      "description": "The required maximum number of connections.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "key": {
+      "name": "Key",
+      "description": "The Z85 encoded CurveZMQ server secret key (unencrypted).",
+      "default": "",
+      "control": "text"
+    },
+    "maximum_backlog": {
+      "name": "Maximum Backlog",
+      "description": "The maximum write backlog of a channel.",
+      "default": 33554432,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_request": {
+      "name": "Maximum Request",
+      "description": "The maximum allowed request size.",
+      "default": 4000000,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_subscriptions": {
+      "name": "Maximum Subscriptions",
+      "description": "The maximum topic subscriptions per connection.",
+      "default": 100,
+      "control": "number",
+      "min": 0
+    },
+    "minimum_buffer": {
+      "name": "Minimum Buffer",
+      "description": "The minimum retained read buffer size.",
+      "default": 4096,
+      "control": "number",
+      "min": 0
+    },
+    "rate_limit": {
+      "name": "Rate Limit",
+      "description": "The send rate limit in bytes per second (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "safe": {
+      "name": "Safe",
+      "description": "IP address to secure (CurveZMQ) bind (empty disables).",
+      "default": [],
+      "control": "list"
+    }
+  },
+  "btcd": {
+    "section": "BTCD",
+    "description": "The btcd JSON-RPC and websocket interface.",
+    "advanced": false,
+    "allow_opaque_origin": {
+      "name": "Allow Opaque Origin",
+      "description": "Allow requests from opaque origin (see CORS).",
+      "default": false,
+      "control": "flag"
+    },
+    "bind": {
+      "name": "Bind",
+      "description": "IP address to bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "cert_auth": {
+      "name": "Certificate Authentication",
+      "description": "The trusted client certificate directory (*.PEM), enables client authentication.",
+      "default": "",
+      "control": "path"
+    },
+    "cert_path": {
+      "name": "Certificate Path",
+      "description": "The path to the server certificate file (.PEM).",
+      "default": "",
+      "control": "path"
+    },
+    "connect_timeout_seconds": {
+      "name": "Connect Timeout Seconds",
+      "description": "The time limit for connection establishment (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "connections": {
+      "name": "Connections",
+      "description": "The required maximum number of connections.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "credential": {
+      "name": "Credential",
+      "description": "The 'username:password[:method,...]' authorization (not secure).",
+      "default": [],
+      "control": "list"
+    },
+    "expiration_minutes": {
+      "name": "Expiration Minutes",
+      "description": "The maximum connection duration.",
+      "default": 60,
+      "control": "number",
+      "min": 0
+    },
+    "host": {
+      "name": "Host",
+      "description": "The host name (HTTP verification) (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "inactivity_minutes": {
+      "name": "Inactivity Minutes",
+      "description": "The idle timeout (HTTP/WS keep-alive).",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "key_pass": {
+      "name": "Key Pass",
+      "description": "The password to decrypt the server private key file (.PEM), optional.",
+      "default": "",
+      "control": "text"
+    },
+    "key_path": {
+      "name": "Key Path",
+      "description": "The path to the server private key file (.PEM).",
+      "default": "",
+      "control": "path"
+    },
+    "maximum_backlog": {
+      "name": "Maximum Backlog",
+      "description": "The maximum write backlog of a channel.",
+      "default": 20971520,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_buffer": {
+      "name": "Maximum Buffer",
+      "description": "The maximum JSON response buffer size.",
+      "default": 65536,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_filters": {
+      "name": "Maximum Filters",
+      "description": "The maximum number of loadtxfilter watches.",
+      "default": 1000000,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_history": {
+      "name": "Maximum History",
+      "description": "The maximum number of address history entries.",
+      "default": 1000000,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_request": {
+      "name": "Maximum Request",
+      "description": "The maximum allowed request size.",
+      "default": 8004096,
+      "control": "number",
+      "min": 0
+    },
+    "minimum_buffer": {
+      "name": "Minimum Buffer",
+      "description": "The minimum retained read buffer size.",
+      "default": 4096,
+      "control": "number",
+      "min": 0
+    },
+    "origin": {
+      "name": "Origin",
+      "description": "The allowed origin (see CORS) (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "rate_limit": {
+      "name": "Rate Limit",
+      "description": "The send rate limit in bytes per second (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "safe": {
+      "name": "Safe",
+      "description": "IP address to secure bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "server": {
+      "name": "Server",
+      "description": "The server name (HTTP header).",
+      "default": "libbitcoin/4",
+      "control": "text"
+    }
+  },
+  "electrum": {
+    "section": "Electrum",
+    "description": "The Electrum protocol server.",
+    "advanced": false,
+    "banner_message": {
+      "name": "Banner Message",
+      "description": "String returned by server.banner.",
+      "default": "",
+      "control": "text"
+    },
+    "bind": {
+      "name": "Bind",
+      "description": "IP address to bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "cert_path": {
+      "name": "Certificate Path",
+      "description": "The path to the server certificate file (.PEM).",
+      "default": "",
+      "control": "path"
+    },
+    "connect_timeout_seconds": {
+      "name": "Connect Timeout Seconds",
+      "description": "The time limit for connection establishment (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "connections": {
+      "name": "Connections",
+      "description": "The required maximum number of connections.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "donation_address": {
+      "name": "Donation Address",
+      "description": "String returned by server.donation_address.",
+      "default": "",
+      "control": "text"
+    },
+    "expiration_minutes": {
+      "name": "Expiration Minutes",
+      "description": "The maximum connection duration.",
+      "default": 60,
+      "control": "number",
+      "min": 0
+    },
+    "inactivity_minutes": {
+      "name": "Inactivity Minutes",
+      "description": "The idle timeout (HTTP keep-alive).",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "key_path": {
+      "name": "Key Path",
+      "description": "The path to the server private key file (.PEM).",
+      "default": "",
+      "control": "path"
+    },
+    "maximum_backlog": {
+      "name": "Maximum Backlog",
+      "description": "The maximum write backlog of a channel.",
+      "default": 1048576,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_buffer": {
+      "name": "Maximum Buffer",
+      "description": "The maximum JSON response buffer size.",
+      "default": 65536,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_headers": {
+      "name": "Maximum Headers",
+      "description": "The maximum allowed headers returned per request.",
+      "default": 20160,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_history": {
+      "name": "Maximum History",
+      "description": "The maximum number of address history entries upon one subscription.",
+      "default": 1000000,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_request": {
+      "name": "Maximum Request",
+      "description": "The maximum allowed request size.",
+      "default": 8004096,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_subscriptions": {
+      "name": "Maximum Subscriptions",
+      "description": "The maximum allowed address subscriptions per channel.",
+      "default": 1000000,
+      "control": "number",
+      "min": 0
+    },
+    "minimum_buffer": {
+      "name": "Minimum Buffer",
+      "description": "The minimum retained read buffer size.",
+      "default": 4096,
+      "control": "number",
+      "min": 0
+    },
+    "more_bind": {
+      "name": "Additional Bind",
+      "description": "Advertised host:port at which another server can be reached.",
+      "default": [],
+      "control": "list"
+    },
+    "more_safe": {
+      "name": "Additional Secure Bind",
+      "description": "Advertised secure host:port at which another server can be reached.",
+      "default": [],
+      "control": "list"
+    },
+    "ping_interval_seconds": {
+      "name": "Ping Interval Seconds",
+      "description": "The seconds between unrequested pings (0 disables).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "ping_size": {
+      "name": "Ping Size",
+      "description": "The hex characters of unrequested ping data.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "protocol_maximum": {
+      "name": "Protocol Maximum",
+      "description": "Maximum protocol version.",
+      "default": 1.7,
+      "control": "decimal",
+      "min": 0
+    },
+    "protocol_minimum": {
+      "name": "Protocol Minimum",
+      "description": "Minimum protocol version.",
+      "default": 1.0,
+      "control": "decimal",
+      "min": 0
+    },
+    "rate_limit": {
+      "name": "Rate Limit",
+      "description": "The send rate limit in bytes per second (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "safe": {
+      "name": "Safe",
+      "description": "IP address to secure bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "self_bind": {
+      "name": "Advertised Bind",
+      "description": "Advertised host:port at which this server can be reached.",
+      "default": [],
+      "control": "list"
+    },
+    "self_safe": {
+      "name": "Advertised Secure Bind",
+      "description": "Advertised secure host:port at which this server can be reached.",
+      "default": [],
+      "control": "list"
+    },
+    "server_name": {
+      "name": "Server Name",
+      "description": "String returned by server.version.",
+      "default": "/libbitcoin:4.0.10255/",
+      "control": "text"
+    }
+  },
+  "sparrow": {
+    "section": "Sparrow",
+    "description": "The Electrum protocol server with silent payment extensions, for Sparrow.",
+    "advanced": false,
+    "banner_message": {
+      "name": "Banner Message",
+      "description": "String returned by server.banner.",
+      "default": "",
+      "control": "text"
+    },
+    "bind": {
+      "name": "Bind",
+      "description": "IP address to bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "cert_path": {
+      "name": "Certificate Path",
+      "description": "The path to the server certificate file (.PEM).",
+      "default": "",
+      "control": "path"
+    },
+    "connect_timeout_seconds": {
+      "name": "Connect Timeout Seconds",
+      "description": "The time limit for connection establishment (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "connections": {
+      "name": "Connections",
+      "description": "The required maximum number of connections.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "donation_address": {
+      "name": "Donation Address",
+      "description": "String returned by server.donation_address.",
+      "default": "",
+      "control": "text"
+    },
+    "expiration_minutes": {
+      "name": "Expiration Minutes",
+      "description": "The maximum connection duration.",
+      "default": 60,
+      "control": "number",
+      "min": 0
+    },
+    "inactivity_minutes": {
+      "name": "Inactivity Minutes",
+      "description": "The idle timeout (HTTP keep-alive).",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "key_path": {
+      "name": "Key Path",
+      "description": "The path to the server private key file (.PEM).",
+      "default": "",
+      "control": "path"
+    },
+    "maximum_backlog": {
+      "name": "Maximum Backlog",
+      "description": "The maximum write backlog of a channel.",
+      "default": 1048576,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_buffer": {
+      "name": "Maximum Buffer",
+      "description": "The maximum JSON response buffer size.",
+      "default": 65536,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_headers": {
+      "name": "Maximum Headers",
+      "description": "The maximum allowed headers returned per request.",
+      "default": 20160,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_history": {
+      "name": "Maximum History",
+      "description": "The maximum number of address history entries upon one subscription.",
+      "default": 1000000,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_request": {
+      "name": "Maximum Request",
+      "description": "The maximum allowed request size.",
+      "default": 8004096,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_subscriptions": {
+      "name": "Maximum Subscriptions",
+      "description": "The maximum allowed address subscriptions per channel.",
+      "default": 1000000,
+      "control": "number",
+      "min": 0
+    },
+    "minimum_buffer": {
+      "name": "Minimum Buffer",
+      "description": "The minimum retained read buffer size.",
+      "default": 4096,
+      "control": "number",
+      "min": 0
+    },
+    "more_bind": {
+      "name": "Additional Bind",
+      "description": "Advertised host:port at which another server can be reached.",
+      "default": [],
+      "control": "list"
+    },
+    "more_safe": {
+      "name": "Additional Secure Bind",
+      "description": "Advertised secure host:port at which another server can be reached.",
+      "default": [],
+      "control": "list"
+    },
+    "ping_interval_seconds": {
+      "name": "Ping Interval Seconds",
+      "description": "The seconds between unrequested pings (0 disables).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "ping_size": {
+      "name": "Ping Size",
+      "description": "The hex characters of unrequested ping data.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "protocol_maximum": {
+      "name": "Protocol Maximum",
+      "description": "Maximum protocol version.",
+      "default": 1.7,
+      "control": "decimal",
+      "min": 0
+    },
+    "protocol_minimum": {
+      "name": "Protocol Minimum",
+      "description": "Minimum protocol version.",
+      "default": 1.0,
+      "control": "decimal",
+      "min": 0
+    },
+    "rate_limit": {
+      "name": "Rate Limit",
+      "description": "The send rate limit in bytes per second (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "safe": {
+      "name": "Safe",
+      "description": "IP address to secure bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "self_bind": {
+      "name": "Advertised Bind",
+      "description": "Advertised host:port at which this server can be reached.",
+      "default": [],
+      "control": "list"
+    },
+    "self_safe": {
+      "name": "Advertised Secure Bind",
+      "description": "Advertised secure host:port at which this server can be reached.",
+      "default": [],
+      "control": "list"
+    },
+    "server_name": {
+      "name": "Server Name",
+      "description": "String returned by server.version.",
+      "default": "/libbitcoin:4.0.10255/",
+      "control": "text"
+    }
+  },
+  "esplora": {
+    "section": "Esplora",
+    "description": "The Esplora interface.",
+    "advanced": false,
+    "allow_opaque_origin": {
+      "name": "Allow Opaque Origin",
+      "description": "Allow requests from opaque origin (see CORS).",
+      "default": false,
+      "control": "flag"
+    },
+    "bind": {
+      "name": "Bind",
+      "description": "IP address to bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "cert_auth": {
+      "name": "Certificate Authentication",
+      "description": "The trusted client certificate directory (*.PEM), enables client authentication.",
+      "default": "",
+      "control": "path"
+    },
+    "cert_path": {
+      "name": "Certificate Path",
+      "description": "The path to the server certificate file (.PEM).",
+      "default": "",
+      "control": "path"
+    },
+    "connect_timeout_seconds": {
+      "name": "Connect Timeout Seconds",
+      "description": "The time limit for connection establishment (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "connections": {
+      "name": "Connections",
+      "description": "The required maximum number of connections.",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "expiration_minutes": {
+      "name": "Expiration Minutes",
+      "description": "The maximum connection duration.",
+      "default": 60,
+      "control": "number",
+      "min": 0
+    },
+    "host": {
+      "name": "Host",
+      "description": "The host name (HTTP verification) (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "inactivity_minutes": {
+      "name": "Inactivity Minutes",
+      "description": "The idle timeout (HTTP keep-alive).",
+      "default": 10,
+      "control": "number",
+      "min": 0
+    },
+    "key_pass": {
+      "name": "Key Pass",
+      "description": "The password to decrypt the server private key file (.PEM), optional.",
+      "default": "",
+      "control": "text"
+    },
+    "key_path": {
+      "name": "Key Path",
+      "description": "The path to the server private key file (.PEM).",
+      "default": "",
+      "control": "path"
+    },
+    "maximum_backlog": {
+      "name": "Maximum Backlog",
+      "description": "The maximum write backlog of a channel.",
+      "default": 1048576,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_buffer": {
+      "name": "Maximum Buffer",
+      "description": "The maximum JSON response buffer size.",
+      "default": 65536,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_history": {
+      "name": "Maximum History",
+      "description": "The maximum number of address history entries.",
+      "default": 1000000,
+      "control": "number",
+      "min": 0
+    },
+    "maximum_request": {
+      "name": "Maximum Request",
+      "description": "The maximum allowed request size.",
+      "default": 8004096,
+      "control": "number",
+      "min": 0
+    },
+    "minimum_buffer": {
+      "name": "Minimum Buffer",
+      "description": "The minimum retained read buffer size.",
+      "default": 4096,
+      "control": "number",
+      "min": 0
+    },
+    "origin": {
+      "name": "Origin",
+      "description": "The allowed origin (see CORS) (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "rate_limit": {
+      "name": "Rate Limit",
+      "description": "The send rate limit in bytes per second (0 uses the network setting).",
+      "default": 0,
+      "control": "number",
+      "min": 0
+    },
+    "safe": {
+      "name": "Safe",
+      "description": "IP address to secure bind (empty disables).",
+      "default": [],
+      "control": "list"
+    },
+    "server": {
+      "name": "Server",
+      "description": "The server name (HTTP header).",
+      "default": "libbitcoin/4",
+      "control": "text"
+    }
+  }
+}

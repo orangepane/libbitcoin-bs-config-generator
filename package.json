@@ -1,0 +1,48 @@
+{
+  "name": "libbitcoin-bs-config-generator",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "bs.cfg generator for libbitcoin server (bs) v4: Electrum, Sparrow, Esplora, bitcoind and P2P settings, diff-only output, static and no telemetry.",
+  "license": "GPL-3.0",
+  "homepage": "https://orangepane.github.io/libbitcoin-bs-config-generator/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orangepane/libbitcoin-bs-config-generator.git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "lint": "eslint . && tsc --noEmit",
+    "check": "npm run lint && npm test && npm run build",
+    "catalog": "node scripts/build-catalog.mjs"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.0",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.2.1",
+    "eslint": "^10.14.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.14.0",
+    "jsdom": "^29.1.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vite": "^8.3.6",
+    "vitest": "^5.1.0",
+    "zod": "^4.6.7"
+  }
+}

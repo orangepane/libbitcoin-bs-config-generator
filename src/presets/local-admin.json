@@ -1,0 +1,10 @@
+{
+  "admin": {
+    "bind": ["127.0.0.1:8080"],
+    "connections": 10
+  },
+  "native": {
+    "bind": ["127.0.0.1:8180"],
+    "connections": 10
+  }
+}

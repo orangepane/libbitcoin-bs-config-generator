@@ -1,0 +1,10 @@
+{
+  "esplora": {
+    "bind": ["0.0.0.0:8780"],
+    "connections": 100
+  },
+  "native": {
+    "bind": ["0.0.0.0:8180"],
+    "connections": 100
+  }
+}

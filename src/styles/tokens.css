@@ -1,0 +1,64 @@
+/* Tokens. One theme, one accent, no framework. */
+:root {
+  --ink: #15171a;
+  --ink-muted: #5b626b;
+  --ink-faint: #6a7480;
+  --rule: #e6e8ec;
+  --rule-strong: #c9ced6;
+  --surface: #ffffff;
+  --panel: #fafbfc;
+  --panel-sunk: #f3f5f7;
+  --accent: #b4441a;
+  --accent-ink: #ffffff;
+  --accent-wash: #fbeee9;
+  --danger: #a4231b;
+  --danger-wash: #fdf0ef;
+  --focus: #1b5fbf;
+  --radius: 3px;
+  --space: 4px;
+
+  --font-prose: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --text-sm: 0.8125rem; /* 13px */
+  --text-base: 0.9375rem; /* 15px */
+  --text-lg: 1.25rem; /* 20px */
+  --text-xl: 1.75rem; /* 28px */
+
+  --row-height: 40px;
+  --page-max: 1440px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-prose);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

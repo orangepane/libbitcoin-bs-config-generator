@@ -1,0 +1,4971 @@
+{
+  "meta": {
+    "project": "libbitcoin server (bs)",
+    "version": "v4",
+    "referenceUrl": "https://libbitcoin.org/configuration/reference.html",
+    "snapshot": "2026-11-06",
+    "defaultsScope": "mainnet",
+    "generatedBy": "scripts/build-catalog.mjs from scripts/data/data.json",
+    "seedSha256": "7b8d9341890d15286d14b2084a12e6c2abee082966ecf161589c3cb471e6948a",
+    "sectionCount": 43,
+    "settingCount": 451
+  },
+  "sections": {
+    "log": {
+      "key": "log",
+      "title": "Log",
+      "summary": "Which kinds of events are logged, and where log files are written.",
+      "tier": "essential",
+      "settings": {
+        "application": {
+          "key": "application",
+          "label": "Application",
+          "help": "Enable application logging.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "fault": {
+          "key": "fault",
+          "label": "Fault",
+          "help": "Enable local fault logging.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "maximum_size": {
+          "key": "maximum_size",
+          "label": "Maximum Size",
+          "help": "The maximum byte size of each pair of rotated log files.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "news": {
+          "key": "news",
+          "label": "News",
+          "help": "Enable news logging.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "path": {
+          "key": "path",
+          "label": "Path",
+          "help": "The log files directory.",
+          "tier": "essential",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "protocol": {
+          "key": "protocol",
+          "label": "Protocol",
+          "help": "Enable protocol logging.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "proxy": {
+          "key": "proxy",
+          "label": "Proxy",
+          "help": "Enable proxy logging.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "quitting": {
+          "key": "quitting",
+          "label": "Quitting",
+          "help": "Enable quitting logging.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "remote": {
+          "key": "remote",
+          "label": "Remote",
+          "help": "Enable remote fault logging.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "session": {
+          "key": "session",
+          "label": "Session",
+          "help": "Enable session logging.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "symbols": {
+          "key": "symbols",
+          "label": "Symbols",
+          "help": "Path to a directory containing Windows symbol (.pdb) files.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "verbose": {
+          "key": "verbose",
+          "label": "Verbose",
+          "help": "Enable verbose logging.",
+          "tier": "essential",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        }
+      }
+    },
+    "database": {
+      "key": "database",
+      "title": "Database",
+      "summary": "The store: its directory and store-wide options.",
+      "tier": "essential",
+      "settings": {
+        "gpu_scan_minimum": {
+          "key": "gpu_scan_minimum",
+          "label": "GPU Scan Minimum",
+          "help": "Minimum transactions for a silent payment scan to use the GPU.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 65536,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "interval_depth": {
+          "key": "interval_depth",
+          "label": "Interval Depth",
+          "help": "The interval depth for merkle proof optimization.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 11,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "mark_unconfirmable": {
+          "key": "mark_unconfirmable",
+          "label": "Mark Unconfirmable",
+          "help": "Save unconfirmable block state (prevents revalidation).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "path": {
+          "key": "path",
+          "label": "Path",
+          "help": "The blockchain database directory.",
+          "tier": "essential",
+          "kind": "path",
+          "default": "bitcoin",
+          "emit": "whenChanged"
+        },
+        "turbo": {
+          "key": "turbo",
+          "label": "Turbo",
+          "help": "Allow individual non-validation queries to use all CPUs.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        }
+      }
+    },
+    "table.candidate": {
+      "key": "table.candidate",
+      "title": "Store Table: Candidate",
+      "summary": "Sizing of the table.candidate store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The number of buckets provisioned in the candidate table head.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 950001,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the candidate table head.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.confirmed": {
+      "key": "table.confirmed",
+      "title": "Store Table: Confirmed",
+      "summary": "Sizing of the table.confirmed store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The number of buckets provisioned in the confirmed table head.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 950001,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the confirmed table head.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.duplicate": {
+      "key": "table.duplicate",
+      "title": "Store Table: Duplicate",
+      "summary": "Sizing of the table.duplicate store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The minimum number of buckets in the duplicate table head.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1024,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "expected": {
+          "key": "expected",
+          "label": "Expected",
+          "help": "The expected element count of the duplicate table.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the duplicate table.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the duplicate table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.ecdsa": {
+      "key": "table.ecdsa",
+      "title": "Store Table: ECDSA",
+      "summary": "Sizing of the table.ecdsa store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of each batch_ecdsa table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of each batch_ecdsa table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.filter_bk": {
+      "key": "table.filter_bk",
+      "title": "Store Table: Filter BK",
+      "summary": "Sizing of the table.filter_bk store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The number of buckets in the filter_bk table head (0 disables).",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the filter_bk table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the filter_bk table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.filter_tx": {
+      "key": "table.filter_tx",
+      "title": "Store Table: Filter TX",
+      "summary": "Sizing of the table.filter_tx store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The number of buckets in the filter_tx table head (0 disables).",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the filter_tx table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the filter_tx table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.header": {
+      "key": "table.header",
+      "title": "Store Table: Header",
+      "summary": "Sizing of the table.header store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The number of buckets in the header table head, dynamic default.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 385181,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "expected": {
+          "key": "expected",
+          "label": "Expected",
+          "help": "The expected element count of the header table.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 962953,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the header table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the header table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 124220679,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.input": {
+      "key": "table.input",
+      "title": "Store Table: Input",
+      "summary": "Sizing of the table.input store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the input table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the input table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 67269346,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.ins": {
+      "key": "table.ins",
+      "title": "Store Table: Ins",
+      "summary": "Sizing of the table.ins store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The number of buckets in the ins table head, dynamic default.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1345386900,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "expected": {
+          "key": "expected",
+          "label": "Expected",
+          "help": "The expected element count of the ins table.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 3363467251,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the ins table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the ins table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1749002971,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.output": {
+      "key": "table.output",
+      "title": "Store Table: Output",
+      "summary": "Sizing of the table.output store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the output table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the output table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1278023220,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.outs": {
+      "key": "table.outs",
+      "title": "Store Table: Outs",
+      "summary": "Sizing of the table.outs store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The number of buckets in the outs table head, dynamic default (0 disables address index).",
+          "tier": "table",
+          "kind": "integer",
+          "default": 748385817,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "expected": {
+          "key": "expected",
+          "label": "Expected",
+          "help": "The expected element count of the outs table.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 3741929086,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the outs table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the outs table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 336773618,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.pool": {
+      "key": "table.pool",
+      "title": "Store Table: Pool",
+      "summary": "Sizing of the table.pool store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The number of buckets in the pool table head, dynamic default (0 disables).",
+          "tier": "table",
+          "kind": "integer",
+          "default": 4000000,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "expected": {
+          "key": "expected",
+          "label": "Expected",
+          "help": "The expected element count of the pool table.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 10000000,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the pool table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the pool table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.presilent": {
+      "key": "table.presilent",
+      "title": "Store Table: Presilent",
+      "summary": "Sizing of the table.presilent store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of each batch_presilent table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of each batch_presilent table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.prevalid": {
+      "key": "table.prevalid",
+      "title": "Store Table: Prevalid",
+      "summary": "Sizing of the table.prevalid store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of each batch_prevalid table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of each batch_prevalid table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.prevout": {
+      "key": "table.prevout",
+      "title": "Store Table: Prevout",
+      "summary": "Sizing of the table.prevout store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The minimum number of buckets in the prevout table head.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the prevout table.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the prevout table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.scan": {
+      "key": "table.scan",
+      "title": "Store Table: Scan",
+      "summary": "Sizing of the table.scan store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The number of buckets provisioned in the scan table head.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 950001,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the scan table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the scan table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.schnorr": {
+      "key": "table.schnorr",
+      "title": "Store Table: Schnorr",
+      "summary": "Sizing of the table.schnorr store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of each batch_schnorr table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of each batch_schnorr table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.silent": {
+      "key": "table.silent",
+      "title": "Store Table: Silent",
+      "summary": "Sizing of the table.silent store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of each batch_silent table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of each batch_silent table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.spends": {
+      "key": "table.spends",
+      "title": "Store Table: Spends",
+      "summary": "Sizing of the table.spends store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the spends table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the spends table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.state": {
+      "key": "table.state",
+      "title": "Store Table: State",
+      "summary": "Sizing of the table.state store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The number of buckets provisioned in the state table head.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 950001,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the state table head.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.strong": {
+      "key": "table.strong",
+      "title": "Store Table: Strong",
+      "summary": "Sizing of the table.strong store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The number of buckets provisioned in the strong table head.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1359871695,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the strong table head.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.tx": {
+      "key": "table.tx",
+      "title": "Store Table: TX",
+      "summary": "Sizing of the table.tx store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The number of buckets in the tx table head, dynamic default.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 543948678,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "expected": {
+          "key": "expected",
+          "label": "Expected",
+          "help": "The expected element count of the tx table.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1359871695,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the tx table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the tx table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 870317885,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.txs": {
+      "key": "table.txs",
+      "title": "Store Table: TXs",
+      "summary": "Sizing of the table.txs store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The number of buckets in the txs table head.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 950001,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the txs table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the txs table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 54471017,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "table.wtxid": {
+      "key": "table.wtxid",
+      "title": "Store Table: WTXID",
+      "summary": "Sizing of the table.wtxid store table; dynamic defaults autotune to installed memory.",
+      "tier": "table",
+      "settings": {
+        "buckets": {
+          "key": "buckets",
+          "label": "Buckets",
+          "help": "The number of buckets in the wtxid table head, dynamic default (0 disables).",
+          "tier": "table",
+          "kind": "integer",
+          "default": 4000000,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "expected": {
+          "key": "expected",
+          "label": "Expected",
+          "help": "The expected element count of the wtxid table.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 10000000,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "rate": {
+          "key": "rate",
+          "label": "Rate",
+          "help": "The percentage expansion of the wtxid table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "size": {
+          "key": "size",
+          "label": "Size",
+          "help": "The minimum allocation of the wtxid table body.",
+          "tier": "table",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "networkScoped": true,
+          "fixedAtCreation": true
+        }
+      },
+      "fixedAtCreation": true
+    },
+    "bitcoin": {
+      "key": "bitcoin",
+      "title": "Chain Parameters",
+      "summary": "Chain parameters: genesis block, soft fork activation, checkpoints, milestone and minimum work. network selects the defaults of every network-dependent setting, including ports, seeds, wallet prefixes and table sizing.",
+      "tier": "essential",
+      "settings": {
+        "bip16_activation_time": {
+          "key": "bip16_activation_time",
+          "label": "BIP16 Activation Time",
+          "help": "The activation time for BIP16 in unix time.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1333238400,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip34_activation_sample": {
+          "key": "bip34_activation_sample",
+          "label": "BIP34 Activation Sample",
+          "help": "The number of blocks considered for BIP34 style soft fork activation.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip34_activation_threshold": {
+          "key": "bip34_activation_threshold",
+          "label": "BIP34 Activation Threshold",
+          "help": "The number of new version blocks required for BIP34 style soft fork activation.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 750,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip34_enforcement_threshold": {
+          "key": "bip34_enforcement_threshold",
+          "label": "BIP34 Enforcement Threshold",
+          "help": "The number of new version blocks required for BIP34 style soft fork enforcement.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 950,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip34_freeze": {
+          "key": "bip34_freeze",
+          "label": "BIP34 Freeze",
+          "help": "The block height to freeze the BIP34 softfork for BIP90.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 227931,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_coinbase_activation_height": {
+          "key": "bip54_coinbase_activation_height",
+          "label": "BIP54 Coinbase Activation Height",
+          "help": "The minimum BIP54 coinbase activation height.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_coinbase_speedy_trial": {
+          "key": "bip54_coinbase_speedy_trial",
+          "label": "BIP54 Coinbase Speedy Trial",
+          "help": "Check the BIP54 coinbase threshold before timeout (speedy trial).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip54_coinbase_start": {
+          "key": "bip54_coinbase_start",
+          "label": "BIP54 Coinbase Start",
+          "help": "The median time past to start BIP54 coinbase signaling (4294967295 for always active).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_coinbase_threshold": {
+          "key": "bip54_coinbase_threshold",
+          "label": "BIP54 Coinbase Threshold",
+          "help": "The signaling blocks per period to lock in BIP54 coinbase, zero to disable.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_coinbase_timeout": {
+          "key": "bip54_coinbase_timeout",
+          "label": "BIP54 Coinbase Timeout",
+          "help": "The median time past to time out BIP54 coinbase signaling.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_sigops_activation_height": {
+          "key": "bip54_sigops_activation_height",
+          "label": "BIP54 Sigops Activation Height",
+          "help": "The minimum BIP54 sigops activation height.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_sigops_speedy_trial": {
+          "key": "bip54_sigops_speedy_trial",
+          "label": "BIP54 Sigops Speedy Trial",
+          "help": "Check the BIP54 sigops threshold before timeout (speedy trial).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip54_sigops_start": {
+          "key": "bip54_sigops_start",
+          "label": "BIP54 Sigops Start",
+          "help": "The median time past to start BIP54 sigops signaling (4294967295 for always active).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_sigops_threshold": {
+          "key": "bip54_sigops_threshold",
+          "label": "BIP54 Sigops Threshold",
+          "help": "The signaling blocks per period to lock in BIP54 sigops, zero to disable.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_sigops_timeout": {
+          "key": "bip54_sigops_timeout",
+          "label": "BIP54 Sigops Timeout",
+          "help": "The median time past to time out BIP54 sigops signaling.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_timespan_activation_height": {
+          "key": "bip54_timespan_activation_height",
+          "label": "BIP54 Timespan Activation Height",
+          "help": "The minimum BIP54 timespan activation height.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_timespan_speedy_trial": {
+          "key": "bip54_timespan_speedy_trial",
+          "label": "BIP54 Timespan Speedy Trial",
+          "help": "Check the BIP54 timespan threshold before timeout (speedy trial).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip54_timespan_start": {
+          "key": "bip54_timespan_start",
+          "label": "BIP54 Timespan Start",
+          "help": "The median time past to start BIP54 timespan signaling (4294967295 for always active).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_timespan_threshold": {
+          "key": "bip54_timespan_threshold",
+          "label": "BIP54 Timespan Threshold",
+          "help": "The signaling blocks per period to lock in BIP54 timespan, zero to disable.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_timespan_timeout": {
+          "key": "bip54_timespan_timeout",
+          "label": "BIP54 Timespan Timeout",
+          "help": "The median time past to time out BIP54 timespan signaling.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_timewarp_activation_height": {
+          "key": "bip54_timewarp_activation_height",
+          "label": "BIP54 Timewarp Activation Height",
+          "help": "The minimum BIP54 timewarp activation height.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_timewarp_speedy_trial": {
+          "key": "bip54_timewarp_speedy_trial",
+          "label": "BIP54 Timewarp Speedy Trial",
+          "help": "Check the BIP54 timewarp threshold before timeout (speedy trial).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip54_timewarp_start": {
+          "key": "bip54_timewarp_start",
+          "label": "BIP54 Timewarp Start",
+          "help": "The median time past to start BIP54 timewarp signaling (4294967295 for always active).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_timewarp_threshold": {
+          "key": "bip54_timewarp_threshold",
+          "label": "BIP54 Timewarp Threshold",
+          "help": "The signaling blocks per period to lock in BIP54 timewarp, zero to disable.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_timewarp_timeout": {
+          "key": "bip54_timewarp_timeout",
+          "label": "BIP54 Timewarp Timeout",
+          "help": "The median time past to time out BIP54 timewarp signaling.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_txsize_activation_height": {
+          "key": "bip54_txsize_activation_height",
+          "label": "BIP54 Tx Size Activation Height",
+          "help": "The minimum BIP54 tx size activation height.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_txsize_speedy_trial": {
+          "key": "bip54_txsize_speedy_trial",
+          "label": "BIP54 Tx Size Speedy Trial",
+          "help": "Check the BIP54 tx size threshold before timeout (speedy trial).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip54_txsize_start": {
+          "key": "bip54_txsize_start",
+          "label": "BIP54 Tx Size Start",
+          "help": "The median time past to start BIP54 tx size signaling (4294967295 for always active).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_txsize_threshold": {
+          "key": "bip54_txsize_threshold",
+          "label": "BIP54 Tx Size Threshold",
+          "help": "The signaling blocks per period to lock in BIP54 tx size, zero to disable.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip54_txsize_timeout": {
+          "key": "bip54_txsize_timeout",
+          "label": "BIP54 Tx Size Timeout",
+          "help": "The median time past to time out BIP54 tx size signaling.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip65_freeze": {
+          "key": "bip65_freeze",
+          "label": "BIP65 Freeze",
+          "help": "The block height to freeze the BIP65 softfork for BIP90.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 388381,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip66_freeze": {
+          "key": "bip66_freeze",
+          "label": "BIP66 Freeze",
+          "help": "The block height to freeze the BIP66 softfork for BIP90.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 363725,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip9_activation_period": {
+          "key": "bip9_activation_period",
+          "label": "BIP9 Activation Period",
+          "help": "The number of blocks in a BIP9 signaling period.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 2016,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip9_bit0_activation_height": {
+          "key": "bip9_bit0_activation_height",
+          "label": "BIP9 Bit 0 Activation Height",
+          "help": "The minimum BIP9 bit 0 activation height.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip9_bit0_speedy_trial": {
+          "key": "bip9_bit0_speedy_trial",
+          "label": "BIP9 Bit 0 Speedy Trial",
+          "help": "Check the BIP9 bit 0 threshold before timeout (speedy trial).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "bip9_bit0_start": {
+          "key": "bip9_bit0_start",
+          "label": "BIP9 Bit 0 Start",
+          "help": "The median time past to start BIP9 bit 0 signaling (4294967295 for always active).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1462060800,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip9_bit0_threshold": {
+          "key": "bip9_bit0_threshold",
+          "label": "BIP9 Bit 0 Threshold",
+          "help": "The signaling blocks per period to lock in BIP9 bit 0, zero to disable.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1916,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip9_bit0_timeout": {
+          "key": "bip9_bit0_timeout",
+          "label": "BIP9 Bit 0 Timeout",
+          "help": "The median time past to time out BIP9 bit 0 signaling.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1493596800,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip9_bit1_activation_height": {
+          "key": "bip9_bit1_activation_height",
+          "label": "BIP9 Bit 1 Activation Height",
+          "help": "The minimum BIP9 bit 1 activation height.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip9_bit1_speedy_trial": {
+          "key": "bip9_bit1_speedy_trial",
+          "label": "BIP9 Bit 1 Speedy Trial",
+          "help": "Check the BIP9 bit 1 threshold before timeout (speedy trial).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "bip9_bit1_start": {
+          "key": "bip9_bit1_start",
+          "label": "BIP9 Bit 1 Start",
+          "help": "The median time past to start BIP9 bit 1 signaling (4294967295 for always active).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1479168000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip9_bit1_threshold": {
+          "key": "bip9_bit1_threshold",
+          "label": "BIP9 Bit 1 Threshold",
+          "help": "The signaling blocks per period to lock in BIP9 bit 1, zero to disable.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1916,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip9_bit1_timeout": {
+          "key": "bip9_bit1_timeout",
+          "label": "BIP9 Bit 1 Timeout",
+          "help": "The median time past to time out BIP9 bit 1 signaling.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1510704000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip9_bit2_activation_height": {
+          "key": "bip9_bit2_activation_height",
+          "label": "BIP9 Bit 2 Activation Height",
+          "help": "The minimum BIP9 bit 2 activation height.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 709632,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip9_bit2_speedy_trial": {
+          "key": "bip9_bit2_speedy_trial",
+          "label": "BIP9 Bit 2 Speedy Trial",
+          "help": "Check the BIP9 bit 2 threshold before timeout (speedy trial).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip9_bit2_start": {
+          "key": "bip9_bit2_start",
+          "label": "BIP9 Bit 2 Start",
+          "help": "The median time past to start BIP9 bit 2 signaling (4294967295 for always active).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1619222400,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip9_bit2_threshold": {
+          "key": "bip9_bit2_threshold",
+          "label": "BIP9 Bit 2 Threshold",
+          "help": "The signaling blocks per period to lock in BIP9 bit 2, zero to disable.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1815,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "bip9_bit2_timeout": {
+          "key": "bip9_bit2_timeout",
+          "label": "BIP9 Bit 2 Timeout",
+          "help": "The median time past to time out BIP9 bit 2 signaling.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1628640000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "block_spacing_seconds": {
+          "key": "block_spacing_seconds",
+          "label": "Block Spacing Seconds",
+          "help": "The target block period.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 600,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "checkpoint": {
+          "key": "checkpoint",
+          "label": "Checkpoint",
+          "help": "The blockchain checkpoints.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [
+            "00000000000000004d9b4ef50f0f9d686fd69db2e03af35a100370c64632a983:295000",
+            "0000000000000001ae8c72a0b0c301f67e3afca10e819efa9041e458e9bd7e40:279000",
+            "000000000000003887df1f29024b06fc2200b55f8af8f35453d7be294df2d214:250000",
+            "00000000000001c108384350f74090433e7fcf79a606b8e797f065b130575932:225430",
+            "00000000000001b4f4b433e81ee46494af945cf96014816a4e2370f11b23df4e:216116",
+            "000000000000048b95347e83192f69cf0366076336c639f9b7228e9ba171342e:210000",
+            "000000000000059f452a5f7340de6682a977387c17010ff6e6c3bd83ca8b1317:193000",
+            "000000000000099e61ea72015e79632f216fe6cb33d7899acb35b75c8303b763:168000",
+            "00000000000005b12ffd4cd315cd34ffd4a594f430ac814c91184a0d42d2b0fe:134444",
+            "00000000000291ce28027faea320c8d2b054b2e0fe44a773f3eefb151d6bdc97:105000",
+            "0000000000573993a3c9e41ce34471c079dcf5f52a0e824a81e7f953b8661a20:74000",
+            "000000002dd5588a74784eaa7ab0507a18ad16a236e7b1ce69f00d7ddfb5d0a6:33333",
+            "0000000069e244f73d78e8fd29ba2fd2ed618bd6fa2ee92559f542fdb26e7c1d:11111"
+          ],
+          "emit": "whenChanged"
+        },
+        "genesis_block": {
+          "key": "genesis_block",
+          "label": "Genesis Block",
+          "help": "The hexadecimal encoding of the genesis block.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "0100000000000000000000000000000000000000000000000000000000000000000000003ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a29ab5f49ffff001d1dac2b7c0101000000010000000000000000000000000000000000000000000000000000000000000000ffffffff4d04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73ffffffff0100f2052a01000000434104678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5fac00000000",
+          "emit": "whenChanged"
+        },
+        "initial_block_subsidy_bitcoin": {
+          "key": "initial_block_subsidy_bitcoin",
+          "label": "Initial Block Subsidy Bitcoin",
+          "help": "The initial block subsidy.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 50,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "milestone": {
+          "key": "milestone",
+          "label": "Milestone",
+          "help": "A block presumed to be valid but not required to be present.",
+          "tier": "essential",
+          "kind": "text",
+          "default": "000000000000000000010b93c9ea1c29fea277383f0f7d1f26de8b5802e885ff:950000",
+          "emit": "whenChanged",
+          "networkScoped": true,
+          "fixedAtCreation": true
+        },
+        "minimum_work": {
+          "key": "minimum_work",
+          "label": "Minimum Work",
+          "help": "The minimum work for any branch to be considered valid.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "000000000000000000000000000000000000000052b2559353df4117b7348b64",
+          "emit": "whenChanged"
+        },
+        "network": {
+          "key": "network",
+          "label": "Network",
+          "help": "Main Network",
+          "tier": "essential",
+          "kind": "enum",
+          "default": "mainnet",
+          "emit": "whenChanged",
+          "valueHelp": {
+            "mainnet": "Main Network",
+            "testnet3": "Test Network 3",
+            "testnet4": "Test Network 4",
+            "signet": "Signed Test Network",
+            "regtest": "Regression Test Network"
+          },
+          "values": [
+            {
+              "label": "Mainnet",
+              "value": "mainnet"
+            },
+            {
+              "label": "Testnet3",
+              "value": "testnet3"
+            },
+            {
+              "label": "Testnet4",
+              "value": "testnet4"
+            },
+            {
+              "label": "Signet",
+              "value": "signet"
+            },
+            {
+              "label": "Regtest",
+              "value": "regtest"
+            }
+          ]
+        },
+        "proof_of_work_limit": {
+          "key": "proof_of_work_limit",
+          "label": "Proof Of Work Limit",
+          "help": "The proof of work limit.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 486604799,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "retargeting_factor": {
+          "key": "retargeting_factor",
+          "label": "Retargeting Factor",
+          "help": "The difficulty retargeting factor.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "retargeting_interval_seconds": {
+          "key": "retargeting_interval_seconds",
+          "label": "Retargeting Interval Seconds",
+          "help": "The difficulty retargeting period.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1209600,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "subsidy_interval": {
+          "key": "subsidy_interval",
+          "label": "Subsidy Interval",
+          "help": "The subsidy halving period.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 210000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "timestamp_limit_seconds": {
+          "key": "timestamp_limit_seconds",
+          "label": "Timestamp Limit Seconds",
+          "help": "The future timestamp allowance.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 7200,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        }
+      }
+    },
+    "forks": {
+      "key": "forks",
+      "title": "Forks",
+      "summary": "The consensus rules enforced. The defaults are mainnet.",
+      "tier": "advanced",
+      "settings": {
+        "bip112": {
+          "key": "bip112",
+          "label": "BIP112",
+          "help": "Add check-sequence-verify op code (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip113": {
+          "key": "bip113",
+          "label": "BIP113",
+          "help": "Use median time past for locktime (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip141": {
+          "key": "bip141",
+          "label": "BIP141",
+          "help": "Segregated witness consensus layer (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip143": {
+          "key": "bip143",
+          "label": "BIP143",
+          "help": "Witness version 0 (SegWit) (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip147": {
+          "key": "bip147",
+          "label": "BIP147",
+          "help": "Prevent dummy value malleability (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip16": {
+          "key": "bip16",
+          "label": "BIP16",
+          "help": "Add pay-to-script-hash processing (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip30": {
+          "key": "bip30",
+          "label": "BIP30",
+          "help": "Disallow collision of unspent transaction hashes (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip34": {
+          "key": "bip34",
+          "label": "BIP34",
+          "help": "Require coinbase input includes block height (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip341": {
+          "key": "bip341",
+          "label": "BIP341",
+          "help": "Witness version 1 (taproot) (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip342": {
+          "key": "bip342",
+          "label": "BIP342",
+          "help": "Validation of taproot script (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip42": {
+          "key": "bip42",
+          "label": "BIP42",
+          "help": "Finite monetary supply (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip54_coinbase": {
+          "key": "bip54_coinbase",
+          "label": "BIP54 Coinbase",
+          "help": "Require coinbase locktime of parent height and non-final sequence (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip54_sigops": {
+          "key": "bip54_sigops",
+          "label": "BIP54 Sigops",
+          "help": "Limit legacy signature operations per transaction (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip54_timespan": {
+          "key": "bip54_timespan",
+          "label": "BIP54 Timespan",
+          "help": "Require non-negative retarget timespans (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip54_timewarp": {
+          "key": "bip54_timewarp",
+          "label": "BIP54 Timewarp",
+          "help": "Limit timestamp regression on retarget blocks (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip54_txsize": {
+          "key": "bip54_txsize",
+          "label": "BIP54 Tx Size",
+          "help": "Disallow 64 byte witness-stripped transactions (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip65": {
+          "key": "bip65",
+          "label": "BIP65",
+          "help": "Add check-locktime-verify op code (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip66": {
+          "key": "bip66",
+          "label": "BIP66",
+          "help": "Require strict signature encoding (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip68": {
+          "key": "bip68",
+          "label": "BIP68",
+          "help": "Add relative locktime enforcement (soft fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "bip90": {
+          "key": "bip90",
+          "label": "BIP90",
+          "help": "Freeze BIP34, BIP65, and BIP66 activation at the BIP90 heights (hard fork).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "block_storm_patch": {
+          "key": "block_storm_patch",
+          "label": "Block Storm Patch",
+          "help": "Assume block_storm_patch activation if enabled (testnet4).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "difficult": {
+          "key": "difficult",
+          "label": "Difficult",
+          "help": "Require difficult blocks (use false for testnet).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "ltc_retarget_overflow_patch": {
+          "key": "ltc_retarget_overflow_patch",
+          "label": "LTC Retarget Overflow Patch",
+          "help": "Fix target overflow for very low difficulty (litecoin).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "ltc_scrypt_proof_of_work": {
+          "key": "ltc_scrypt_proof_of_work",
+          "label": "LTC Scrypt Proof Of Work",
+          "help": "Use scrypt hashing for proof of work (litecoin).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "ltc_time_warp_patch": {
+          "key": "ltc_time_warp_patch",
+          "label": "LTC Time Warp Patch",
+          "help": "Fix time warp bug (litecoin).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "retarget": {
+          "key": "retarget",
+          "label": "Retarget",
+          "help": "Retarget difficulty (use false for regtest).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "time_warp_patch": {
+          "key": "time_warp_patch",
+          "label": "Time Warp Patch",
+          "help": "Assume time_warp_patch activation if enabled (testnet4).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        }
+      }
+    },
+    "wallet": {
+      "key": "wallet",
+      "title": "Wallet",
+      "summary": "Address and key prefixes, used by the client interfaces for addresses, keys and descriptors. They do not affect the node or the store.",
+      "tier": "essential",
+      "settings": {
+        "hd_private_prefix": {
+          "key": "hd_private_prefix",
+          "label": "HD Private Prefix",
+          "help": "The extended private key prefix (use '70615956' for testnet).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 76066276,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "hd_public_prefix": {
+          "key": "hd_public_prefix",
+          "label": "HD Public Prefix",
+          "help": "The extended public key prefix (use '70617039' for testnet).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 76067358,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "p2kh_prefix": {
+          "key": "p2kh_prefix",
+          "label": "P2KH Prefix",
+          "help": "The pay-to-public-key-hash address prefix (use '111' for testnet).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "p2sh_prefix": {
+          "key": "p2sh_prefix",
+          "label": "P2SH Prefix",
+          "help": "The pay-to-script-hash address prefix (use '196' for testnet).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 5,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "silent_prefix": {
+          "key": "silent_prefix",
+          "label": "Silent Prefix",
+          "help": "The silent payment address prefix (use 'tsp' for testnet).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "sp",
+          "emit": "whenChanged"
+        },
+        "wif_prefix": {
+          "key": "wif_prefix",
+          "label": "WIF Prefix",
+          "help": "The wallet import format prefix (use '239' for testnet).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 128,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "witness_prefix": {
+          "key": "witness_prefix",
+          "label": "Witness Prefix",
+          "help": "The witness address prefix (use 'tb' for testnet).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "bc",
+          "emit": "whenChanged"
+        }
+      }
+    },
+    "node": {
+      "key": "node",
+      "title": "Node",
+      "summary": "The node: validation threads, batching and GPU use, the download window, fee policy, and what is served to peers.",
+      "tier": "essential",
+      "settings": {
+        "allowed_deviation": {
+          "key": "allowed_deviation",
+          "label": "Allowed Deviation",
+          "help": "Allowable underperformance standard deviation (0 disables).",
+          "tier": "advanced",
+          "kind": "decimal",
+          "default": 1.5,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "announcement_cache": {
+          "key": "announcement_cache",
+          "label": "Announcement Cache",
+          "help": "Limit of per channel cached peer block and tx announcements, to avoid replay.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 42,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "batch_silent": {
+          "key": "batch_silent",
+          "label": "Batch Silent",
+          "help": "Count of silent payment transactions to index in each batch (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "batch_verify": {
+          "key": "batch_verify",
+          "label": "Batch Verify",
+          "help": "Count of signatures to verify in each batch (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "compact_missing_percent": {
+          "key": "compact_missing_percent",
+          "label": "Compact Missing Percent",
+          "help": "Maximum percent of a compact block not pooled to fill it.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 50,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "compact_timeout_seconds": {
+          "key": "compact_timeout_seconds",
+          "label": "Compact Timeout Seconds",
+          "help": "Time to await a compact block fill before downloading the block (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "currency_window_minutes": {
+          "key": "currency_window_minutes",
+          "label": "Currency Window Minutes",
+          "help": "Time from present that blocks are considered current (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1440,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "delay_inbound": {
+          "key": "delay_inbound",
+          "label": "Delay Inbound",
+          "help": "Block inbound peer/client (excluding admin/native) until current.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "fee_estimate_horizon": {
+          "key": "fee_estimate_horizon",
+          "label": "Fee Estimate Horizon",
+          "help": "Fee estimation horizon, limited to 1008 (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "limited_blocks": {
+          "key": "limited_blocks",
+          "label": "Limited Blocks",
+          "help": "Limit block service to recent blocks.",
+          "tier": "essential",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged",
+          "fixedAtCreation": true
+        },
+        "maximum_concurrency": {
+          "key": "maximum_concurrency",
+          "label": "Maximum Concurrency",
+          "help": "Maximum number of blocks to download concurrently (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 50000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_height": {
+          "key": "maximum_height",
+          "label": "Maximum Height",
+          "help": "Maximum block height to populate (unlimited).",
+          "tier": "essential",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "fixedAtCreation": true
+        },
+        "memory_priority": {
+          "key": "memory_priority",
+          "label": "Memory Priority",
+          "help": "Set the process to high memory priority.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "minimum_bump_rate": {
+          "key": "minimum_bump_rate",
+          "label": "Minimum Bump Rate",
+          "help": "Minimum fee rate increment for conflicting tx acceptance.",
+          "tier": "advanced",
+          "kind": "decimal",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "minimum_fee_rate": {
+          "key": "minimum_fee_rate",
+          "label": "Minimum Fee Rate",
+          "help": "Minimum fee rate for non-conflicting tx acceptance.",
+          "tier": "advanced",
+          "kind": "decimal",
+          "default": 0.000001,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "provide_blocks": {
+          "key": "provide_blocks",
+          "label": "Provide Blocks",
+          "help": "Serve blocks to network connections.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "provide_filters": {
+          "key": "provide_filters",
+          "label": "Provide Filters",
+          "help": "Serve client filters to network connections.",
+          "tier": "essential",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "provide_privacy": {
+          "key": "provide_privacy",
+          "label": "Provide Privacy",
+          "help": "Provide opportunistic connection encryption.",
+          "tier": "essential",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "provide_witness": {
+          "key": "provide_witness",
+          "label": "Provide Witness",
+          "help": "Serve witness data to network connections.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "require_blocks": {
+          "key": "require_blocks",
+          "label": "Require Blocks",
+          "help": "Require block service of outbound connections.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "require_witness": {
+          "key": "require_witness",
+          "label": "Require Witness",
+          "help": "Require witness service of outbound connections.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "sample_period_seconds": {
+          "key": "sample_period_seconds",
+          "label": "Sample Period Seconds",
+          "help": "Sampling period for drop of stalled channels (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "silent_start_height": {
+          "key": "silent_start_height",
+          "label": "Silent Start Height",
+          "help": "Minimum height of silent payment indexation.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4294967295,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "thread_priority": {
+          "key": "thread_priority",
+          "label": "Thread Priority",
+          "help": "Set validation threads to high processing priority.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "threads": {
+          "key": "threads",
+          "label": "Threads",
+          "help": "The number of threads in the validation threadpool (0 uses hardware threads).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "use_gpu": {
+          "key": "use_gpu",
+          "label": "Use GPU",
+          "help": "Use the GPU where available.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        }
+      }
+    },
+    "network": {
+      "key": "network",
+      "title": "Network",
+      "summary": "Settings shared by all P2P connections: threads, connection timing, send rate, and address allow and deny lists.",
+      "tier": "essential",
+      "settings": {
+        "blacklist": {
+          "key": "blacklist",
+          "label": "Blacklist",
+          "help": "IP address to disallow, allows all others.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "connect_timeout_seconds": {
+          "key": "connect_timeout_seconds",
+          "label": "Connect Timeout Seconds",
+          "help": "The time limit for connection establishment.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 5,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "rate_limit": {
+          "key": "rate_limit",
+          "label": "Rate Limit",
+          "help": "The per channel send rate limit in bytes per second (unlimited).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "retry_timeout_seconds": {
+          "key": "retry_timeout_seconds",
+          "label": "Retry Timeout Seconds",
+          "help": "The time delay for failed connection retry.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "threads": {
+          "key": "threads",
+          "label": "Threads",
+          "help": "The minimum number of threads in the network threadpool (0 uses hardware threads, at most 32).",
+          "tier": "essential",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "whitelist": {
+          "key": "whitelist",
+          "label": "Whitelist",
+          "help": "IP address to allow, prohibits all others.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        }
+      }
+    },
+    "peer": {
+      "key": "peer",
+      "title": "Peer",
+      "summary": "The P2P protocol: version range, supported messages, address gossip, and the network identifier.",
+      "tier": "essential",
+      "settings": {
+        "address_lower": {
+          "key": "address_lower",
+          "label": "Address Lower",
+          "help": "The lower bound for address selection divisor.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 5,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "address_upper": {
+          "key": "address_upper",
+          "label": "Address Upper",
+          "help": "The upper bound for address selection divisor.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "channel_heartbeat_minutes": {
+          "key": "channel_heartbeat_minutes",
+          "label": "Channel Heartbeat Minutes",
+          "help": "The time between ping messages (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "enable_address": {
+          "key": "enable_address",
+          "label": "Enable Address",
+          "help": "Enable address gossip.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "enable_address_v2": {
+          "key": "enable_address_v2",
+          "label": "Enable Address V2",
+          "help": "Enable privacy network (Tor and I2P) address gossip.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "enable_alert": {
+          "key": "enable_alert",
+          "label": "Enable Alert",
+          "help": "Enable alert messages.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "enable_compact": {
+          "key": "enable_compact",
+          "label": "Enable Compact",
+          "help": "Enable compact block messages.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "enable_memory_pool": {
+          "key": "enable_memory_pool",
+          "label": "Enable Memory Pool",
+          "help": "Enable memory pool messages.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "enable_not_found": {
+          "key": "enable_not_found",
+          "label": "Enable Not Found",
+          "help": "Enable not found messages.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "enable_reject": {
+          "key": "enable_reject",
+          "label": "Enable Reject",
+          "help": "Enable reject messages.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "enable_relay": {
+          "key": "enable_relay",
+          "label": "Enable Relay",
+          "help": "Enable transaction relay.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "enable_witness_tx": {
+          "key": "enable_witness_tx",
+          "label": "Enable Witness TX",
+          "help": "Enable witness transaction identifier relay.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "gossip_i2p": {
+          "key": "gossip_i2p",
+          "label": "Gossip I2P",
+          "help": "Gossip I2P addresses.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "gossip_ipv4": {
+          "key": "gossip_ipv4",
+          "label": "Gossip IPv4",
+          "help": "Gossip internet protocol version 4 (IPv4) addresses.",
+          "tier": "essential",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "gossip_ipv6": {
+          "key": "gossip_ipv6",
+          "label": "Gossip IPv6",
+          "help": "Gossip internet protocol version 6 (IPv6) addresses.",
+          "tier": "essential",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "gossip_tor": {
+          "key": "gossip_tor",
+          "label": "Gossip Tor",
+          "help": "Gossip Tor (onion) addresses.",
+          "tier": "essential",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "handshake_timeout_seconds": {
+          "key": "handshake_timeout_seconds",
+          "label": "Handshake Timeout Seconds",
+          "help": "The time limit to complete the connection handshake (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 15,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "identifier": {
+          "key": "identifier",
+          "label": "Identifier",
+          "help": "The magic number for message headers.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 3652501241,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "invalid_services": {
+          "key": "invalid_services",
+          "label": "Invalid Services",
+          "help": "The advertised services that cause a peer to be dropped.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 268435632,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_skew_minutes": {
+          "key": "maximum_skew_minutes",
+          "label": "Maximum Skew Minutes",
+          "help": "The maximum allowable channel clock skew.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 120,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "path": {
+          "key": "path",
+          "label": "Path",
+          "help": "The peer address cache file directory.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "protocol_maximum": {
+          "key": "protocol_maximum",
+          "label": "Protocol Maximum",
+          "help": "The maximum network protocol version.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 70016,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "protocol_minimum": {
+          "key": "protocol_minimum",
+          "label": "Protocol Minimum",
+          "help": "The minimum network protocol version.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 31800,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "user_agent": {
+          "key": "user_agent",
+          "label": "User Agent",
+          "help": "The node user agent string.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "/libbitcoin:4.0.10255/",
+          "emit": "whenChanged"
+        },
+        "validate_checksum": {
+          "key": "validate_checksum",
+          "label": "Validate Checksum",
+          "help": "Validate the checksum of network messages.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        }
+      }
+    },
+    "outbound": {
+      "key": "outbound",
+      "title": "Outbound",
+      "summary": "Connections the node makes to peers: count, seeds, the address pool, and a SOCKS proxy.",
+      "tier": "essential",
+      "settings": {
+        "bind": {
+          "key": "bind",
+          "label": "Bind",
+          "help": "IP address to bind outbound connections.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "connect_batch_size": {
+          "key": "connect_batch_size",
+          "label": "Connect Batch Size",
+          "help": "The number of concurrent attempts to establish one connection.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 5,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "connect_timeout_seconds": {
+          "key": "connect_timeout_seconds",
+          "label": "Connect Timeout Seconds",
+          "help": "The time limit for connection establishment (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "connections": {
+          "key": "connections",
+          "label": "Connections",
+          "help": "The target number of outgoing network connections.",
+          "tier": "essential",
+          "kind": "integer",
+          "default": 100,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "current_connections": {
+          "key": "current_connections",
+          "label": "Current Connections",
+          "help": "The target number of outgoing connections when current (0 disables).",
+          "tier": "essential",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "expiration_minutes": {
+          "key": "expiration_minutes",
+          "label": "Expiration Minutes",
+          "help": "The age limit for any connection (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 60,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "host_pool_capacity": {
+          "key": "host_pool_capacity",
+          "label": "Host Pool Capacity",
+          "help": "The maximum number of peer hosts in the pool.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "inactivity_minutes": {
+          "key": "inactivity_minutes",
+          "label": "Inactivity Minutes",
+          "help": "The inactivity time limit for any connection (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "maximum_backlog": {
+          "key": "maximum_backlog",
+          "label": "Maximum Backlog",
+          "help": "The maximum write backlog of a channel.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1048576,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_request": {
+          "key": "maximum_request",
+          "label": "Maximum Request",
+          "help": "The maximum allowed request size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "minimum_buffer": {
+          "key": "minimum_buffer",
+          "label": "Minimum Buffer",
+          "help": "The minimum retained read buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "password": {
+          "key": "password",
+          "label": "Password",
+          "help": "The SOCKS5 proxy password (optional).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged",
+          "secret": true
+        },
+        "rate_limit": {
+          "key": "rate_limit",
+          "label": "Rate Limit",
+          "help": "The send rate limit in bytes per second (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "seed": {
+          "key": "seed",
+          "label": "Seed",
+          "help": "A seed node for initializing the host pool.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [
+            "seed.bitcoin.sipa.be:8333",
+            "dnsseed.bluematt.me:8333",
+            "seed.bitcoin.jonasschnelli.ch:8333",
+            "seed.btc.petertodd.net:8333",
+            "seed.bitcoin.sprovoost.nl:8333",
+            "dnsseed.emzy.de:8333",
+            "seed.bitcoin.wiz.biz:8333",
+            "seed.mainnet.achownodes.xyz:8333"
+          ],
+          "emit": "whenChanged"
+        },
+        "seeding_timeout_seconds": {
+          "key": "seeding_timeout_seconds",
+          "label": "Seeding Timeout Seconds",
+          "help": "The time limit for obtaining seed connections and addresses.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 30,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "socks": {
+          "key": "socks",
+          "label": "SOCKS",
+          "help": "The SOCKS5 proxy endpoint (port required).",
+          "tier": "essential",
+          "kind": "text",
+          "default": "localhost",
+          "emit": "whenChanged"
+        },
+        "username": {
+          "key": "username",
+          "label": "Username",
+          "help": "The SOCKS5 proxy username (optional).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged"
+        }
+      }
+    },
+    "inbound": {
+      "key": "inbound",
+      "title": "Inbound",
+      "summary": "Connections peers make to the node: listening addresses, count, and I2P.",
+      "tier": "essential",
+      "settings": {
+        "bind": {
+          "key": "bind",
+          "label": "Bind",
+          "help": "IP address to bind for listening (all IPv4).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [
+            "0.0.0.0:8333"
+          ],
+          "emit": "whenChanged"
+        },
+        "connect_timeout_seconds": {
+          "key": "connect_timeout_seconds",
+          "label": "Connect Timeout Seconds",
+          "help": "The time limit for connection establishment (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "connections": {
+          "key": "connections",
+          "label": "Connections",
+          "help": "The target number of incoming network connections.",
+          "tier": "essential",
+          "kind": "integer",
+          "default": 100,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "enable_loopback": {
+          "key": "enable_loopback",
+          "label": "Enable Loopback",
+          "help": "Allow connections from the node to itself.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "expiration_minutes": {
+          "key": "expiration_minutes",
+          "label": "Expiration Minutes",
+          "help": "The age limit for any connection (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 60,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "inactivity_minutes": {
+          "key": "inactivity_minutes",
+          "label": "Inactivity Minutes",
+          "help": "The inactivity time limit for any connection (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "key_path": {
+          "key": "key_path",
+          "label": "Key Path",
+          "help": "The I2P destination private key file path (created if it does not exist).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "maximum_backlog": {
+          "key": "maximum_backlog",
+          "label": "Maximum Backlog",
+          "help": "The maximum write backlog of a channel.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1048576,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_request": {
+          "key": "maximum_request",
+          "label": "Maximum Request",
+          "help": "The maximum allowed request size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "minimum_buffer": {
+          "key": "minimum_buffer",
+          "label": "Minimum Buffer",
+          "help": "The minimum retained read buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "password": {
+          "key": "password",
+          "label": "Password",
+          "help": "The SAM bridge password (optional).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged",
+          "secret": true
+        },
+        "rate_limit": {
+          "key": "rate_limit",
+          "label": "Rate Limit",
+          "help": "The send rate limit in bytes per second (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "sam": {
+          "key": "sam",
+          "label": "SAM",
+          "help": "The I2P SAM bridge endpoint (port required).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "localhost",
+          "emit": "whenChanged"
+        },
+        "self": {
+          "key": "self",
+          "label": "Self",
+          "help": "Address to advertise.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "username": {
+          "key": "username",
+          "label": "Username",
+          "help": "The SAM bridge username (optional).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged"
+        }
+      }
+    },
+    "manual": {
+      "key": "manual",
+      "title": "Manual Peers",
+      "summary": "Persistent connections to specific peers.",
+      "tier": "essential",
+      "settings": {
+        "bind": {
+          "key": "bind",
+          "label": "Bind",
+          "help": "IP address to bind manual connections.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "connect_timeout_seconds": {
+          "key": "connect_timeout_seconds",
+          "label": "Connect Timeout Seconds",
+          "help": "The time limit for connection establishment (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "expiration_minutes": {
+          "key": "expiration_minutes",
+          "label": "Expiration Minutes",
+          "help": "The age limit for any connection (0 disables, will attempt reconnect).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 60,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "inactivity_minutes": {
+          "key": "inactivity_minutes",
+          "label": "Inactivity Minutes",
+          "help": "The inactivity time limit for any connection (0 disables, will attempt reconnect).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "maximum_backlog": {
+          "key": "maximum_backlog",
+          "label": "Maximum Backlog",
+          "help": "The maximum write backlog of a channel.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1048576,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_request": {
+          "key": "maximum_request",
+          "label": "Maximum Request",
+          "help": "The maximum allowed request size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "minimum_buffer": {
+          "key": "minimum_buffer",
+          "label": "Minimum Buffer",
+          "help": "The minimum retained read buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "password": {
+          "key": "password",
+          "label": "Password",
+          "help": "The SOCKS5 proxy password (optional).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged",
+          "secret": true
+        },
+        "peer": {
+          "key": "peer",
+          "label": "Peer",
+          "help": "A persistent peer node.",
+          "tier": "essential",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "rate_limit": {
+          "key": "rate_limit",
+          "label": "Rate Limit",
+          "help": "The send rate limit in bytes per second (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "socks": {
+          "key": "socks",
+          "label": "SOCKS",
+          "help": "The SOCKS5 proxy endpoint (port required).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "localhost",
+          "emit": "whenChanged"
+        },
+        "username": {
+          "key": "username",
+          "label": "Username",
+          "help": "The SOCKS5 proxy username (optional).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged"
+        }
+      }
+    },
+    "admin": {
+      "key": "admin",
+      "title": "Admin Console",
+      "summary": "The administrative web and websocket interface.",
+      "tier": "service",
+      "settings": {
+        "allow_opaque_origin": {
+          "key": "allow_opaque_origin",
+          "label": "Allow Opaque Origin",
+          "help": "Allow requests from opaque origin (see CORS).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "bind": {
+          "key": "bind",
+          "label": "Bind",
+          "help": "IP address to bind (empty disables).",
+          "tier": "service",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "cert_auth": {
+          "key": "cert_auth",
+          "label": "Certificate Authentication",
+          "help": "The trusted client certificate directory (*.PEM), enables client authentication.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "cert_path": {
+          "key": "cert_path",
+          "label": "Certificate Path",
+          "help": "The path to the server certificate file (.PEM).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "connect_timeout_seconds": {
+          "key": "connect_timeout_seconds",
+          "label": "Connect Timeout Seconds",
+          "help": "The time limit for connection establishment (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "connections": {
+          "key": "connections",
+          "label": "Connections",
+          "help": "The required maximum number of connections.",
+          "tier": "service",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "default": {
+          "key": "default",
+          "label": "Default",
+          "help": "The path of the default source page.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "index.html",
+          "emit": "whenChanged"
+        },
+        "expiration_minutes": {
+          "key": "expiration_minutes",
+          "label": "Expiration Minutes",
+          "help": "The maximum connection duration.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 60,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "host": {
+          "key": "host",
+          "label": "Host",
+          "help": "The host name (HTTP verification) (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "inactivity_minutes": {
+          "key": "inactivity_minutes",
+          "label": "Inactivity Minutes",
+          "help": "The idle timeout (HTTP keep-alive).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "key_pass": {
+          "key": "key_pass",
+          "label": "Key Pass",
+          "help": "The password to decrypt the server private key file (.PEM), optional.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged",
+          "secret": true
+        },
+        "key_path": {
+          "key": "key_path",
+          "label": "Key Path",
+          "help": "The path to the server private key file (.PEM).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "maximum_backlog": {
+          "key": "maximum_backlog",
+          "label": "Maximum Backlog",
+          "help": "The maximum write backlog of a channel.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10485760,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_buffer": {
+          "key": "maximum_buffer",
+          "label": "Maximum Buffer",
+          "help": "The maximum JSON response buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 65536,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_request": {
+          "key": "maximum_request",
+          "label": "Maximum Request",
+          "help": "The maximum allowed request size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "minimum_buffer": {
+          "key": "minimum_buffer",
+          "label": "Minimum Buffer",
+          "help": "The minimum retained read buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "origin": {
+          "key": "origin",
+          "label": "Origin",
+          "help": "The allowed origin (see CORS) (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "path": {
+          "key": "path",
+          "label": "Path",
+          "help": "The required root path of source files to be served.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "rate_limit": {
+          "key": "rate_limit",
+          "label": "Rate Limit",
+          "help": "The send rate limit in bytes per second (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "safe": {
+          "key": "safe",
+          "label": "Safe",
+          "help": "IP address to secure bind (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "server": {
+          "key": "server",
+          "label": "Server",
+          "help": "The server name (HTTP header).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "libbitcoin/4",
+          "emit": "whenChanged"
+        }
+      },
+      "service": true,
+      "enableKey": "bind"
+    },
+    "native": {
+      "key": "native",
+      "title": "Native REST",
+      "summary": "The native libbitcoin REST and websocket interface, and its web pages.",
+      "tier": "service",
+      "settings": {
+        "allow_opaque_origin": {
+          "key": "allow_opaque_origin",
+          "label": "Allow Opaque Origin",
+          "help": "Allow requests from opaque origin (see CORS).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "bind": {
+          "key": "bind",
+          "label": "Bind",
+          "help": "IP address to bind (empty disables).",
+          "tier": "service",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "cert_auth": {
+          "key": "cert_auth",
+          "label": "Certificate Authentication",
+          "help": "The trusted client certificate directory (*.PEM), enables client authentication.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "cert_path": {
+          "key": "cert_path",
+          "label": "Certificate Path",
+          "help": "The path to the server certificate file (.PEM).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "connect_timeout_seconds": {
+          "key": "connect_timeout_seconds",
+          "label": "Connect Timeout Seconds",
+          "help": "The time limit for connection establishment (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "connections": {
+          "key": "connections",
+          "label": "Connections",
+          "help": "The required maximum number of connections.",
+          "tier": "service",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "default": {
+          "key": "default",
+          "label": "Default",
+          "help": "The path of the default source page.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "index.html",
+          "emit": "whenChanged"
+        },
+        "expiration_minutes": {
+          "key": "expiration_minutes",
+          "label": "Expiration Minutes",
+          "help": "The maximum connection duration.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 60,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "host": {
+          "key": "host",
+          "label": "Host",
+          "help": "The host name (HTTP verification) (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "inactivity_minutes": {
+          "key": "inactivity_minutes",
+          "label": "Inactivity Minutes",
+          "help": "The idle timeout (HTTP keep-alive).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "key_pass": {
+          "key": "key_pass",
+          "label": "Key Pass",
+          "help": "The password to decrypt the server private key file (.PEM), optional.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged",
+          "secret": true
+        },
+        "key_path": {
+          "key": "key_path",
+          "label": "Key Path",
+          "help": "The path to the server private key file (.PEM).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "maximum_backlog": {
+          "key": "maximum_backlog",
+          "label": "Maximum Backlog",
+          "help": "The maximum write backlog of a channel.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1048576,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_buffer": {
+          "key": "maximum_buffer",
+          "label": "Maximum Buffer",
+          "help": "The maximum JSON response buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 65536,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_request": {
+          "key": "maximum_request",
+          "label": "Maximum Request",
+          "help": "The maximum allowed request size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "minimum_buffer": {
+          "key": "minimum_buffer",
+          "label": "Minimum Buffer",
+          "help": "The minimum retained read buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "origin": {
+          "key": "origin",
+          "label": "Origin",
+          "help": "The allowed origin (see CORS) (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "path": {
+          "key": "path",
+          "label": "Path",
+          "help": "The required root path of source files to be served.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "rate_limit": {
+          "key": "rate_limit",
+          "label": "Rate Limit",
+          "help": "The send rate limit in bytes per second (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "safe": {
+          "key": "safe",
+          "label": "Safe",
+          "help": "IP address to secure bind (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "server": {
+          "key": "server",
+          "label": "Server",
+          "help": "The server name (HTTP header).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "libbitcoin/4",
+          "emit": "whenChanged"
+        },
+        "websocket": {
+          "key": "websocket",
+          "label": "Websocket",
+          "help": "Enable websocket interface.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        }
+      },
+      "service": true,
+      "enableKey": "bind"
+    },
+    "bitcoind": {
+      "key": "bitcoind",
+      "title": "Bitcoind JSON-RPC / REST",
+      "summary": "The bitcoind JSON-RPC and REST interface.",
+      "tier": "service",
+      "settings": {
+        "allow_opaque_origin": {
+          "key": "allow_opaque_origin",
+          "label": "Allow Opaque Origin",
+          "help": "Allow requests from opaque origin (see CORS).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "bind": {
+          "key": "bind",
+          "label": "Bind",
+          "help": "IP address to bind (empty disables).",
+          "tier": "service",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "cert_auth": {
+          "key": "cert_auth",
+          "label": "Certificate Authentication",
+          "help": "The trusted client certificate directory (*.PEM), enables client authentication.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "cert_path": {
+          "key": "cert_path",
+          "label": "Certificate Path",
+          "help": "The path to the server certificate file (.PEM).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "connect_timeout_seconds": {
+          "key": "connect_timeout_seconds",
+          "label": "Connect Timeout Seconds",
+          "help": "The time limit for connection establishment (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "connections": {
+          "key": "connections",
+          "label": "Connections",
+          "help": "The required maximum number of connections.",
+          "tier": "service",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "credential": {
+          "key": "credential",
+          "label": "Credential",
+          "help": "The 'username:password[:method,...]' authorization (not secure).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged",
+          "secret": true
+        },
+        "expiration_minutes": {
+          "key": "expiration_minutes",
+          "label": "Expiration Minutes",
+          "help": "The maximum connection duration.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 60,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "host": {
+          "key": "host",
+          "label": "Host",
+          "help": "The host name (HTTP verification) (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "inactivity_minutes": {
+          "key": "inactivity_minutes",
+          "label": "Inactivity Minutes",
+          "help": "The idle timeout (HTTP keep-alive).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "key_pass": {
+          "key": "key_pass",
+          "label": "Key Pass",
+          "help": "The password to decrypt the server private key file (.PEM), optional.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged",
+          "secret": true
+        },
+        "key_path": {
+          "key": "key_path",
+          "label": "Key Path",
+          "help": "The path to the server private key file (.PEM).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "maximum_backlog": {
+          "key": "maximum_backlog",
+          "label": "Maximum Backlog",
+          "help": "The maximum write backlog of a channel.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1048576,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_buffer": {
+          "key": "maximum_buffer",
+          "label": "Maximum Buffer",
+          "help": "The maximum JSON response buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 65536,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_request": {
+          "key": "maximum_request",
+          "label": "Maximum Request",
+          "help": "The maximum allowed request size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 8004096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "minimum_buffer": {
+          "key": "minimum_buffer",
+          "label": "Minimum Buffer",
+          "help": "The minimum retained read buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "origin": {
+          "key": "origin",
+          "label": "Origin",
+          "help": "The allowed origin (see CORS) (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "rate_limit": {
+          "key": "rate_limit",
+          "label": "Rate Limit",
+          "help": "The send rate limit in bytes per second (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "safe": {
+          "key": "safe",
+          "label": "Safe",
+          "help": "IP address to secure bind (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "server": {
+          "key": "server",
+          "label": "Server",
+          "help": "The server name (HTTP header).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "libbitcoin/4",
+          "emit": "whenChanged"
+        },
+        "subversion": {
+          "key": "subversion",
+          "label": "Subversion",
+          "help": "The subversion identity (getnetworkinfo).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "/libbitcoin:server/",
+          "emit": "whenChanged"
+        },
+        "version": {
+          "key": "version",
+          "label": "Version",
+          "help": "The version identity (getnetworkinfo).",
+          "tier": "advanced",
+          "kind": "decimal",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        }
+      },
+      "service": true,
+      "enableKey": "bind"
+    },
+    "bitcoind_zmq": {
+      "key": "bitcoind_zmq",
+      "title": "Bitcoind ZMQ",
+      "summary": "The bitcoind ZMQ notification interface.",
+      "tier": "service",
+      "settings": {
+        "bind": {
+          "key": "bind",
+          "label": "Bind",
+          "help": "IP address to bind (empty disables).",
+          "tier": "service",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "cert": {
+          "key": "cert",
+          "label": "Certificate",
+          "help": "The Z85 encoded public key of an authorized client (empty allows all clients).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "connect_timeout_seconds": {
+          "key": "connect_timeout_seconds",
+          "label": "Connect Timeout Seconds",
+          "help": "The time limit for connection establishment (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "connections": {
+          "key": "connections",
+          "label": "Connections",
+          "help": "The required maximum number of connections.",
+          "tier": "service",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "key": {
+          "key": "key",
+          "label": "Key",
+          "help": "The Z85 encoded CurveZMQ server secret key (unencrypted).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged",
+          "secret": true
+        },
+        "maximum_backlog": {
+          "key": "maximum_backlog",
+          "label": "Maximum Backlog",
+          "help": "The maximum write backlog of a channel.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 33554432,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_request": {
+          "key": "maximum_request",
+          "label": "Maximum Request",
+          "help": "The maximum allowed request size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_subscriptions": {
+          "key": "maximum_subscriptions",
+          "label": "Maximum Subscriptions",
+          "help": "The maximum topic subscriptions per connection.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 100,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "minimum_buffer": {
+          "key": "minimum_buffer",
+          "label": "Minimum Buffer",
+          "help": "The minimum retained read buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "rate_limit": {
+          "key": "rate_limit",
+          "label": "Rate Limit",
+          "help": "The send rate limit in bytes per second (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "safe": {
+          "key": "safe",
+          "label": "Safe",
+          "help": "IP address to secure (CurveZMQ) bind (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        }
+      },
+      "service": true,
+      "enableKey": "bind"
+    },
+    "btcd": {
+      "key": "btcd",
+      "title": "BTCD",
+      "summary": "The btcd JSON-RPC and websocket interface.",
+      "tier": "service",
+      "settings": {
+        "allow_opaque_origin": {
+          "key": "allow_opaque_origin",
+          "label": "Allow Opaque Origin",
+          "help": "Allow requests from opaque origin (see CORS).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "bind": {
+          "key": "bind",
+          "label": "Bind",
+          "help": "IP address to bind (empty disables).",
+          "tier": "service",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "cert_auth": {
+          "key": "cert_auth",
+          "label": "Certificate Authentication",
+          "help": "The trusted client certificate directory (*.PEM), enables client authentication.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "cert_path": {
+          "key": "cert_path",
+          "label": "Certificate Path",
+          "help": "The path to the server certificate file (.PEM).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "connect_timeout_seconds": {
+          "key": "connect_timeout_seconds",
+          "label": "Connect Timeout Seconds",
+          "help": "The time limit for connection establishment (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "connections": {
+          "key": "connections",
+          "label": "Connections",
+          "help": "The required maximum number of connections.",
+          "tier": "service",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "credential": {
+          "key": "credential",
+          "label": "Credential",
+          "help": "The 'username:password[:method,...]' authorization (not secure).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged",
+          "secret": true
+        },
+        "expiration_minutes": {
+          "key": "expiration_minutes",
+          "label": "Expiration Minutes",
+          "help": "The maximum connection duration.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 60,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "host": {
+          "key": "host",
+          "label": "Host",
+          "help": "The host name (HTTP verification) (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "inactivity_minutes": {
+          "key": "inactivity_minutes",
+          "label": "Inactivity Minutes",
+          "help": "The idle timeout (HTTP/WS keep-alive).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "key_pass": {
+          "key": "key_pass",
+          "label": "Key Pass",
+          "help": "The password to decrypt the server private key file (.PEM), optional.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged",
+          "secret": true
+        },
+        "key_path": {
+          "key": "key_path",
+          "label": "Key Path",
+          "help": "The path to the server private key file (.PEM).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "maximum_backlog": {
+          "key": "maximum_backlog",
+          "label": "Maximum Backlog",
+          "help": "The maximum write backlog of a channel.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 20971520,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_buffer": {
+          "key": "maximum_buffer",
+          "label": "Maximum Buffer",
+          "help": "The maximum JSON response buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 65536,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_filters": {
+          "key": "maximum_filters",
+          "label": "Maximum Filters",
+          "help": "The maximum number of loadtxfilter watches.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_history": {
+          "key": "maximum_history",
+          "label": "Maximum History",
+          "help": "The maximum number of address history entries.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_request": {
+          "key": "maximum_request",
+          "label": "Maximum Request",
+          "help": "The maximum allowed request size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 8004096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "minimum_buffer": {
+          "key": "minimum_buffer",
+          "label": "Minimum Buffer",
+          "help": "The minimum retained read buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "origin": {
+          "key": "origin",
+          "label": "Origin",
+          "help": "The allowed origin (see CORS) (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "rate_limit": {
+          "key": "rate_limit",
+          "label": "Rate Limit",
+          "help": "The send rate limit in bytes per second (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "safe": {
+          "key": "safe",
+          "label": "Safe",
+          "help": "IP address to secure bind (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "server": {
+          "key": "server",
+          "label": "Server",
+          "help": "The server name (HTTP header).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "libbitcoin/4",
+          "emit": "whenChanged"
+        }
+      },
+      "service": true,
+      "enableKey": "bind"
+    },
+    "electrum": {
+      "key": "electrum",
+      "title": "Electrum",
+      "summary": "The Electrum protocol server.",
+      "tier": "service",
+      "settings": {
+        "banner_message": {
+          "key": "banner_message",
+          "label": "Banner Message",
+          "help": "String returned by server.banner.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "bind": {
+          "key": "bind",
+          "label": "Bind",
+          "help": "IP address to bind (empty disables).",
+          "tier": "service",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "cert_path": {
+          "key": "cert_path",
+          "label": "Certificate Path",
+          "help": "The path to the server certificate file (.PEM).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "connect_timeout_seconds": {
+          "key": "connect_timeout_seconds",
+          "label": "Connect Timeout Seconds",
+          "help": "The time limit for connection establishment (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "connections": {
+          "key": "connections",
+          "label": "Connections",
+          "help": "The required maximum number of connections.",
+          "tier": "service",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "donation_address": {
+          "key": "donation_address",
+          "label": "Donation Address",
+          "help": "String returned by server.donation_address.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "expiration_minutes": {
+          "key": "expiration_minutes",
+          "label": "Expiration Minutes",
+          "help": "The maximum connection duration.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 60,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "inactivity_minutes": {
+          "key": "inactivity_minutes",
+          "label": "Inactivity Minutes",
+          "help": "The idle timeout (HTTP keep-alive).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "key_path": {
+          "key": "key_path",
+          "label": "Key Path",
+          "help": "The path to the server private key file (.PEM).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "maximum_backlog": {
+          "key": "maximum_backlog",
+          "label": "Maximum Backlog",
+          "help": "The maximum write backlog of a channel.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1048576,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_buffer": {
+          "key": "maximum_buffer",
+          "label": "Maximum Buffer",
+          "help": "The maximum JSON response buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 65536,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_headers": {
+          "key": "maximum_headers",
+          "label": "Maximum Headers",
+          "help": "The maximum allowed headers returned per request.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 20160,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_history": {
+          "key": "maximum_history",
+          "label": "Maximum History",
+          "help": "The maximum number of address history entries upon one subscription.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_request": {
+          "key": "maximum_request",
+          "label": "Maximum Request",
+          "help": "The maximum allowed request size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 8004096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_subscriptions": {
+          "key": "maximum_subscriptions",
+          "label": "Maximum Subscriptions",
+          "help": "The maximum allowed address subscriptions per channel.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "minimum_buffer": {
+          "key": "minimum_buffer",
+          "label": "Minimum Buffer",
+          "help": "The minimum retained read buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "more_bind": {
+          "key": "more_bind",
+          "label": "Additional Bind",
+          "help": "Advertised host:port at which another server can be reached.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "more_safe": {
+          "key": "more_safe",
+          "label": "Additional Secure Bind",
+          "help": "Advertised secure host:port at which another server can be reached.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "ping_interval_seconds": {
+          "key": "ping_interval_seconds",
+          "label": "Ping Interval Seconds",
+          "help": "The seconds between unrequested pings (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "ping_size": {
+          "key": "ping_size",
+          "label": "Ping Size",
+          "help": "The hex characters of unrequested ping data.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "protocol_maximum": {
+          "key": "protocol_maximum",
+          "label": "Protocol Maximum",
+          "help": "Maximum protocol version.",
+          "tier": "advanced",
+          "kind": "decimal",
+          "default": 1.7,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "protocol_minimum": {
+          "key": "protocol_minimum",
+          "label": "Protocol Minimum",
+          "help": "Minimum protocol version.",
+          "tier": "advanced",
+          "kind": "decimal",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "rate_limit": {
+          "key": "rate_limit",
+          "label": "Rate Limit",
+          "help": "The send rate limit in bytes per second (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "safe": {
+          "key": "safe",
+          "label": "Safe",
+          "help": "IP address to secure bind (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "self_bind": {
+          "key": "self_bind",
+          "label": "Advertised Bind",
+          "help": "Advertised host:port at which this server can be reached.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "self_safe": {
+          "key": "self_safe",
+          "label": "Advertised Secure Bind",
+          "help": "Advertised secure host:port at which this server can be reached.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "server_name": {
+          "key": "server_name",
+          "label": "Server Name",
+          "help": "String returned by server.version.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "/libbitcoin:4.0.10255/",
+          "emit": "whenChanged"
+        }
+      },
+      "service": true,
+      "enableKey": "bind"
+    },
+    "sparrow": {
+      "key": "sparrow",
+      "title": "Sparrow",
+      "summary": "The Electrum protocol server with silent payment extensions, for Sparrow.",
+      "tier": "service",
+      "settings": {
+        "banner_message": {
+          "key": "banner_message",
+          "label": "Banner Message",
+          "help": "String returned by server.banner.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "bind": {
+          "key": "bind",
+          "label": "Bind",
+          "help": "IP address to bind (empty disables).",
+          "tier": "service",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "cert_path": {
+          "key": "cert_path",
+          "label": "Certificate Path",
+          "help": "The path to the server certificate file (.PEM).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "connect_timeout_seconds": {
+          "key": "connect_timeout_seconds",
+          "label": "Connect Timeout Seconds",
+          "help": "The time limit for connection establishment (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "connections": {
+          "key": "connections",
+          "label": "Connections",
+          "help": "The required maximum number of connections.",
+          "tier": "service",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "donation_address": {
+          "key": "donation_address",
+          "label": "Donation Address",
+          "help": "String returned by server.donation_address.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "expiration_minutes": {
+          "key": "expiration_minutes",
+          "label": "Expiration Minutes",
+          "help": "The maximum connection duration.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 60,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "inactivity_minutes": {
+          "key": "inactivity_minutes",
+          "label": "Inactivity Minutes",
+          "help": "The idle timeout (HTTP keep-alive).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "key_path": {
+          "key": "key_path",
+          "label": "Key Path",
+          "help": "The path to the server private key file (.PEM).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "maximum_backlog": {
+          "key": "maximum_backlog",
+          "label": "Maximum Backlog",
+          "help": "The maximum write backlog of a channel.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1048576,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_buffer": {
+          "key": "maximum_buffer",
+          "label": "Maximum Buffer",
+          "help": "The maximum JSON response buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 65536,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_headers": {
+          "key": "maximum_headers",
+          "label": "Maximum Headers",
+          "help": "The maximum allowed headers returned per request.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 20160,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_history": {
+          "key": "maximum_history",
+          "label": "Maximum History",
+          "help": "The maximum number of address history entries upon one subscription.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_request": {
+          "key": "maximum_request",
+          "label": "Maximum Request",
+          "help": "The maximum allowed request size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 8004096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_subscriptions": {
+          "key": "maximum_subscriptions",
+          "label": "Maximum Subscriptions",
+          "help": "The maximum allowed address subscriptions per channel.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "minimum_buffer": {
+          "key": "minimum_buffer",
+          "label": "Minimum Buffer",
+          "help": "The minimum retained read buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "more_bind": {
+          "key": "more_bind",
+          "label": "Additional Bind",
+          "help": "Advertised host:port at which another server can be reached.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "more_safe": {
+          "key": "more_safe",
+          "label": "Additional Secure Bind",
+          "help": "Advertised secure host:port at which another server can be reached.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "ping_interval_seconds": {
+          "key": "ping_interval_seconds",
+          "label": "Ping Interval Seconds",
+          "help": "The seconds between unrequested pings (0 disables).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "ping_size": {
+          "key": "ping_size",
+          "label": "Ping Size",
+          "help": "The hex characters of unrequested ping data.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "protocol_maximum": {
+          "key": "protocol_maximum",
+          "label": "Protocol Maximum",
+          "help": "Maximum protocol version.",
+          "tier": "advanced",
+          "kind": "decimal",
+          "default": 1.7,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "protocol_minimum": {
+          "key": "protocol_minimum",
+          "label": "Protocol Minimum",
+          "help": "Minimum protocol version.",
+          "tier": "advanced",
+          "kind": "decimal",
+          "default": 1,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "rate_limit": {
+          "key": "rate_limit",
+          "label": "Rate Limit",
+          "help": "The send rate limit in bytes per second (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "safe": {
+          "key": "safe",
+          "label": "Safe",
+          "help": "IP address to secure bind (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "self_bind": {
+          "key": "self_bind",
+          "label": "Advertised Bind",
+          "help": "Advertised host:port at which this server can be reached.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "self_safe": {
+          "key": "self_safe",
+          "label": "Advertised Secure Bind",
+          "help": "Advertised secure host:port at which this server can be reached.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "server_name": {
+          "key": "server_name",
+          "label": "Server Name",
+          "help": "String returned by server.version.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "/libbitcoin:4.0.10255/",
+          "emit": "whenChanged"
+        }
+      },
+      "service": true,
+      "enableKey": "bind"
+    },
+    "esplora": {
+      "key": "esplora",
+      "title": "Esplora",
+      "summary": "The Esplora interface.",
+      "tier": "service",
+      "settings": {
+        "allow_opaque_origin": {
+          "key": "allow_opaque_origin",
+          "label": "Allow Opaque Origin",
+          "help": "Allow requests from opaque origin (see CORS).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
+          "emit": "whenChanged"
+        },
+        "bind": {
+          "key": "bind",
+          "label": "Bind",
+          "help": "IP address to bind (empty disables).",
+          "tier": "service",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "cert_auth": {
+          "key": "cert_auth",
+          "label": "Certificate Authentication",
+          "help": "The trusted client certificate directory (*.PEM), enables client authentication.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "cert_path": {
+          "key": "cert_path",
+          "label": "Certificate Path",
+          "help": "The path to the server certificate file (.PEM).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "connect_timeout_seconds": {
+          "key": "connect_timeout_seconds",
+          "label": "Connect Timeout Seconds",
+          "help": "The time limit for connection establishment (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "seconds"
+        },
+        "connections": {
+          "key": "connections",
+          "label": "Connections",
+          "help": "The required maximum number of connections.",
+          "tier": "service",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "expiration_minutes": {
+          "key": "expiration_minutes",
+          "label": "Expiration Minutes",
+          "help": "The maximum connection duration.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 60,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "host": {
+          "key": "host",
+          "label": "Host",
+          "help": "The host name (HTTP verification) (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "inactivity_minutes": {
+          "key": "inactivity_minutes",
+          "label": "Inactivity Minutes",
+          "help": "The idle timeout (HTTP keep-alive).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 10,
+          "emit": "whenChanged",
+          "min": 0,
+          "unit": "minutes"
+        },
+        "key_pass": {
+          "key": "key_pass",
+          "label": "Key Pass",
+          "help": "The password to decrypt the server private key file (.PEM), optional.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged",
+          "secret": true
+        },
+        "key_path": {
+          "key": "key_path",
+          "label": "Key Path",
+          "help": "The path to the server private key file (.PEM).",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "maximum_backlog": {
+          "key": "maximum_backlog",
+          "label": "Maximum Backlog",
+          "help": "The maximum write backlog of a channel.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1048576,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_buffer": {
+          "key": "maximum_buffer",
+          "label": "Maximum Buffer",
+          "help": "The maximum JSON response buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 65536,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_history": {
+          "key": "maximum_history",
+          "label": "Maximum History",
+          "help": "The maximum number of address history entries.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 1000000,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "maximum_request": {
+          "key": "maximum_request",
+          "label": "Maximum Request",
+          "help": "The maximum allowed request size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 8004096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "minimum_buffer": {
+          "key": "minimum_buffer",
+          "label": "Minimum Buffer",
+          "help": "The minimum retained read buffer size.",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 4096,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "origin": {
+          "key": "origin",
+          "label": "Origin",
+          "help": "The allowed origin (see CORS) (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "rate_limit": {
+          "key": "rate_limit",
+          "label": "Rate Limit",
+          "help": "The send rate limit in bytes per second (0 uses the network setting).",
+          "tier": "advanced",
+          "kind": "integer",
+          "default": 0,
+          "emit": "whenChanged",
+          "min": 0
+        },
+        "safe": {
+          "key": "safe",
+          "label": "Safe",
+          "help": "IP address to secure bind (empty disables).",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged"
+        },
+        "server": {
+          "key": "server",
+          "label": "Server",
+          "help": "The server name (HTTP header).",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "libbitcoin/4",
+          "emit": "whenChanged"
+        }
+      },
+      "service": true,
+      "enableKey": "bind"
+    }
+  }
+}

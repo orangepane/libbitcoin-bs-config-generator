@@ -1,0 +1,12 @@
+{
+  "network": {
+    "rate_limit": 102400
+  },
+  "outbound": {
+    "connections": 8,
+    "current_connections": 8
+  },
+  "inbound": {
+    "connections": 8
+  }
+}

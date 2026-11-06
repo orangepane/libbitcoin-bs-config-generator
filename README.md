@@ -1,0 +1,85 @@
+# libbitcoin bs config generator
+
+Generate a `bs.cfg` for **libbitcoin server v4** without reading the whole
+settings reference. You run a libbitcoin node, or you are about to: choose the
+network, start from an intent such as a wallet server, a bitcoind backend or
+Tor privacy, change only what your machine needs, and download a configuration
+that explains itself line by line.
+
+Live at <https://orangepane.github.io/libbitcoin-bs-config-generator/>.
+
+`bs` is a Bitcoin full node and query server. How it works, what it costs to
+run, and what every setting means are documented at
+[libbitcoin.org](https://libbitcoin.org); this page exposes the configuration
+surface and links back there for depth.
+
+## What it does
+
+- Writes only the settings that differ from their mainnet defaults, each under
+  its `[section]` header and preceded by its catalog description as a comment.
+- Covers the bs v4 sections: log, database, store tables, chain parameters,
+  node, P2P, outbound and inbound, manual peers, admin, native REST, bitcoind
+  JSON-RPC, REST and ZMQ, BTCD, Electrum, Sparrow and Esplora.
+- Imports an existing `bs.cfg` and re-exports it, keeping keys the catalog does
+  not know instead of dropping them.
+- Undoes the last preset, import or reset in one step.
+- Copies the file to the clipboard or downloads it.
+- Shares a configuration as a link: your choices travel in the URL fragment, so
+  the reader's own draft is never replaced without their action.
+
+The defaults shown are mainnet defaults. When you select another network the
+page says so, because `bs` derives some values (the milestone checkpoint and
+table sizes) from the network you run.
+
+## Run it locally
+
+```bash
+npm ci
+npm run dev        # Vite dev server
+npm test           # unit tests
+npm run test:e2e   # Playwright journeys, axe and the network assertion
+npm run build      # typecheck and production build into dist/
+```
+
+The catalog under `src/catalog.json` is generated. To rebuild it from the seed
+in `scripts/data/`, run `npm run catalog`. Do not edit the generated file by
+hand.
+
+## Next steps after downloading
+
+```bash
+bs -n testnet4          # first run on a non-mainnet network creates its store
+bs --config bs.cfg      # run with the file you generated
+bs --settings           # print every setting and its current value
+```
+
+## Where this came from
+
+The first version of this tool kept the 2015 Material Design Lite shell it
+inherited through two forks. The rebuild replaced that surface: the data engine
+and the presets were kept, the shell, the controls and the information
+architecture were written again. The parent project plan said not to redesign;
+this repository records that the decision was superseded, and why: the inherited
+shell could not be made usable or accessible without replacing it.
+
+## Version
+
+This generator targets libbitcoin server **v4**, which is a release candidate.
+The last stable release, v3.8.0, reads a different settings format: a v4 file
+will not work there, and this page has no migration mode for v3.8
+configurations.
+
+## Privacy
+
+No backend, no accounts, no telemetry, no analytics, no third-party requests.
+There are no web fonts, CDN scripts or icon fonts; everything the page needs is
+in the bundle. Nothing you type leaves the browser.
+
+## Licence and lineage
+
+GPL-3.0; see [LICENSE](LICENSE). Derived from
+[jlopp/bitcoin-core-config-generator](https://github.com/jlopp/bitcoin-core-config-generator),
+itself a fork of
+[paritytech/parity-config-generator](https://github.com/paritytech/parity-config-generator).
+
+This is a community tool, not an official libbitcoin project.

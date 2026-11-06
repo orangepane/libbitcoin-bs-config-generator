@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+coverage/
+test-results/
+playwright-report/
+.DS_Store
+*.local
+*.log
+.playwright-mcp/
+wip/
