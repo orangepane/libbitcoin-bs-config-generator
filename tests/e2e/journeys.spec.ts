@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 
-// Four product promises, not rendering checks: preset to file, an invalid value
-// named, import and re-export, and the artifact on a phone.
+// Four product promises: preset to file, an invalid value named, import and
+// re-export, and the artifact on a phone.
 
 test.beforeEach(async ({ page }) => {
   await page.goto('./');
@@ -12,8 +12,8 @@ test('preset to downloaded file in three interactions', async ({ page }) => {
   await page.getByRole('button', { name: 'Apply Wallet server' }).click();
   await page.getByRole('button', { name: 'Download bs.cfg' }).click();
 
-  // The preset exposes an interface on all addresses without TLS. The warning
-  // is read once more before the file is saved; it does not block the save.
+  // The preset exposes an interface on all addresses without TLS: the warning is
+  // read once more before saving, and does not block it.
   await expect(page.getByRole('dialog')).toContainText('electrum.bind');
   const downloaded = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Download anyway' }).click();

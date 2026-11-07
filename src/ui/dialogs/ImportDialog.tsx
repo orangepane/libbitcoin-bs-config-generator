@@ -3,9 +3,7 @@ import type { RefObject } from 'react';
 import type { ImportDialogProps } from '../types';
 import { MAX_IMPORT_BYTES } from '../../config';
 
-// Import. Pasting or choosing a file fills the box; nothing replaces the draft
-// until Apply. The parser reports what it could not read, and unknown keys are
-// kept rather than dropped.
+// Nothing replaces the draft until Apply. Unknown keys are kept, not dropped.
 
 /** Open a native dialog on mount, close it when the caller says so. */
 function useModal (open: boolean): RefObject<HTMLDialogElement | null> {

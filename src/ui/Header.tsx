@@ -1,8 +1,5 @@
 import type { HeaderProps } from './types';
 
-// The site header: what this is, which bs it targets, the two numbers that
-// describe the draft, and the one action that replaces it.
-
 export interface HeaderShellProps extends HeaderProps {
   /** Catalog version string, for example "v4". */
   version: string;

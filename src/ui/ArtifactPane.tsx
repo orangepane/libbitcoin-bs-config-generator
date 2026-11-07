@@ -4,9 +4,8 @@ import type { ArtifactTab, ArtifactPaneProps, CopyState } from './types';
 import { lineDomId } from './types';
 import type { Artifact, ConfigValue, DiffEntry, Settings } from '../config';
 
-// The artifact pane: the file, the diff and the checks over one text. Every
-// emitted line knows the setting that wrote it, so a line is a link back to its
-// row. Nothing here writes state.
+// The file, the diff and the checks over one text. Every emitted line knows the
+// setting that wrote it, so a line links back to its row.
 
 const TABS: Array<{ id: ArtifactTab; label: string }> = [
   { id: 'file', label: 'File' },

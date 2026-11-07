@@ -2,12 +2,10 @@ import type { Catalog, SectionDef, SettingDef } from '../catalog';
 import { valuesEqual } from './defaults';
 import type { ConfigValue, Settings, Warning } from './types';
 
-// Derived lint rules. Pure: settings and defaults are read, never written, and
-// nothing here blocks a download. Every rule states what is wrong, what happens,
-// and what to do, in the register of a careful operator's notebook.
+// Derived lint rules. Pure: nothing here writes settings or blocks a download.
 //
-// This is the one module allowed to name settings directly: a rule is a fact
-// about `bs`, not a fact the generated catalog carries.
+// The one module allowed to name settings directly: a rule is a fact about
+// `bs`, not a fact the generated catalog carries.
 
 const MAINNET = 'mainnet';
 const WALLET_SERVICES = ['electrum', 'sparrow', 'esplora'];

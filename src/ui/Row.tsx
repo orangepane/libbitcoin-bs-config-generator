@@ -1,6 +1,3 @@
-// One setting. The row owns the label line, help, error and state; the control
-// owns only the input. Empty is a state, invalid is named, and a revert
-// restores the catalog default exactly.
 import type { ReactNode } from 'react';
 
 import type { ConfigValue } from '../config';
@@ -39,9 +36,8 @@ export function Row ({
   const showDefaultChip = networkScoped && state === 'default' && !changed;
   const showReason = reason !== undefined && (state === 'disabled' || state === 'fixed');
 
-  // Empty is a state, not a zero. The settings tree types do not yet carry
-  // `undefined`, so the unset value crosses this boundary as a widened value;
-  // see the note in the task report.
+  // Empty is a state, not zero: the tree carries no `undefined`, so an unset
+  // value crosses this boundary as a widened value.
   const emit = (next: ConfigValue | undefined) => onChange(next as ConfigValue);
 
   function control (): ReactNode {

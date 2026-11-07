@@ -68,8 +68,8 @@ export const PRESETS: Preset[] = [
     rationale:
       'Set the milestone to the genesis block. Validates the whole chain; plan for the storage and time it costs.',
     config: genesisValidation,
-    // The genesis hash is mainnet's. On any other chain the node would validate
-    // against a block that is not in its chain.
+    // The genesis hash is mainnet's; on another chain it names a block that is
+    // not in that chain.
     networks: ['mainnet'],
   },
 ];
@@ -82,9 +82,7 @@ export function presetById (id: string): Preset | undefined {
  * A preset is a starting point: defaults overlaid with the preset's sparse config.
  *
  * The network is a frame around the file, not part of what a preset chooses, so
- * a preset that does not name the network keeps the one already selected. Without
- * this, applying a preset on testnet4 silently rebuilt the draft from mainnet
- * defaults and threw the network choice away.
+ * a preset that does not name the network keeps the one already selected.
  */
 export function applyPreset (
   defaults: Settings,
@@ -97,7 +95,7 @@ export function applyPreset (
   const location = catalog ? networkLocation(catalog) : null;
   if (!current || !location) return applied;
 
-  // A preset that names the network wins: it is switching, not adapting.
+  // A preset that names the network is switching, so it wins.
   if (preset.config[location.section]?.[location.key] !== undefined) return applied;
 
   const chosen = current[location.section]?.[location.key];

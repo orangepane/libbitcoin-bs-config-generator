@@ -1,6 +1,6 @@
-// Import fidelity: the parser is the only way a bs.cfg gets back into the tool,
-// so a loss there is a loss in the user's config. Empty is a state, bad values
-// are reported rather than coerced, and a generated file re-exports byte for byte.
+// Import fidelity: the parser is the only way a bs.cfg gets back into the tool.
+// Empty is a state, bad values are reported rather than coerced, and a generated
+// file re-exports byte for byte.
 import { describe, expect, it } from 'vitest';
 
 import catalogJson from '../../src/catalog.json';

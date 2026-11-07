@@ -10,9 +10,7 @@ function rail (): ReturnType<typeof within> {
   return within(screen.getByRole('complementary', { name: 'Views and filters' }));
 }
 
-// One step back after the actions that replace the draft wholesale. The rail
-// button carries the action in its accessible name, so it says what it will
-// undo before it is pressed.
+// One step back after the actions that replace the draft wholesale.
 
 describe('undo', () => {
   it('restores the draft before a preset is applied', async () => {
@@ -39,8 +37,7 @@ describe('undo', () => {
     expect(screen.getByRole('button', { name: 'Applied Wallet server' })).toBeDisabled();
     expect(screen.queryByRole('button', { name: 'Apply Wallet server' })).toBeNull();
 
-    // An edit leaves the draft no longer equal to the preset, so the card offers
-    // the preset again rather than claiming it is applied.
+    // An edit leaves the draft unequal to the preset, so the card offers it again.
     await user.click(screen.getByRole('button', { name: 'All' }));
     await user.type(screen.getByRole('searchbox', { name: 'Search settings' }), 'verbose');
     await user.click(screen.getByRole('switch', { name: /verbose/i }));
@@ -65,8 +62,7 @@ describe('undo', () => {
 });
 
 describe('views', () => {
-  // The view belongs to the reader, not to the draft. Editing a row is not a
-  // request to change where the reader is looking.
+  // Editing a row must not change the view.
   it('stays in Essentials when a row there takes focus', async () => {
     const user = userEvent.setup();
     render(<App />);
@@ -80,8 +76,7 @@ describe('views', () => {
     expect(rail().getByRole('button', { name: 'All' })).toHaveAttribute('aria-pressed', 'false');
   });
 
-  // The artifact is a map of the file, so a line in it still takes the reader to
-  // the All view, which always holds the row it names.
+  // A line in the artifact still reaches the All view, which holds its row.
   it('follows a diff entry out of Essentials to All', async () => {
     const user = userEvent.setup();
     render(<App />);
@@ -110,8 +105,7 @@ describe('network and presets', () => {
     expect(network).toHaveValue('regtest');
     await user.click(screen.getByRole('tab', { name: /^Diff/ }));
     const diff = within(screen.getByRole('tabpanel'));
-    // The network differs from the mainnet default, so it is emitted: the point is
-    // that it reads regtest, not that the preset's own settings arrived alone.
+    // The network differs from the mainnet default, so it is emitted.
     expect(diff.getByRole('button', { name: 'network' })).toBeInTheDocument();
     expect(diff.getByRole('button', { name: 'bind' })).toBeInTheDocument();
     expect(diff.getByText('regtest')).toBeInTheDocument();
@@ -133,8 +127,7 @@ describe('network and presets', () => {
     expect(screen.getByRole('button', { name: 'Apply Wallet server' })).toBeEnabled();
   });
 
-  // One instruction, one home in the guidance: the panel next to the decision
-  // that causes it, not a lint rule the reader has to find.
+  // The store command lives in the panel, not in a warning.
   it('states the store command in the panel, not as a warning', async () => {
     const user = userEvent.setup();
     render(<App />);

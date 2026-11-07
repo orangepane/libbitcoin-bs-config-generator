@@ -2,9 +2,8 @@ import { useEffect, useId, useRef } from 'react';
 import type { RefObject } from 'react';
 import type { CopyState, ShareDialogProps } from '../types';
 
-// Share. The link is built from the current draft when the button is pressed,
-// never while typing, and it opens here as text so it can be read before it is
-// passed on.
+// The link is built when the button is pressed, never while typing, and shown
+// as text so it can be read before it is passed on.
 
 function useModal (open: boolean): RefObject<HTMLDialogElement | null> {
   const ref = useRef<HTMLDialogElement>(null);

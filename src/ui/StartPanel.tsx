@@ -3,9 +3,8 @@ import type { StartPanelProps } from './types';
 import { networkSetting, sectionList } from '../catalog';
 import { PRESETS } from '../config';
 
-// The Start view. One decision, network, then a preset as a starting point.
-// Applying is one click and is not confirmed: it is visible in the diff pane
-// and reversible with Reset.
+// Applying a preset is one click and is not confirmed: the diff shows it, Reset
+// reverses it.
 
 export function StartPanel ({
   catalog,
@@ -17,8 +16,7 @@ export function StartPanel ({
 }: StartPanelProps) {
   const networkId = useId();
   const networkDefinition = networkSetting(catalog);
-  // The section that owns the network setting, found through the catalog rather
-  // than named here: UI code carries no setting names.
+  // Found through the catalog, never named here: UI code carries no setting names.
   const networkSection = useMemo(
     () =>
       networkDefinition
@@ -36,7 +34,6 @@ export function StartPanel ({
     networkDefinition && typeof networkDefinition.default === 'string' ? networkDefinition.default : 'mainnet';
   const network = typeof selected === 'string' && selected !== '' ? selected : fallback;
 
-  // Reader-facing names for the network ids a preset may declare.
   const networkLabels = useMemo(
     () => new Map((networkDefinition?.values ?? []).map((value) => [value.value, value.label])),
     [networkDefinition],
@@ -94,9 +91,6 @@ export function StartPanel ({
         <ul className="preset-list">
           {PRESETS.map((preset) => {
             const applied = presetId === preset.id && !modified;
-            // A preset may be valid on some networks only. Say so on the card and
-            // refuse the click: a file that cannot work for the current chain is
-            // worse than a starting point that is missing.
             const scope =
               preset.networks && !preset.networks.includes(network)
                 ? preset.networks.map((value) => networkLabels.get(value) ?? value).join(' or ')

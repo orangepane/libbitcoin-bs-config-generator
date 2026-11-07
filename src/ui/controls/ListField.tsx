@@ -1,9 +1,6 @@
-// A list editor. One labelled input per entry, plus add, remove and reorder.
-// An empty array is a valid value and means "unset", never an empty string.
-//
-// Structural edits and entry text are held as an edit layered on the committed
-// array. When the parent gives a new array (commit, revert, import), the edit
-// no longer matches and the committed array wins.
+// An empty array means "unset", never an empty string. Structural edits and
+// entry text are one edit layered on the committed array; when the parent sends
+// a new array, the edit stops matching and the committed array wins.
 import { useState } from 'react';
 
 export interface ListFieldProps {

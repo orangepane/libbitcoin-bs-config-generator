@@ -1,6 +1,3 @@
-// Native select. The old tree's custom dropdown cost the project its preset
-// feature; this one is a real <select>.
-
 export interface SelectOption {
   label: string;
   value: string;

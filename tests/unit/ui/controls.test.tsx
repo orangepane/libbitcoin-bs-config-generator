@@ -1,5 +1,4 @@
-// Control behaviour. The cases that matter are the ones that broke in the
-// as-built tree: committing on keystroke, emptying a field, and list edits.
+// Control behaviour: committing on keystroke, emptying a field, and list edits.
 import { useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';

@@ -1,8 +1,6 @@
-// Preset integrity.
-//
-// A preset is shipped data applied over the catalog defaults, so it must name
-// real settings, keep their types, and stay a starting point rather than a
-// mode. Every key and value has to exist in the catalog.
+// Preset integrity: a preset is shipped data applied over the catalog defaults,
+// so it must name real settings and keep their types. Every key and value has to
+// exist in the catalog.
 import { describe, expect, it } from 'vitest';
 
 import catalogJson from '../../src/catalog.json';

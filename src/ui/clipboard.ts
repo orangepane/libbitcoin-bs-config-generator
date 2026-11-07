@@ -1,6 +1,5 @@
-// Copy to clipboard. The async Clipboard API where the browser allows it, a
-// hidden textarea otherwise, so Copy works on an insecure origin too. No
-// third-party code, no permissions prompt of our own.
+// The async Clipboard API where the browser allows it, a hidden textarea
+// otherwise, so Copy works on an insecure origin. No third-party code.
 
 /** Last-resort copy: select a hidden textarea and ask the browser to copy it. */
 function legacyCopy (text: string): boolean {

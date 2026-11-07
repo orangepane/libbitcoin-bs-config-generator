@@ -2,8 +2,8 @@ import type { Catalog } from '../catalog';
 import type { Artifact, DiffEntry, Settings, UnknownEntry } from './types';
 import { diffEntries } from './diff';
 
-// The serializer. Pure: no argument is touched; the same inputs always produce
-// the same text. This is the only place the file layout is decided.
+// Pure: no argument is touched, and the same inputs always produce the same
+// text. This is the only place the file layout is decided.
 
 const GENERATOR_URL = 'https://orangepane.github.io/libbitcoin-bs-config-generator/';
 

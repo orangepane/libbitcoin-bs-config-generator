@@ -1,5 +1,3 @@
-// The settings surface. Reads the catalog, derives each row's state, and lays
-// the sections out for the Essentials and All views. No state mutation here.
 import { useEffect } from 'react';
 
 import type { SectionDef, SettingDef } from '../catalog';

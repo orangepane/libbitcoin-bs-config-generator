@@ -2,9 +2,9 @@ import type { Catalog, Kind } from '../catalog';
 import type { ConfigValue, Settings, SparseSettings, UnknownEntry } from './types';
 import { mixDefaults, stripDefaults } from './defaults';
 
-// Sharing. Links carry the sparse config only, encoded as UTF-8 bytes in
-// base64url. Reading a link never throws and never mutates the defaults.
-// Writing a link never touches the URL: the caller decides when to share.
+// Links carry the sparse config only, as UTF-8 bytes in base64url. Reading one
+// never throws and never mutates the defaults; writing one never touches the
+// URL, because the caller decides when to share.
 
 const BASE64_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 

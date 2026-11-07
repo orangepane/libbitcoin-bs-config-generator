@@ -1,9 +1,6 @@
-/* Layout and component styles. Owned by the UI workstream.
- *
- * Tokens only: every colour, radius, space unit and type step comes from
+/* Tokens only: every colour, radius, space unit and type step comes from
  * tokens.css. No shadows, gradients, icon fonts or animation. Two layouts:
- * three columns at 960px and above, one column below it.
- */
+ * three columns at 960px and above, one column below it. */
 
 /* ---------- page frame ---------- */
 
@@ -586,9 +583,7 @@ details:not([open]) > *:not(summary) {
   outline-offset: 2px;
 }
 
-/* ---------- shell: header, rail, artifact, dialogs ----------
- * Added in the integration pass. Everything below uses tokens only.
- */
+/* ---------- shell: header, rail, artifact, dialogs ---------- */
 
 .skip-link {
   position: absolute;
@@ -1208,7 +1203,7 @@ details:not([open]) > *:not(summary) {
   min-height: 0;
 }
 
-/* mobile bar, hidden on desktop */
+/* mobile bar */
 
 .mobile-bar {
   display: none;

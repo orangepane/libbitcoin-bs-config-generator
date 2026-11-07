@@ -2,8 +2,8 @@ import type { Catalog, Kind, SettingDef } from '../catalog';
 import { clone } from './defaults';
 import type { ConfigValue, ParseResult, Settings, UnknownEntry } from './types';
 
-// Import. `bs.cfg` text -> full settings. Unknown keys are preserved, not
-// dropped, and nothing here throws: a malformed line is reported, not fatal.
+// Unknown keys are preserved, not dropped, and nothing here throws: a malformed
+// line is reported, not fatal.
 //
 // Shape of the file, as `bs` reads it:
 //   # a full-line comment

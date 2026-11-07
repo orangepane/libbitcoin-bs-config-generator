@@ -2,8 +2,7 @@ import { useEffect, useId, useRef } from 'react';
 import type { RefObject } from 'react';
 import type { Warning } from '../../config';
 
-// Download. Warnings never block the file; they are read one more time before
-// the browser saves it, with the same text the Warnings tab shows.
+// Warnings never block the file; they are read once more before it is saved.
 
 export interface DownloadDialogProps {
   open: boolean;

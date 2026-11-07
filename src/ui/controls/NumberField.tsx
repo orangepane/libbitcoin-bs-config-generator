@@ -1,11 +1,6 @@
-// A number field that edits a string draft. Typing never commits, so the field
-// can be emptied and an out-of-range value is reported rather than clamped.
-// Empty is a state, not zero, and a typed value is never silently rewritten.
-//
-// The draft is not copied into state with an effect: it is the committed value
-// unless the user is editing, in which case it is the text typed on top of that
-// value. When the parent changes the value (revert, import, preset, network),
-// the edit no longer matches and the field shows the new value.
+// Typing never commits: the field can be emptied and an out-of-range value is
+// reported rather than clamped. An external change of the committed value
+// replaces the draft.
 import { useState } from 'react';
 
 export interface NumberFieldProps {

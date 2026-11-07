@@ -1,8 +1,5 @@
-// A string field for text and path settings. Draft on keystroke, commit on
-// blur or Enter, so a half-typed value never reaches the config.
-//
-// Same draft rule as NumberField: the field shows the committed value unless
-// the user is editing on top of it, and an external change wins.
+// Draft on keystroke, commit on blur or Enter: a half-typed value never reaches
+// the config. Same draft rule as NumberField.
 import { useState } from 'react';
 
 export interface TextFieldProps {

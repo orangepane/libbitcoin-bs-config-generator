@@ -1,8 +1,7 @@
 import { useId } from 'react';
 import type { RailProps, TierView } from './types';
 
-// The rail: the three views over one state, the filters, and where the draft
-// came from. Always visible; nothing here scrolls with the settings.
+// Always visible: nothing here scrolls with the settings.
 
 const VIEWS: Array<{ id: TierView; label: string }> = [
   { id: 'start', label: 'Start' },

@@ -27,9 +27,7 @@ import { DownloadDialog } from './dialogs/DownloadDialog';
 import { copyText } from './clipboard';
 import type { ArtifactTab, CopyState, TierView } from './types';
 
-// The shell. One state object, one reducer, four derived memos. Every value the
-// page shows comes from the draft or from the catalog; nothing is written to the
-// URL until Share is pressed.
+// Nothing is written to the URL until Share is pressed.
 
 const catalog: Catalog = parseCatalog(catalogJson);
 const defaults: Settings = getDefaults(catalog);
@@ -232,7 +230,7 @@ export function App () {
     return state.modified ? 'Edited from the defaults' : 'Starting from defaults';
   }, [state.presetId, state.modified]);
 
-  // Copy feedback is a label, not an animation. It resets on its own.
+  // Copy feedback is a label, not an animation.
   useEffect(() => {
     if (copyState === 'idle') return;
     const timer = window.setTimeout(() => setCopyState('idle'), 3000);
@@ -251,8 +249,7 @@ export function App () {
     dispatch({ type: 'preset', id });
   }, []);
 
-  // Two intents, two callbacks. Navigation moves the view; the row's own focus
-  // must not, or editing a field in Essentials would throw the view to All.
+  // Two intents: navigation may change the view, row focus may not.
   const revealRow = useCallback((section: string, key: string) => {
     setFocus({ section, key });
     setView('all');
@@ -297,8 +294,7 @@ export function App () {
     dispatch({ type: 'import', settings: result.settings, unknown: result.unknown });
     setImportErrors(result.errors);
     setImportUnknown(result.unknown);
-    // Stay open only when there is something to read: unreadable lines, or keys
-    // this tool will keep but the catalog does not describe.
+    // Stay open only when there is something to read: errors, or unknown keys.
     if (result.errors.length === 0 && result.unknown.length === 0) setImportOpen(false);
   }
 

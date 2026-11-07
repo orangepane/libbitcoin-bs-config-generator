@@ -2,7 +2,7 @@ import type { Catalog, SettingDef } from '../catalog';
 import type { ConfigValue, DiffEntry, Settings } from './types';
 import { valuesEqual } from './defaults';
 
-// The diff. Pure: neither the settings tree nor the defaults tree is touched.
+// Pure: neither the settings tree nor the defaults tree is touched.
 
 /** A scalar as it appears in a config line: booleans spelled out, numbers plain. */
 function formatScalar (value: string | number | boolean): string {
