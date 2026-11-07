@@ -27,7 +27,6 @@ const KNOWN_IDS = [
   'filters-without-buckets',
   'address-index-disabled',
   'fixed-at-creation',
-  'store-for-network',
 ];
 
 function withChanges (changes: Record<string, Record<string, ConfigValue>>): Settings {
@@ -287,32 +286,6 @@ describe('fixed-at-creation', () => {
 
   it('stays quiet at the defaults', () => {
     expect(ids(evaluateWarnings(defaults, defaults, catalog))).not.toContain('fixed-at-creation');
-  });
-});
-
-describe('store-for-network', () => {
-  it('notices a network-only change and gives the command', () => {
-    const settings = withChanges({ bitcoin: { network: 'regtest' } });
-    const warning = only(evaluateWarnings(settings, defaults, catalog), 'store-for-network');
-
-    expect(warning.severity).toBe('notice');
-    expect(warning.message).toContain('regtest');
-    expect(warning.message).toContain('bs -n regtest');
-  });
-
-  it('stays quiet once anything else is configured', () => {
-    const settings = withChanges({
-      bitcoin: { network: 'regtest' },
-      inbound: { connections: 8 },
-    });
-
-    expect(ids(evaluateWarnings(settings, defaults, catalog))).not.toContain('store-for-network');
-  });
-
-  it('stays quiet on mainnet', () => {
-    const settings = withChanges({ inbound: { connections: 8 } });
-
-    expect(ids(evaluateWarnings(settings, defaults, catalog))).not.toContain('store-for-network');
   });
 });
 

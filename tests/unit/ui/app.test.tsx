@@ -132,4 +132,20 @@ describe('network and presets', () => {
     // The neutral cards stay available, because their settings carry no network.
     expect(screen.getByRole('button', { name: 'Apply Wallet server' })).toBeEnabled();
   });
+
+  // One instruction, one home in the guidance: the panel next to the decision
+  // that causes it, not a lint rule the reader has to find.
+  it('states the store command in the panel, not as a warning', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.selectOptions(screen.getByRole('combobox'), 'testnet3');
+    const panel = within(screen.getByRole('region', { name: 'Network' }));
+    expect(panel.getByText(/bs -n testnet3/)).toBeInTheDocument();
+
+    await user.click(screen.getByRole('tab', { name: /^Warnings/ }));
+    const warnings = within(screen.getByRole('tabpanel'));
+    expect(warnings.queryByText(/store for testnet3/i)).toBeNull();
+    expect(warnings.queryByText(/bs -n testnet3/)).toBeNull();
+  });
 });

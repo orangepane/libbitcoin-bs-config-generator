@@ -1,5 +1,5 @@
 import type { Catalog, SectionDef, SettingDef } from '../catalog';
-import { stripDefaults, valuesEqual } from './defaults';
+import { valuesEqual } from './defaults';
 import type { ConfigValue, Settings, Warning } from './types';
 
 // Derived lint rules. Pure: settings and defaults are read, never written, and
@@ -105,11 +105,6 @@ function joinAnd (items: string[]): string {
 
 function quantify (items: string[], singular: string, plural: string): string {
   return `${joinAnd(items)} ${items.length === 1 ? singular : plural}`;
-}
-
-function countChanged (settings: Settings, defaults: Settings): number {
-  const sparse = stripDefaults(settings, defaults);
-  return Object.values(sparse).reduce((total, values) => total + Object.keys(values).length, 0);
 }
 
 function interfaceWithoutCredentials (settings: Settings, catalog: Catalog): Warning[] {
@@ -273,24 +268,6 @@ function fixedAtCreation (
   return warnings;
 }
 
-function storeForNetwork (settings: Settings, defaults: Settings): Warning[] {
-  const network = valueAt(settings, 'bitcoin', 'network');
-  if (typeof network !== 'string' || network === MAINNET) return [];
-  if (countChanged(settings, defaults) !== 1) return [];
-  if (!isChanged(settings, defaults, 'bitcoin', 'network')) return [];
-
-  return [{
-    id: 'store-for-network',
-    severity: 'notice',
-    section: 'bitcoin',
-    key: 'network',
-    message:
-      `The configuration targets ${network} and changes nothing else, so the store for ${network} must exist before bs starts. ` +
-      `Run bs -n ${network} once to create it, then start bs with this config.`,
-  }];
-}
-
-
 /** Values outside the catalog bounds. The row flags them too; the file says so. */
 function outOfRange (settings: Settings, catalog: Catalog): Warning[] {
   const warnings: Warning[] = [];
@@ -349,6 +326,5 @@ export function evaluateWarnings (
     ...addressIndexDisabled(settings, catalog),
     ...outOfRange(settings, catalog),
     ...fixedAtCreation(settings, defaults, catalog),
-    ...storeForNetwork(settings, defaults),
   ];
 }
