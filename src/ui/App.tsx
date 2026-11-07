@@ -251,11 +251,15 @@ export function App () {
     dispatch({ type: 'preset', id });
   }, []);
 
-  // A line in the artifact points at a row. Show the row: the All view always
-  // contains it, and the row list scrolls it into view.
-  const handleFocusKey = useCallback((section: string, key: string) => {
+  // Two intents, two callbacks. Navigation moves the view; the row's own focus
+  // must not, or editing a field in Essentials would throw the view to All.
+  const revealRow = useCallback((section: string, key: string) => {
     setFocus({ section, key });
     setView('all');
+  }, []);
+
+  const handleRowFocus = useCallback((section: string, key: string) => {
+    setFocus({ section, key });
   }, []);
 
   const handleSearch = useCallback((value: string) => {
@@ -378,7 +382,6 @@ export function App () {
               modified={state.modified}
               onPreset={handlePreset}
               onChange={handleChange}
-              onFocusKey={handleFocusKey}
             />
           ) : (
             <SettingsList
@@ -392,7 +395,7 @@ export function App () {
               focusKey={focusKey}
               onChange={handleChange}
               onRevert={handleRevert}
-              onFocusKey={handleFocusKey}
+              onRowFocus={handleRowFocus}
             />
           )}
         </main>
@@ -405,7 +408,7 @@ export function App () {
           tab={tab}
           onTab={setTab}
           focusKey={focusKey}
-          onFocusKey={handleFocusKey}
+          onFocusKey={revealRow}
           onCopy={() => {
             void copy(artifact.text);
           }}
@@ -472,7 +475,7 @@ export function App () {
             tab={tab}
             onTab={setTab}
             focusKey={focusKey}
-            onFocusKey={handleFocusKey}
+            onFocusKey={revealRow}
             onCopy={() => {
               void copy(artifact.text);
             }}

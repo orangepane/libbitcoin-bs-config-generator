@@ -24,7 +24,7 @@ export function Row ({
   networkScoped,
   onChange,
   onRevert,
-  onFocusKey,
+  onRowFocus,
 }: RowProps) {
   const id = rowDomId(section.key, setting.key);
   const controlId = `${id}-control`;
@@ -139,7 +139,7 @@ export function Row ({
 
       <div
         className="row-control"
-        onFocus={() => onFocusKey?.(section.key, setting.key)}
+        onFocus={() => onRowFocus?.(section.key, setting.key)}
       >
         {control()}
       </div>

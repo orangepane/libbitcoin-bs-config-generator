@@ -105,7 +105,7 @@ export function SettingsList ({
   focusKey,
   onChange,
   onRevert,
-  onFocusKey,
+  onRowFocus,
 }: SettingsListProps) {
   const ordered = orderSections(sectionList(catalog));
   const query = search.trim().toLowerCase();
@@ -255,7 +255,7 @@ export function SettingsList ({
         networkScoped={model.networkScoped}
         onChange={(value) => onChange(model.section.key, model.setting.key, value)}
         onRevert={() => onRevert(model.section.key, model.setting.key)}
-        onFocusKey={onFocusKey}
+        onRowFocus={onRowFocus}
       />
     );
   }

@@ -127,10 +127,10 @@ describe('Row', () => {
 
   it('reports focus with section and key', async () => {
     const user = userEvent.setup();
-    const onFocusKey = vi.fn();
-    renderRow('outbound', 'connections', { onFocusKey });
+    const onRowFocus = vi.fn();
+    renderRow('outbound', 'connections', { onRowFocus });
 
     await user.click(screen.getByRole('textbox', { name: 'Connections' }));
-    expect(onFocusKey).toHaveBeenCalledWith('outbound', 'connections');
+    expect(onRowFocus).toHaveBeenCalledWith('outbound', 'connections');
   });
 });

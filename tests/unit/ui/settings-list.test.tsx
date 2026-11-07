@@ -21,7 +21,7 @@ interface HarnessProps {
   search?: string;
   changedOnly?: boolean;
   errors?: Record<string, string>;
-  onFocusKey?: (section: string, key: string) => void;
+  onRowFocus?: (section: string, key: string) => void;
 }
 
 function Harness ({
@@ -30,7 +30,7 @@ function Harness ({
   search = '',
   changedOnly = false,
   errors = {},
-  onFocusKey = () => {},
+  onRowFocus = () => {},
 }: HarnessProps) {
   const [settings, setSettings] = useState(initial);
 
@@ -54,7 +54,7 @@ function Harness ({
           ...previous,
           [section]: { ...previous[section], [key]: clone(defaults[section][key]) },
         }))}
-      onFocusKey={onFocusKey}
+      onRowFocus={onRowFocus}
     />
   );
 }
@@ -171,13 +171,13 @@ describe('SettingsList', () => {
 
   it('reports the focused section and key', async () => {
     const user = userEvent.setup();
-    const onFocusKey = vi.fn();
+    const onRowFocus = vi.fn();
     const { container } = render(
-      <Harness initial={clone(defaults)} search="maximum_height" onFocusKey={onFocusKey} />,
+      <Harness initial={clone(defaults)} search="maximum_height" onRowFocus={onRowFocus} />,
     );
 
     const target = row(container, 'node', 'maximum_height') as HTMLElement;
     await user.click(within(target).getByRole('textbox'));
-    expect(onFocusKey).toHaveBeenCalledWith('node', 'maximum_height');
+    expect(onRowFocus).toHaveBeenCalledWith('node', 'maximum_height');
   });
 });

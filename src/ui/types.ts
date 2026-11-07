@@ -26,7 +26,8 @@ export interface RowProps {
   networkScoped: boolean;
   onChange: (value: ConfigValue) => void;
   onRevert: () => void;
-  onFocusKey?: (section: string, key: string) => void;
+  /** Bookkeeping only: the row is in the foreground. Must not move the view. */
+  onRowFocus?: (section: string, key: string) => void;
 }
 
 export interface SettingsListProps {
@@ -41,7 +42,7 @@ export interface SettingsListProps {
   focusKey: string | null;
   onChange: (section: string, key: string, value: ConfigValue) => void;
   onRevert: (section: string, key: string) => void;
-  onFocusKey: (section: string, key: string) => void;
+  onRowFocus: (section: string, key: string) => void;
 }
 
 export interface StartPanelProps {
@@ -51,7 +52,6 @@ export interface StartPanelProps {
   modified: boolean;
   onPreset: (id: string) => void;
   onChange: (section: string, key: string, value: ConfigValue) => void;
-  onFocusKey: (section: string, key: string) => void;
 }
 
 export interface RailProps {

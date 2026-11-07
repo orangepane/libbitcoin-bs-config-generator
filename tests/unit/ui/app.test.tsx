@@ -1,8 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { App } from '../../../src/ui/App';
+
+// The All view renders 451 rows, so an unscoped role query costs seconds. Scope
+// every assertion to the region it is about.
+function rail (): ReturnType<typeof within> {
+  return within(screen.getByRole('complementary', { name: 'Views and filters' }));
+}
 
 // One step back after the actions that replace the draft wholesale. The rail
 // button carries the action in its accessible name, so it says what it will
@@ -55,5 +61,38 @@ describe('undo', () => {
     await user.click(screen.getByRole('switch', { name: /verbose/i }));
 
     expect(screen.queryByRole('button', { name: /^Undo/ })).toBeNull();
+  });
+});
+
+describe('views', () => {
+  // The view belongs to the reader, not to the draft. Editing a row is not a
+  // request to change where the reader is looking.
+  it('stays in Essentials when a row there takes focus', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(rail().getByRole('button', { name: 'Essentials' }));
+    expect(rail().getByRole('button', { name: 'Essentials' })).toHaveAttribute('aria-pressed', 'true');
+
+    await user.click(screen.getAllByRole('switch')[0]);
+
+    expect(rail().getByRole('button', { name: 'Essentials' })).toHaveAttribute('aria-pressed', 'true');
+    expect(rail().getByRole('button', { name: 'All' })).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  // The artifact is a map of the file, so a line in it still takes the reader to
+  // the All view, which always holds the row it names.
+  it('follows a diff entry out of Essentials to All', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole('button', { name: 'Apply Wallet server' }));
+    await user.click(rail().getByRole('button', { name: 'Essentials' }));
+    await user.click(screen.getByRole('tab', { name: /^Diff/ }));
+
+    const diff = within(screen.getByRole('tabpanel'));
+    await user.click(diff.getByRole('button', { name: 'bind' }));
+
+    expect(rail().getByRole('button', { name: 'All' })).toHaveAttribute('aria-pressed', 'true');
   });
 });
