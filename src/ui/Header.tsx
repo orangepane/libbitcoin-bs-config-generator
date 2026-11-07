@@ -14,7 +14,7 @@ export function Header ({ version, network, changedCount, warningCount, onImport
     <header className="site-header">
       <div className="brand">
         <h1 className="brand-name">bs config</h1>
-        <p className="brand-note">A bs.cfg for libbitcoin server. Nothing leaves your browser.</p>
+        <p className="brand-note">A bs.cfg for libbitcoin server v4.</p>
       </div>
 
       <p className="header-meta">

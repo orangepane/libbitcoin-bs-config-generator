@@ -1205,6 +1205,33 @@ details:not([open]) > *:not(summary) {
 
 /* mobile bar */
 
+/* The disclaimer sits where a reader looks only if they want to: last. */
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  max-width: var(--page-max);
+  margin: 24px auto 0;
+  padding: 12px 16px 24px;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-faint);
+  font-size: var(--text-sm);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  color: var(--ink-muted);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
 .mobile-bar {
   display: none;
 }

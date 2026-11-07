@@ -426,6 +426,19 @@ export function App () {
         </button>
       </div>
 
+      <footer className="site-footer">
+        <p>
+          Community tool for libbitcoin server v4. Not affiliated with or endorsed by the
+          libbitcoin project.
+        </p>
+        <a
+          href="https://github.com/orangepane/libbitcoin-bs-config-generator"
+          aria-label="Source code on GitHub"
+        >
+          Source
+        </a>
+      </footer>
+
       <ImportDialog
         open={importOpen}
         errors={importErrors}

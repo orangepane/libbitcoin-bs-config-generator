@@ -66,4 +66,5 @@ GPL-3.0; see [LICENSE](LICENSE). Derived from
 itself a fork of
 [paritytech/parity-config-generator](https://github.com/paritytech/parity-config-generator).
 
-Independent project, maintained by orangepane.
+Community tool for libbitcoin server v4. Not affiliated with or endorsed by the libbitcoin
+project. Maintained by orangepane.

@@ -38,7 +38,7 @@ export const PRESETS: Preset[] = [
     id: 'bitcoind-backend',
     title: 'bitcoind backend',
     rationale:
-      'Publish blocks and transactions to bitcoind on port 8280 and notifications on 8380, loopback only.',
+      'Publish blocks and transactions to Bitcoin Core (bitcoind) on port 8280 and notifications on 8380, loopback only.',
     config: bitcoindBackend,
   },
   {
