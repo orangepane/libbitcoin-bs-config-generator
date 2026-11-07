@@ -1,4 +1,6 @@
 import type { Preset, Settings } from './types';
+import type { Catalog } from '../catalog';
+import { networkLocation } from '../catalog';
 import { mixDefaults } from './defaults';
 
 import bitcoindBackend from '../presets/bitcoind-backend.json';
@@ -103,7 +105,31 @@ export function presetById (id: string): Preset | undefined {
   return PRESETS.find((preset) => preset.id === id);
 }
 
-/** A preset is a starting point: defaults overlaid with the preset's sparse config. */
-export function applyPreset (defaults: Settings, preset: Preset): Settings {
-  return mixDefaults(defaults, preset.config);
+/**
+ * A preset is a starting point: defaults overlaid with the preset's sparse config.
+ *
+ * The network is a frame around the file, not part of what a preset chooses, so
+ * a preset that does not name the network keeps the one already selected. Without
+ * this, applying a preset on testnet4 silently rebuilt the draft from mainnet
+ * defaults and threw the network choice away.
+ */
+export function applyPreset (
+  defaults: Settings,
+  preset: Preset,
+  current?: Settings,
+  catalog?: Catalog,
+): Settings {
+  const applied = mixDefaults(defaults, preset.config);
+
+  const location = catalog ? networkLocation(catalog) : null;
+  if (!current || !location) return applied;
+
+  // A preset that names the network wins: it is switching, not adapting.
+  if (preset.config[location.section]?.[location.key] !== undefined) return applied;
+
+  const chosen = current[location.section]?.[location.key];
+  const fallback = defaults[location.section]?.[location.key];
+  if (chosen === undefined || chosen === fallback) return applied;
+
+  return mixDefaults(applied, { [location.section]: { [location.key]: chosen } });
 }

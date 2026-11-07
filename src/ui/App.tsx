@@ -95,7 +95,7 @@ function reducer (state: ShellState, action: Action): ShellState {
       const preset = presetById(action.id);
       if (!preset) return state;
       return {
-        settings: applyPreset(defaults, preset),
+        settings: applyPreset(defaults, preset, state.settings, catalog),
         presetId: action.id,
         modified: false,
         unknown: [],

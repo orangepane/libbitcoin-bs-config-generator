@@ -81,8 +81,8 @@ export function StartPanel ({
           Start from a preset
         </h2>
         <p className="row-help">
-          A preset replaces the draft with the defaults plus the settings it needs. You can
-          change anything afterwards.
+          A preset starts from the defaults and keeps your network choice. Change anything
+          afterwards.
         </p>
 
         <ul className="preset-list">

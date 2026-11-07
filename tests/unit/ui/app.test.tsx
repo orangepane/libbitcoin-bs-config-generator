@@ -96,3 +96,24 @@ describe('views', () => {
     expect(rail().getByRole('button', { name: 'All' })).toHaveAttribute('aria-pressed', 'true');
   });
 });
+
+describe('network and presets', () => {
+  // A preset fills the frame the reader chose; it does not replace it.
+  it('keeps the selected network when a preset is applied', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const network = screen.getByRole('combobox');
+    await user.selectOptions(network, 'regtest');
+    await user.click(screen.getByRole('button', { name: 'Apply Wallet server' }));
+
+    expect(network).toHaveValue('regtest');
+    await user.click(screen.getByRole('tab', { name: /^Diff/ }));
+    const diff = within(screen.getByRole('tabpanel'));
+    // The network differs from the mainnet default, so it is emitted: the point is
+    // that it reads regtest, not that the preset's own settings arrived alone.
+    expect(diff.getByRole('button', { name: 'network' })).toBeInTheDocument();
+    expect(diff.getByRole('button', { name: 'bind' })).toBeInTheDocument();
+    expect(diff.getByText('regtest')).toBeInTheDocument();
+  });
+});

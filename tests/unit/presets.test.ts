@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest';
 
 import catalogJson from '../../src/catalog.json';
 import { PRESETS, applyPreset, presetById } from '../../src/config/presets';
-import { getDefaults } from '../../src/config/defaults';
+import { clone, getDefaults } from '../../src/config/defaults';
 import { validateCatalog } from '../../src/catalog.schema';
 import type { Catalog, Kind } from '../../src/catalog.schema';
 import type { ConfigValue, Preset } from '../../src/config/types';
@@ -169,5 +169,37 @@ describe('applyPreset', () => {
         );
       }
     }
+  });
+
+  // The network is the frame the preset fills, so a preset that says nothing
+  // about it must not be able to undo the reader's choice.
+  it('keeps the selected network when the preset does not name one', () => {
+    const defaults = getDefaults(catalog);
+    const current = { ...clone(defaults), bitcoin: { ...defaults.bitcoin, network: 'testnet4' } };
+
+    for (const preset of PRESETS) {
+      if (preset.config.bitcoin?.network !== undefined) continue;
+      const applied = applyPreset(defaults, preset, current, catalog);
+      expect(applied.bitcoin.network, `${preset.id} keeps testnet4`).toBe('testnet4');
+    }
+  });
+
+  it('lets a preset that names a network switch to it', () => {
+    const defaults = getDefaults(catalog);
+    const current = { ...clone(defaults), bitcoin: { ...defaults.bitcoin, network: 'signet' } };
+    const switching: Preset = {
+      id: 'switcher',
+      title: 'Switcher',
+      rationale: 'Sets the network.',
+      config: { bitcoin: { network: 'regtest' } },
+    };
+
+    expect(applyPreset(defaults, switching, current, catalog).bitcoin.network).toBe('regtest');
+  });
+
+  it('falls back to the defaults when no catalogue or draft is given', () => {
+    const defaults = getDefaults(catalog);
+    const preset = PRESETS[0];
+    expect(applyPreset(defaults, preset)).toEqual(applyPreset(defaults, preset, undefined, catalog));
   });
 });
