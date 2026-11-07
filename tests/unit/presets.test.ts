@@ -88,7 +88,7 @@ describe('preset registry', () => {
   it('registers every preset file in src/presets, and no phantom ids', () => {
     const registered = PRESETS.map((preset) => preset.id).sort();
     const shipped = Object.keys(presetFiles).map(fileId).sort();
-    expect(shipped).toHaveLength(12);
+    expect(shipped).toHaveLength(8);
     expect(registered).toEqual(shipped);
   });
 

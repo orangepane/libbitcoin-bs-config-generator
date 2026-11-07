@@ -6,13 +6,9 @@ import { mixDefaults } from './defaults';
 import bitcoindBackend from '../presets/bitcoind-backend.json';
 import explorerBackend from '../presets/explorer-backend.json';
 import genesisValidation from '../presets/genesis-validation.json';
-import heightArchive from '../presets/height-archive.json';
 import localAdmin from '../presets/local-admin.json';
 import lowBandwidth from '../presets/low-bandwidth.json';
-import regtest from '../presets/regtest.json';
-import signet from '../presets/signet.json';
 import sparrowServer from '../presets/sparrow-server.json';
-import testnet4 from '../presets/testnet4.json';
 import torPrivacy from '../presets/tor-privacy.json';
 import walletServer from '../presets/wallet-server.json';
 
@@ -67,13 +63,6 @@ export const PRESETS: Preset[] = [
     config: lowBandwidth,
   },
   {
-    id: 'height-archive',
-    title: 'Height archive',
-    rationale:
-      'Keep a store without input scripts and witnesses up to block 840000, and stop downloading at that height.',
-    config: heightArchive,
-  },
-  {
     id: 'genesis-validation',
     title: 'Full validation from genesis',
     rationale:
@@ -82,25 +71,6 @@ export const PRESETS: Preset[] = [
     // The genesis hash is mainnet's. On any other chain the node would validate
     // against a block that is not in its chain.
     networks: ['mainnet'],
-  },
-  {
-    id: 'testnet4',
-    title: 'Testnet4',
-    rationale:
-      'Use testnet4. Network-dependent defaults follow automatically.',
-    config: testnet4,
-  },
-  {
-    id: 'signet',
-    title: 'Signet',
-    rationale: 'Use signet. Network-dependent defaults follow automatically.',
-    config: signet,
-  },
-  {
-    id: 'regtest',
-    title: 'Regtest',
-    rationale: 'Use regtest. Network-dependent defaults follow automatically.',
-    config: regtest,
   },
 ];
 
