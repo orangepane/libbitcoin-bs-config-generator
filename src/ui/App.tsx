@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
-import type { RefObject } from 'react';
+import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
 import catalogJson from '../catalog.json';
 import { parseCatalog, sectionList, settingList } from '../catalog';
 import type { Catalog } from '../catalog';
@@ -26,6 +25,7 @@ import { ImportDialog } from './dialogs/ImportDialog';
 import { ShareDialog } from './dialogs/ShareDialog';
 import { DownloadDialog } from './dialogs/DownloadDialog';
 import { copyText } from './clipboard';
+import { useModal } from './useModal';
 import type { ArtifactTab, CopyState, TierView } from './types';
 
 // Nothing is written to the URL until Share is pressed.
@@ -179,19 +179,6 @@ function deriveErrors (settings: Settings): Record<string, string> {
   return errors;
 }
 
-function useModal (open: boolean): RefObject<HTMLDialogElement | null> {
-  const ref = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    const dialog = ref.current;
-    if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    else if (!open && dialog.open) dialog.close();
-  }, [open]);
-
-  return ref;
-}
-
 export function App () {
   const [state, dispatch] = useReducer(reducer, null, readInitialState);
 
@@ -269,10 +256,6 @@ export function App () {
   const handleChangedOnly = useCallback((value: boolean) => {
     setChangedOnly(value);
     if (value) setView((current) => (current === 'start' ? 'all' : current));
-  }, []);
-
-  const handleView = useCallback((next: TierView) => {
-    setView(next);
   }, []);
 
   const handleReset = useCallback(() => {
@@ -357,7 +340,7 @@ export function App () {
       <div className="layout">
         <Rail
           view={view}
-          onView={handleView}
+          onView={setView}
           search={search}
           onSearch={handleSearch}
           changedOnly={changedOnly}

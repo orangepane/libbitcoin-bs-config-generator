@@ -1,12 +1,9 @@
+import { plural } from './plural';
 import type { HeaderProps } from './types';
 
 export interface HeaderShellProps extends HeaderProps {
   /** Catalog version string, for example "v4". */
   version: string;
-}
-
-function count (n: number, noun: string): string {
-  return `${n} ${noun}${n === 1 ? '' : 's'}`;
 }
 
 export function Header ({
@@ -35,13 +32,13 @@ export function Header ({
           {network}
         </span>
         <span className="meta-chip" title="Settings that differ from the defaults">
-          {count(changedCount, 'setting')} changed
+          {plural(changedCount, 'setting')} changed
         </span>
         <span
           className="meta-chip"
           title={notesOnly ? 'Notes about this configuration' : 'Checks that name a setting'}
         >
-          {notesOnly ? count(noteCount, 'note') : count(alertCount, 'warning')}
+          {notesOnly ? plural(noteCount, 'note') : plural(alertCount, 'warning')}
         </span>
       </p>
 

@@ -1,5 +1,5 @@
-import { useEffect, useId, useRef } from 'react';
-import type { RefObject } from 'react';
+import { useId } from 'react';
+import { useModal } from '../useModal';
 import type { Warning } from '../../config';
 
 // Warnings never block the file; they are read once more before it is saved.
@@ -9,19 +9,6 @@ export interface DownloadDialogProps {
   warnings: Warning[];
   onConfirm: () => void;
   onClose: () => void;
-}
-
-function useModal (open: boolean): RefObject<HTMLDialogElement | null> {
-  const ref = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    const dialog = ref.current;
-    if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    else if (!open && dialog.open) dialog.close();
-  }, [open]);
-
-  return ref;
 }
 
 export function DownloadDialog ({ open, warnings, onConfirm, onClose }: DownloadDialogProps) {

@@ -1,4 +1,4 @@
-import type { Catalog, Tier } from '../catalog';
+import type { Tier } from '../catalog';
 
 export type ConfigValue = boolean | number | string | string[];
 
@@ -13,18 +13,6 @@ export interface UnknownEntry {
   section: string;
   key: string;
   values: string[];
-}
-
-export interface TypeReversion {
-  section: string;
-  key: string;
-  value: unknown;
-  expected: string;
-}
-
-export interface NormalizeResult {
-  settings: Settings;
-  errors: TypeReversion[];
 }
 
 /** One emitted setting, with the lines and comment that render it. */
@@ -78,5 +66,3 @@ export interface Warning {
 }
 
 export type RowState = 'default' | 'changed' | 'invalid' | 'disabled' | 'fixed';
-
-export type CatalogLike = Catalog;

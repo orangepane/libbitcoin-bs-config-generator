@@ -4,9 +4,6 @@ import type { Catalog, SectionDef, SettingDef } from './catalog.schema';
 
 export type { Catalog, Kind, SectionDef, SettingDef, Tier } from './catalog.schema';
 
-export const TIERS = ['essential', 'service', 'advanced', 'table'] as const;
-export const KINDS = ['boolean', 'integer', 'decimal', 'text', 'path', 'list', 'enum'] as const;
-
 /** The catalog is validated at build time; this is the typed accessor. */
 export function parseCatalog (input: unknown): Catalog {
   return input as Catalog;

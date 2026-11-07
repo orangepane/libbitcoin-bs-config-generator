@@ -1,4 +1,5 @@
 import { useId, useMemo } from 'react';
+import { plural } from './plural';
 import type { KeyboardEvent } from 'react';
 import type { ArtifactTab, ArtifactPaneProps, CopyState } from './types';
 import { lineDomId } from './types';
@@ -115,10 +116,6 @@ function attributeLines (artifact: Artifact): RenderedLine[] {
   return rendered;
 }
 
-function count (n: number, noun: string): string {
-  return `${n} ${noun}${n === 1 ? '' : 's'}`;
-}
-
 export function ArtifactPane ({
   artifact,
   defaults,
@@ -160,7 +157,7 @@ export function ArtifactPane ({
       <div className="artifact-head">
         <h2 className="artifact-title">bs.cfg</h2>
         <p className="artifact-count">
-          {count(artifact.changedCount, 'setting')} changed, {count(warnings.length, 'warning')}
+          {plural(artifact.changedCount, 'setting')} changed, {plural(warnings.length, 'warning')}
         </p>
       </div>
 

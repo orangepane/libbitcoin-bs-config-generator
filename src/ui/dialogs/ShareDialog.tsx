@@ -1,22 +1,9 @@
-import { useEffect, useId, useRef } from 'react';
-import type { RefObject } from 'react';
+import { useId } from 'react';
+import { useModal } from '../useModal';
 import type { CopyState, ShareDialogProps } from '../types';
 
 // The link is built when the button is pressed, never while typing, and shown
 // as text so it can be read before it is passed on.
-
-function useModal (open: boolean): RefObject<HTMLDialogElement | null> {
-  const ref = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    const dialog = ref.current;
-    if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    else if (!open && dialog.open) dialog.close();
-  }, [open]);
-
-  return ref;
-}
 
 const COPY_LABEL: Record<CopyState, string> = {
   idle: 'Copy link',

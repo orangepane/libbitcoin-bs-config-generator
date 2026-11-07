@@ -118,7 +118,3 @@ export function rowDomId (section: string, key: string): string {
 export function lineDomId (section: string, key: string): string {
   return `line-${section}--${key}`.replace(/[^a-zA-Z0-9_-]/g, '-');
 }
-
-export function settingId (section: string, key: string): string {
-  return `set-${section}--${key}`.replace(/[^a-zA-Z0-9_-]/g, '-');
-}

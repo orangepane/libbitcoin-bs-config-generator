@@ -181,7 +181,7 @@ export function decodeShared (
   return { settings: mixDefaults(defaults, sparse), unknown };
 }
 
-/** Settings only. Kept for callers that do not need the imported extras. */
+/** The settings alone, for a caller that has no use for the imported extras. */
 export function decodeSettings (
   raw: string,
   defaults: Settings,

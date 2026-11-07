@@ -1,28 +1,12 @@
-import { useEffect, useId, useRef, useState } from 'react';
-import type { RefObject } from 'react';
+import { useId, useState } from 'react';
+import { plural } from '../plural';
+import { useModal } from '../useModal';
 import type { ImportDialogProps } from '../types';
 import { MAX_IMPORT_BYTES } from '../../config';
 
 // Nothing replaces the draft until Apply. Unknown keys are kept, not dropped.
 
 /** Open a native dialog on mount, close it when the caller says so. */
-function useModal (open: boolean): RefObject<HTMLDialogElement | null> {
-  const ref = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    const dialog = ref.current;
-    if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    else if (!open && dialog.open) dialog.close();
-  }, [open]);
-
-  return ref;
-}
-
-function count (n: number, noun: string): string {
-  return `${n} ${noun}${n === 1 ? '' : 's'}`;
-}
-
 export function ImportDialog ({ open, errors, unknown, onApply, onClose }: ImportDialogProps) {
   const ref = useModal(open);
   const id = useId();
@@ -98,7 +82,7 @@ export function ImportDialog ({ open, errors, unknown, onApply, onClose }: Impor
       {errors.length > 0 ? (
         <section className="dialog-report" role="status" aria-label="Import report">
           <h3 className="dialog-report-title">
-            {count(errors.length, 'problem')} in this file
+            {plural(errors.length, 'problem')} in this file
           </h3>
           <p>
             Everything else was applied. The settings named below are at their catalog defaults.
@@ -113,7 +97,7 @@ export function ImportDialog ({ open, errors, unknown, onApply, onClose }: Impor
 
       {unknown.length > 0 ? (
         <p className="dialog-report-note">
-          {count(unknown.length, 'key')} not in this catalog. Kept as written and emitted after
+          {plural(unknown.length, 'key')} not in this catalog. Kept as written and emitted after
           the sections this tool knows.
         </p>
       ) : null}
