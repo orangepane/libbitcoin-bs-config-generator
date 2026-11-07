@@ -116,4 +116,20 @@ describe('network and presets', () => {
     expect(diff.getByRole('button', { name: 'bind' })).toBeInTheDocument();
     expect(diff.getByText('regtest')).toBeInTheDocument();
   });
+
+  // A card that cannot work for the current chain says so and refuses the click.
+  it('disables a mainnet-only preset on another network', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const genesis = screen.getByRole('button', { name: 'Apply Full validation from genesis' });
+    expect(genesis).toBeEnabled();
+
+    await user.selectOptions(screen.getByRole('combobox'), 'regtest');
+
+    expect(genesis).toBeDisabled();
+    expect(genesis).toHaveAccessibleDescription('Mainnet only.');
+    // The neutral cards stay available, because their settings carry no network.
+    expect(screen.getByRole('button', { name: 'Apply Wallet server' })).toBeEnabled();
+  });
 });

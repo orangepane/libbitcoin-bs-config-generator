@@ -36,6 +36,12 @@ export function StartPanel ({
     networkDefinition && typeof networkDefinition.default === 'string' ? networkDefinition.default : 'mainnet';
   const network = typeof selected === 'string' && selected !== '' ? selected : fallback;
 
+  // Reader-facing names for the network ids a preset may declare.
+  const networkLabels = useMemo(
+    () => new Map((networkDefinition?.values ?? []).map((value) => [value.value, value.label])),
+    [networkDefinition],
+  );
+
   if (!networkDefinition || !networkSection) {
     return (
       <section className="start">
@@ -88,16 +94,30 @@ export function StartPanel ({
         <ul className="preset-list">
           {PRESETS.map((preset) => {
             const applied = presetId === preset.id && !modified;
+            // A preset may be valid on some networks only. Say so on the card and
+            // refuse the click: a file that cannot work for the current chain is
+            // worse than a starting point that is missing.
+            const scope =
+              preset.networks && !preset.networks.includes(network)
+                ? preset.networks.map((value) => networkLabels.get(value) ?? value).join(' or ')
+                : null;
+            const reasonId = `${networkId}-${preset.id}-scope`;
 
             return (
               <li className="preset-card" key={preset.id} data-applied={applied ? 'true' : 'false'}>
                 <h3 className="preset-title">{preset.title}</h3>
                 <p className="preset-rationale">{preset.rationale}</p>
+                {scope ? (
+                  <p className="preset-scope" id={reasonId}>
+                    {scope} only.
+                  </p>
+                ) : null}
                 <button
                   className="btn"
                   type="button"
-                  disabled={applied}
+                  disabled={applied || scope !== null}
                   aria-label={applied ? `Applied ${preset.title}` : `Apply ${preset.title}`}
+                  aria-describedby={scope ? reasonId : undefined}
                   onClick={() => onPreset(preset.id)}
                 >
                   {applied ? 'Applied' : 'Apply'}
