@@ -24,3 +24,21 @@ for (const tier of tiers) {
     expect(summary).toEqual([]);
   });
 }
+
+// An empty artifact hides most of the pane: no lines means no clickable rows.
+// Audit a draft with content, or the target-size rule is never exercised.
+test('axe: a filled artifact has no violations', async ({ page }) => {
+  await page.goto('./');
+  await page.getByRole('button', { name: 'Apply Wallet server' }).click();
+
+  const results = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+    .analyze();
+
+  expect(
+    results.violations.map((violation) => ({
+      id: violation.id,
+      nodes: violation.nodes.map((node) => node.target.join(' ')),
+    })),
+  ).toEqual([]);
+});

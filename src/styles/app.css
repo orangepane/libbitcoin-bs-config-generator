@@ -807,7 +807,7 @@ details:not([open]) > *:not(summary) {
 }
 
 .entry-line {
-  padding: 1px 4px;
+  padding: 3px 4px;
   border-radius: 3px;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
