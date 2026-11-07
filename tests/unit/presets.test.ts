@@ -130,6 +130,30 @@ describe('preset contents', () => {
   });
 });
 
+describe('preset scope', () => {
+  it('names only networks the catalog offers', () => {
+    const offered = new Set(
+      (catalog.sections.bitcoin.settings.network.values ?? []).map((value) => value.value)
+    );
+    for (const preset of PRESETS) {
+      for (const network of preset.networks ?? []) {
+        expect(offered.has(network), `${preset.id}: ${network} is a catalog network`).toBe(true);
+      }
+    }
+  });
+
+  it('never both declares a scope and switches network', () => {
+    for (const preset of PRESETS) {
+      if (preset.config.bitcoin?.network === undefined) continue;
+      expect(preset.networks, `${preset.id} sets the network, so it declares no scope`).toBeUndefined();
+    }
+  });
+
+  it('marks the genesis milestone preset as mainnet only', () => {
+    expect(presetById('genesis-validation')?.networks).toEqual(['mainnet']);
+  });
+});
+
 describe('applyPreset', () => {
   it('does not mutate the defaults or the preset', () => {
     const defaults = getDefaults(catalog);

@@ -79,6 +79,9 @@ export const PRESETS: Preset[] = [
     rationale:
       'Set the milestone to the genesis block. Validates the whole chain; plan for the storage and time it costs.',
     config: genesisValidation,
+    // The genesis hash is mainnet's. On any other chain the node would validate
+    // against a block that is not in its chain.
+    networks: ['mainnet'],
   },
   {
     id: 'testnet4',

@@ -60,6 +60,12 @@ export interface Preset {
   title: string;
   rationale: string;
   config: SparseSettings;
+  /**
+   * Networks this preset is valid on. Absent means every network the catalog
+   * offers. A preset that names the network itself must leave this out: one
+   * question, one answer.
+   */
+  networks?: string[];
 }
 
 export interface Warning {
