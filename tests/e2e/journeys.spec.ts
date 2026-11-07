@@ -8,6 +8,18 @@ test.beforeEach(async ({ page }) => {
   await page.goto('./');
 });
 
+// A note is not a risk. Nothing stands between the reader and a normal save.
+test('a note does not interrupt the download', async ({ page }) => {
+  await page.getByRole('button', { name: 'Apply Full validation from genesis' }).click();
+  await expect(page.getByText('2 notes')).toBeVisible();
+
+  const downloaded = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download bs.cfg' }).click();
+  await downloaded;
+
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+});
+
 test('preset to downloaded file in three interactions', async ({ page }) => {
   await page.getByRole('button', { name: 'Apply Wallet server' }).click();
   await page.getByRole('button', { name: 'Download bs.cfg' }).click();

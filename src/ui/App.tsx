@@ -4,6 +4,7 @@ import catalogJson from '../catalog.json';
 import { parseCatalog, sectionList, settingList } from '../catalog';
 import type { Catalog } from '../catalog';
 import {
+  alerts,
   applyPreset,
   buildArtifact,
   clone,
@@ -220,6 +221,7 @@ export function App () {
     () => evaluateWarnings(state.settings, defaults, catalog),
     [state.settings],
   );
+  const named = useMemo(() => alerts(warnings), [warnings]);
   const errors = useMemo(() => deriveErrors(state.settings), [state.settings]);
 
   const focusKey = focus ? `${focus.section}.${focus.key}` : null;
@@ -321,7 +323,8 @@ export function App () {
 
   function handleDownload () {
     setCopyState('idle');
-    if (warnings.length === 0) saveFile();
+    // A note is a fact, not a risk: it does not stand between the reader and the file.
+    if (named.length === 0) saveFile();
     else setDownloadOpen(true);
   }
 
@@ -346,7 +349,8 @@ export function App () {
         version={catalog.meta.version}
         network={artifact.network}
         changedCount={artifact.changedCount}
-        warningCount={warnings.length}
+        alertCount={named.filter((warning) => warning.severity !== 'notice').length}
+        noteCount={warnings.length - named.length}
         onImport={openImport}
       />
 
@@ -358,9 +362,6 @@ export function App () {
           onSearch={handleSearch}
           changedOnly={changedOnly}
           onChangedOnly={handleChangedOnly}
-          changedCount={artifact.changedCount}
-          warningCount={warnings.length}
-          network={artifact.network}
           onImport={openImport}
           presetLabel={presetLabel}
           canReset={canReset}
@@ -459,7 +460,7 @@ export function App () {
 
       <DownloadDialog
         open={downloadOpen}
-        warnings={warnings}
+        warnings={named}
         onConfirm={saveFile}
         onClose={() => setDownloadOpen(false)}
       />

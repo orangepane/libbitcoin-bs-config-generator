@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest';
 import catalogJson from '../../src/catalog.json';
 import { validateCatalog } from '../../src/catalog.schema';
 import { getDefaults, mixDefaults } from '../../src/config/defaults';
-import { evaluateWarnings } from '../../src/config/warnings';
+import { alerts, evaluateWarnings } from '../../src/config/warnings';
 import type { Catalog } from '../../src/catalog.schema';
 import type { ConfigValue, Settings, Warning } from '../../src/config/types';
 
@@ -113,11 +113,11 @@ describe('interface-without-credentials', () => {
 });
 
 describe('milestone-network-mismatch', () => {
-  it('warns when the network changes and the mainnet milestone stays', () => {
+  it('rates a mismatched milestone as a danger, not advice', () => {
     const settings = withChanges({ bitcoin: { network: 'testnet3' } });
     const warning = only(evaluateWarnings(settings, defaults, catalog), 'milestone-network-mismatch');
 
-    expect(warning.severity).toBe('warning');
+    expect(warning.severity).toBe('danger');
     expect(warning.message).toContain('bitcoin.network');
     expect(warning.message).toContain('bitcoin.milestone');
     expect(warning.message).toContain('testnet3');
@@ -362,5 +362,20 @@ describe('warning shape and purity', () => {
     expect(milestone?.message).toContain('bitcoin.milestone');
     expect(milestone?.message).toContain('node.maximum_height');
     expect(index?.message).toContain('table.outs.buckets');
+  });
+});
+
+describe('alerts', () => {
+  it('names warnings and dangers, and leaves notes to the tab', () => {
+    const notes = evaluateWarnings(
+      withChanges({ bitcoin: { milestone: GENESIS_MILESTONE } }),
+      defaults,
+      catalog,
+    );
+    expect(notes.every((warning) => warning.severity !== 'notice')).toBe(false);
+    expect(alerts(notes)).toEqual([]);
+
+    const risk = evaluateWarnings(withChanges({ bitcoin: { network: 'testnet3' } }), defaults, catalog);
+    expect(alerts(risk).map((warning) => warning.id)).toContain('milestone-network-mismatch');
   });
 });

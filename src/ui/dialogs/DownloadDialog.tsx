@@ -24,10 +24,6 @@ function useModal (open: boolean): RefObject<HTMLDialogElement | null> {
   return ref;
 }
 
-function count (n: number, noun: string): string {
-  return `${n} ${noun}${n === 1 ? '' : 's'}`;
-}
-
 export function DownloadDialog ({ open, warnings, onConfirm, onClose }: DownloadDialogProps) {
   const ref = useModal(open);
   const id = useId();
@@ -39,8 +35,7 @@ export function DownloadDialog ({ open, warnings, onConfirm, onClose }: Download
         Download bs.cfg
       </h2>
       <p className="dialog-lead">
-        {count(warnings.length, 'warning')} to read before you run this file. The download is
-        not blocked.
+        Read this before you run the file. The download is not blocked.
       </p>
 
       <ul className="dialog-warning-list">

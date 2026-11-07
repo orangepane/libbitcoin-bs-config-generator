@@ -154,7 +154,7 @@ function milestoneNetworkMismatch (
   if (networkChanged && !milestoneChanged) {
     warnings.push({
       id: 'milestone-network-mismatch',
-      severity: 'warning',
+      severity: 'danger',
       section: 'bitcoin',
       key: 'milestone',
       message:
@@ -224,7 +224,7 @@ function addressIndexDisabled (settings: Settings, catalog: Catalog): Warning[] 
   const binds = enabled.map((key) => `${key}.bind`);
   return [{
     id: 'address-index-disabled',
-    severity: 'warning',
+    severity: 'danger',
     section: 'table.outs',
     key: 'buckets',
     message:
@@ -311,6 +311,14 @@ function outOfRange (settings: Settings, catalog: Catalog): Warning[] {
  * Every warning the current settings earn. Rules run in a fixed order, so the
  * list is stable for a given state. Neither input is written to.
  */
+/**
+ * The checks worth naming before a file is saved: everything except notes. A note
+ * is a fact about the store's lifecycle, not a risk, so it stays in the tab.
+ */
+export function alerts (warnings: readonly Warning[]): Warning[] {
+  return warnings.filter((warning) => warning.severity !== 'notice');
+}
+
 export function evaluateWarnings (
   settings: Settings,
   defaults: Settings,

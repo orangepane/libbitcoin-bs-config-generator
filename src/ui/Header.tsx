@@ -9,7 +9,17 @@ function count (n: number, noun: string): string {
   return `${n} ${noun}${n === 1 ? '' : 's'}`;
 }
 
-export function Header ({ version, network, changedCount, warningCount, onImport }: HeaderShellProps) {
+export function Header ({
+  version,
+  network,
+  changedCount,
+  alertCount,
+  noteCount,
+  onImport,
+}: HeaderShellProps) {
+  // A note never outranks a warning, and never shouts when it is alone.
+  const notesOnly = alertCount === 0 && noteCount > 0;
+
   return (
     <header className="site-header">
       <div className="brand">
@@ -27,8 +37,11 @@ export function Header ({ version, network, changedCount, warningCount, onImport
         <span className="meta-chip" title="Settings that differ from the defaults">
           {count(changedCount, 'setting')} changed
         </span>
-        <span className="meta-chip" title="Checks that name a setting">
-          {count(warningCount, 'warning')}
+        <span
+          className="meta-chip"
+          title={notesOnly ? 'Notes about this configuration' : 'Checks that name a setting'}
+        >
+          {notesOnly ? count(noteCount, 'note') : count(alertCount, 'warning')}
         </span>
       </p>
 

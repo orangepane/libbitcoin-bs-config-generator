@@ -61,9 +61,6 @@ export interface RailProps {
   onSearch: (value: string) => void;
   changedOnly: boolean;
   onChangedOnly: (value: boolean) => void;
-  changedCount: number;
-  warningCount: number;
-  network: string;
   onImport: () => void;
   /** Null when there is nothing to undo; otherwise the action being undone. */
   undoLabel: string | null;
@@ -73,7 +70,10 @@ export interface RailProps {
 export interface HeaderProps {
   network: string;
   changedCount: number;
-  warningCount: number;
+  /** Warnings and dangers: what the reader is told before saving. */
+  alertCount: number;
+  /** Notes: lifecycle facts, shown only when nothing is more urgent. */
+  noteCount: number;
   onImport: () => void;
 }
 

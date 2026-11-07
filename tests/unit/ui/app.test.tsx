@@ -127,6 +127,28 @@ describe('network and presets', () => {
     expect(screen.getByRole('button', { name: 'Apply Wallet server' })).toBeEnabled();
   });
 
+  // A note is a fact about the store's lifecycle. It never borrows the word
+  // "warning", and it never stands between the reader and the file.
+  it('counts notes as notes, not as warnings', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole('button', { name: 'Apply Full validation from genesis' }));
+
+    expect(screen.getByText('2 notes')).toBeInTheDocument();
+    expect(screen.queryByText(/^\d+ warnings?$/)).toBeNull();
+  });
+
+  it('counts a real check as a warning', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole('button', { name: 'Apply Wallet server' }));
+
+    expect(screen.getByText('1 warning')).toBeInTheDocument();
+    expect(screen.queryByText(/^\d+ notes?$/)).toBeNull();
+  });
+
   // The store command lives in the panel, not in a warning.
   it('states the store command in the panel, not as a warning', async () => {
     const user = userEvent.setup();
