@@ -38,6 +38,13 @@ const FIXED_SETTINGS = new Set([
 // Settings whose catalog default is the mainnet value, not a universal one.
 const NETWORK_SCOPED = new Set(['bitcoin.milestone']);
 
+// bs computes these bucket counts from the table's expected count and the
+// installed memory. The shipped number is one machine's result.
+const DERIVED = new Set([
+  'table.header.buckets', 'table.tx.buckets', 'table.ins.buckets', 'table.outs.buckets',
+  'table.pool.buckets', 'table.wtxid.buckets', 'table.strong.buckets',
+]);
+
 const SECRET_KEYS = new Set(['password', 'key_pass', 'key', 'credential']);
 
 const KIND = {
@@ -120,6 +127,7 @@ function build () {
       const unit = unitFor(key);
       if (unit) setting.unit = unit;
       if (SECRET_KEYS.has(key)) setting.secret = true;
+      if (DERIVED.has(`${name}.${key}`)) setting.derived = true;
       if (NETWORK_SCOPED.has(`${name}.${key}`) || tier === 'table') setting.networkScoped = true;
       if (FIXED_SETTINGS.has(`${name}.${key}`) || tier === 'table') setting.fixedAtCreation = true;
 

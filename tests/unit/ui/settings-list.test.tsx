@@ -142,6 +142,20 @@ describe('SettingsList', () => {
     expect(blueprint.querySelectorAll('details')).toHaveLength(24);
   });
 
+  it('presents the derived bucket counts as derived, not as defaults', () => {
+    const { container } = render(<Harness initial={clone(defaults)} view="essentials" />);
+    const blueprint = container.querySelector('.table-blueprint') as HTMLElement;
+
+    expect(blueprint.querySelector('.section-summary')).toHaveTextContent(
+      /computed by bs from the table.s Expected count and the installed memory/,
+    );
+    expect(blueprint.querySelector('.table-banner')).toHaveTextContent(
+      /Leave a derived bucket count unset unless you are sizing that table/,
+    );
+    // One sentence in the blueprint, not one per table section.
+    expect((blueprint.textContent ?? '').match(/marked derived/g)).toHaveLength(1);
+  });
+
   it('puts advanced settings behind a labelled details in the all view', () => {
     const { container } = render(<Harness initial={clone(defaults)} view="all" />);
 

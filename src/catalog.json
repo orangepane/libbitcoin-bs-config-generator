@@ -6,7 +6,7 @@
     "snapshot": "2026-11-06",
     "defaultsScope": "mainnet",
     "generatedBy": "scripts/build-catalog.mjs from scripts/data/data.json",
-    "seedSha256": "c5e7753ab786487dc8410235602d0b1307868084bda058586b837ecf2630a1fc",
+    "seedSha256": "fa6ebb163f2f038e529196e09cf849fa0038451835666bb9371b2abf3ac38acf",
     "sectionCount": 43,
     "settingCount": 462
   },
@@ -438,12 +438,13 @@
         "buckets": {
           "key": "buckets",
           "label": "Buckets",
-          "help": "The number of buckets in the header table head, dynamic default.",
+          "help": "The number of buckets in the header table head, derived from expected and memory.",
           "tier": "table",
           "kind": "integer",
           "default": 385181,
           "emit": "whenChanged",
           "min": 0,
+          "derived": true,
           "networkScoped": true,
           "fixedAtCreation": true
         },
@@ -528,12 +529,13 @@
         "buckets": {
           "key": "buckets",
           "label": "Buckets",
-          "help": "The number of buckets in the ins table head, dynamic default.",
+          "help": "The number of buckets in the ins table head, derived from expected and memory.",
           "tier": "table",
           "kind": "integer",
           "default": 1345386900,
           "emit": "whenChanged",
           "min": 0,
+          "derived": true,
           "networkScoped": true,
           "fixedAtCreation": true
         },
@@ -618,12 +620,13 @@
         "buckets": {
           "key": "buckets",
           "label": "Buckets",
-          "help": "The number of buckets in the outs table head, dynamic default (0 disables address index).",
+          "help": "The number of buckets in the outs table head, derived from expected and memory (0 disables address index).",
           "tier": "table",
           "kind": "integer",
           "default": 748385817,
           "emit": "whenChanged",
           "min": 0,
+          "derived": true,
           "networkScoped": true,
           "fixedAtCreation": true
         },
@@ -675,12 +678,13 @@
         "buckets": {
           "key": "buckets",
           "label": "Buckets",
-          "help": "The number of buckets in the pool table head, dynamic default (0 disables).",
+          "help": "The number of buckets in the pool table head, derived from expected and memory (0 disables).",
           "tier": "table",
           "kind": "integer",
           "default": 4000000,
           "emit": "whenChanged",
           "min": 0,
+          "derived": true,
           "networkScoped": true,
           "fixedAtCreation": true
         },
@@ -1020,12 +1024,13 @@
         "buckets": {
           "key": "buckets",
           "label": "Buckets",
-          "help": "The number of buckets provisioned in the strong table head.",
+          "help": "The number of buckets provisioned in the strong table head, derived from tx expected.",
           "tier": "table",
           "kind": "integer",
           "default": 1359871695,
           "emit": "whenChanged",
           "min": 0,
+          "derived": true,
           "networkScoped": true,
           "fixedAtCreation": true
         },
@@ -1053,12 +1058,13 @@
         "buckets": {
           "key": "buckets",
           "label": "Buckets",
-          "help": "The number of buckets in the tx table head, dynamic default.",
+          "help": "The number of buckets in the tx table head, derived from expected and memory.",
           "tier": "table",
           "kind": "integer",
           "default": 543948678,
           "emit": "whenChanged",
           "min": 0,
+          "derived": true,
           "networkScoped": true,
           "fixedAtCreation": true
         },
@@ -1155,12 +1161,13 @@
         "buckets": {
           "key": "buckets",
           "label": "Buckets",
-          "help": "The number of buckets in the wtxid table head, dynamic default (0 disables).",
+          "help": "The number of buckets in the wtxid table head, derived from expected and memory (0 disables).",
           "tier": "table",
           "kind": "integer",
           "default": 4000000,
           "emit": "whenChanged",
           "min": 0,
+          "derived": true,
           "networkScoped": true,
           "fixedAtCreation": true
         },

@@ -300,6 +300,10 @@ export function SettingsList ({
   }
 
   function renderBlueprint (block: BlueprintBlock) {
+    const derived = block.tables.some((table) =>
+      table.rows.some((model) => model.setting.derived === true),
+    );
+
     return (
       <section
         className="section table-blueprint"
@@ -313,10 +317,15 @@ export function SettingsList ({
         </div>
         <p className="section-summary">
           The store tables and their sizing. bs allocates these when it creates the store.
+          {derived
+            ? " A bucket count marked derived is computed by bs from the table's Expected count" +
+              ' and the installed memory.'
+            : null}
         </p>
         <p className="table-banner">
           Fixed when the store is created. Editing these values now does not resize an existing
           store; delete it and create a new one to apply them.
+          {derived ? ' Leave a derived bucket count unset unless you are sizing that table.' : null}
         </p>
         {block.tables.map((table) => (
           <details

@@ -285,7 +285,7 @@
     "advanced": true,
     "buckets": {
       "name": "Buckets",
-      "description": "The number of buckets in the header table head, dynamic default.",
+      "description": "The number of buckets in the header table head, derived from expected and memory.",
       "default": 385181,
       "control": "number",
       "min": 0
@@ -337,7 +337,7 @@
     "advanced": true,
     "buckets": {
       "name": "Buckets",
-      "description": "The number of buckets in the ins table head, dynamic default.",
+      "description": "The number of buckets in the ins table head, derived from expected and memory.",
       "default": 1345386900,
       "control": "number",
       "min": 0
@@ -389,7 +389,7 @@
     "advanced": true,
     "buckets": {
       "name": "Buckets",
-      "description": "The number of buckets in the outs table head, dynamic default (0 disables address index).",
+      "description": "The number of buckets in the outs table head, derived from expected and memory (0 disables address index).",
       "default": 748385817,
       "control": "number",
       "min": 0
@@ -422,7 +422,7 @@
     "advanced": true,
     "buckets": {
       "name": "Buckets",
-      "description": "The number of buckets in the pool table head, dynamic default (0 disables).",
+      "description": "The number of buckets in the pool table head, derived from expected and memory (0 disables).",
       "default": 4000000,
       "control": "number",
       "min": 0
@@ -621,7 +621,7 @@
     "advanced": true,
     "buckets": {
       "name": "Buckets",
-      "description": "The number of buckets provisioned in the strong table head.",
+      "description": "The number of buckets provisioned in the strong table head, derived from tx expected.",
       "default": 1359871695,
       "control": "number",
       "min": 0
@@ -640,7 +640,7 @@
     "advanced": true,
     "buckets": {
       "name": "Buckets",
-      "description": "The number of buckets in the tx table head, dynamic default.",
+      "description": "The number of buckets in the tx table head, derived from expected and memory.",
       "default": 543948678,
       "control": "number",
       "min": 0
@@ -699,7 +699,7 @@
     "advanced": true,
     "buckets": {
       "name": "Buckets",
-      "description": "The number of buckets in the wtxid table head, dynamic default (0 disables).",
+      "description": "The number of buckets in the wtxid table head, derived from expected and memory (0 disables).",
       "default": 4000000,
       "control": "number",
       "min": 0

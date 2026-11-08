@@ -38,6 +38,34 @@ const EXPECTED_KIND_COUNTS: Record<Kind, number> = {
 const SERVICE_SECTIONS = 8;
 const TABLE_SECTIONS = 24;
 
+// bs derives these bucket counts from each table's expected count and the
+// installed memory. The shipped numbers are one machine's, not defaults.
+const DERIVED_SETTINGS = [
+  'table.header.buckets',
+  'table.ins.buckets',
+  'table.outs.buckets',
+  'table.pool.buckets',
+  'table.strong.buckets',
+  'table.tx.buckets',
+  'table.wtxid.buckets',
+];
+
+/** "section.key" -> definition; settings nest under their section. */
+function settingAt (where: string): SettingDef | undefined {
+  const index = where.lastIndexOf('.');
+  return catalog.sections[where.slice(0, index)]?.settings[where.slice(index + 1)];
+}
+
+function flaggedWhere (): string[] {
+  return sections
+    .flatMap((section) =>
+      Object.values(section.settings)
+        .filter((setting) => setting.derived === true)
+        .map((setting) => `${section.key}.${setting.key}`),
+    )
+    .sort();
+}
+
 async function sha256Hex (text: string): Promise<string> {
   const bytes = new TextEncoder().encode(text);
   const digest = await crypto.subtle.digest('SHA-256', bytes);
@@ -209,6 +237,38 @@ describe('settings', () => {
         true
       );
     }
+  });
+});
+
+describe('derived settings', () => {
+  it('flags exactly the seven derived bucket counts', () => {
+    expect(flaggedWhere()).toEqual(DERIVED_SETTINGS);
+  });
+
+  it('gives the flag to no other setting', () => {
+    for (const section of sections) {
+      for (const setting of Object.values(section.settings)) {
+        if (DERIVED_SETTINGS.includes(`${section.key}.${setting.key}`)) continue;
+        expect(setting.derived, `${section.key}.${setting.key} is not derived`).toBeUndefined();
+      }
+    }
+  });
+
+  it('keeps the flag independent of networkScoped and fixedAtCreation', () => {
+    // A table bucket that bs takes literally carries both flags and no derived flag.
+    expect(settingAt('table.duplicate.buckets')).toMatchObject({
+      networkScoped: true,
+      fixedAtCreation: true,
+    });
+
+    for (const where of DERIVED_SETTINGS) {
+      expect(settingAt(where), where).toBeDefined();
+      expect(settingAt(where)?.kind, where).toBe('integer');
+    }
+  });
+
+  it('says how the strong table gets its bucket count', () => {
+    expect(settingAt('table.strong.buckets')?.help).toContain('derived from tx expected');
   });
 });
 

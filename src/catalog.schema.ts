@@ -35,6 +35,8 @@ export const settingSchema = z
     secret: z.boolean().optional(),
     networkScoped: z.boolean().optional(),
     fixedAtCreation: z.boolean().optional(),
+    /** bs computes this count at startup from the expected entries and installed memory. */
+    derived: z.boolean().optional(),
     emit: z.enum(['always', 'whenChanged']),
   })
   .superRefine((s, ctx) => {
