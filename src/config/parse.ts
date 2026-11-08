@@ -1,5 +1,6 @@
 import type { Catalog, Kind, SettingDef } from '../catalog';
 import { clone } from './defaults';
+import { defaultsFor } from './networks';
 import type { ConfigValue, ParseResult, Settings, UnknownEntry } from './types';
 
 // Unknown keys survive the parse, and nothing here throws: a malformed line is
@@ -132,8 +133,26 @@ function sectionValues (settings: Settings, section: string): Record<string, Con
  * Unknown sections and keys land in `unknown`, in file order, with their lines
  * accumulated. They never reach `settings`. This function never throws.
  */
+/** The network a file selects, if it selects one. Scanned before the parse. */
+function declaredNetwork (text: string): string | null {
+  let section: string | null = null;
+  for (const line of text.split(/\r\n|\n|\r/)) {
+    const trimmed = line.trim();
+    const header = SECTION_HEADER.exec(trimmed);
+    if (header) { section = header[1].trim(); continue; }
+    if (section !== 'bitcoin' || trimmed === '' || trimmed.startsWith('#')) continue;
+    const pair = /^network\s*=\s*(.+)$/.exec(trimmed);
+    if (pair) return pair[1].trim();
+  }
+  return null;
+}
+
 export function parseConf (text: string, defaults: Settings, catalog: Catalog): ParseResult {
-  const settings = clone(defaults);
+  // A file that selects a network brings that network's defaults with it, so the
+  // imported values sit on the same tree bs will use.
+  const declared = declaredNetwork(text);
+  const current = typeof defaults.bitcoin?.network === 'string' ? defaults.bitcoin.network : 'mainnet';
+  const settings = clone(declared === null || declared === current ? defaults : defaultsFor(catalog, declared));
   const unknown: UnknownEntry[] = [];
   const errors: string[] = [];
   const unknownByKey = new Map<string, UnknownEntry>();

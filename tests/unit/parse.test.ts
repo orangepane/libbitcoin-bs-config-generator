@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import catalogJson from '../../src/catalog.json';
 import { validateCatalog } from '../../src/catalog.schema';
 import { getDefaults, stripDefaults } from '../../src/config/defaults';
+import { defaultsFor } from '../../src/config/networks';
 import {
   MAX_IMPORT_BYTES,
   MAX_IMPORT_LINES,
@@ -343,12 +344,14 @@ describe('parseConf: round trip', () => {
     ].join('\n');
 
     const result = parseConf(text, defaults, catalog);
-    const sparse: Settings = stripDefaults(result.settings, defaults);
+    // The file names testnet3, so its tree sits on that network's defaults.
+    const sparse: Settings = stripDefaults(result.settings, defaultsFor(catalog, 'testnet3'));
 
     expect(result.errors).toEqual([]);
     expect(result.unknown).toEqual([]);
+    // The network line is part of the baseline now, so it is not "sparse".
+    expect(result.settings.bitcoin.network).toBe('testnet3');
     expect(sparse).toEqual({
-      bitcoin: { network: 'testnet3' },
       electrum: { bind: ['127.0.0.1:50001', '[::1]:50001'] },
       node: { provide_filters: true, maximum_height: 800000 },
       'table.filter_bk': { buckets: 140000 },
@@ -383,5 +386,27 @@ describe('parseConf: import limits', () => {
     expect(result.settings.electrum.banner_message).toBe(defaults.electrum.banner_message);
     expect(result.errors).toHaveLength(1);
     expect(result.errors[0]).toContain('character limit');
+  });
+});
+
+describe('parseConf: the network in the file', () => {
+  it('imports a testnet file onto that network, not onto mainnet', () => {
+    // Importing while mainnet is selected must not drag mainnet chain
+    // parameters into a testnet4 draft.
+    const text = '[bitcoin]\nnetwork = testnet4\n\n[electrum]\nbind = 127.0.0.1\n';
+    const result = parseConf(text, defaults, catalog);
+
+    expect(result.settings.bitcoin.network).toBe('testnet4');
+    expect(result.settings.bitcoin.bip16_activation_time)
+      .toBe(defaultsFor(catalog, 'testnet4').bitcoin.bip16_activation_time);
+    expect(result.settings.bitcoin.bip16_activation_time)
+      .not.toBe(defaults.bitcoin.bip16_activation_time);
+  });
+
+  it('leaves the current network when the file names none', () => {
+    const regtest = defaultsFor(catalog, 'regtest');
+    const result = parseConf('[electrum]\nbind = 127.0.0.1\n', regtest, catalog);
+
+    expect(result.settings.bitcoin.network).toBe('regtest');
   });
 });
