@@ -20,7 +20,12 @@
     "project": "libbitcoin server (bs)",
     "version": "v4",
     "source": "https://libbitcoin.org/configuration/reference.html",
-    "snapshot": "2026-11-06"
+    "snapshot": "2026-11-06",
+    "verifiedAgainst": {
+      "version": "4.0.10444",
+      "date": "2026-11-08",
+      "serverCommit": "c99e607"
+    }
   },
   "log": {
     "section": "Log",

@@ -117,6 +117,7 @@ function attributeLines (artifact: Artifact): RenderedLine[] {
 }
 
 export function ArtifactPane ({
+  verifiedAgainst,
   artifact,
   defaults,
   warnings,
@@ -329,7 +330,8 @@ export function ArtifactPane ({
       </div>
 
       <p className="compat">
-        Targets bs v4. A v3.8 configuration is not compatible with v4.
+        Targets bs v4, checked against {verifiedAgainst.version} on {verifiedAgainst.date}. A v3.8
+        configuration is not compatible with v4.
       </p>
     </section>
   );

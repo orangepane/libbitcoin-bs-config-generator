@@ -310,3 +310,13 @@ describe('accuracy gate', () => {
     }
   });
 });
+
+describe('verification record', () => {
+  it('names the build the settings were checked against', () => {
+    const { version, date, serverCommit } = catalog.meta.verifiedAgainst;
+
+    expect(version).toMatch(/^\d+\.\d+\.\d+$/);
+    expect(date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(serverCommit).toMatch(/^[0-9a-f]{7,40}$/);
+  });
+});

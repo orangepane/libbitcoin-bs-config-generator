@@ -411,6 +411,7 @@ export function App () {
         </main>
 
         <ArtifactPane
+          verifiedAgainst={catalog.meta.verifiedAgainst}
           artifact={artifact}
           defaults={baseline(state.settings)}
           warnings={warnings}
@@ -491,6 +492,7 @@ export function App () {
             </button>
           </div>
           <ArtifactPane
+            verifiedAgainst={catalog.meta.verifiedAgainst}
             artifact={artifact}
             defaults={baseline(state.settings)}
             warnings={warnings}

@@ -113,6 +113,12 @@ export const catalogSchema = z
       version: z.string(),
       referenceUrl: z.string().url(),
       snapshot: z.string(),
+      /** The build the settings and defaults were checked against. */
+      verifiedAgainst: z.object({
+        version: z.string(),
+        date: z.string(),
+        serverCommit: z.string(),
+      }),
       defaultsScope: z.literal('network'),
       generatedBy: z.string(),
       seedSha256: z.string(),

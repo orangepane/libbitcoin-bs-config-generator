@@ -77,6 +77,8 @@ export interface HeaderProps {
 
 export interface ArtifactPaneProps {
   artifact: Artifact;
+  /** The build the catalog was checked against, for the compatibility line. */
+  verifiedAgainst: { version: string; date: string };
   warnings: Warning[];
   unknown: UnknownEntry[];
   tab: ArtifactTab;
