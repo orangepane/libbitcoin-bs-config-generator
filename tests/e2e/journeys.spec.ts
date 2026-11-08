@@ -111,3 +111,57 @@ test('the artifact is reachable on a phone', async ({ page }) => {
   );
   expect(overflow).toBe(false);
 });
+
+// The network is the frame: a file always names it, and a file this tool wrote
+// must come back unchanged. Importing is where a wrong baseline hides, because
+// nothing on screen looks wrong until the next download.
+const NETWORKS = ['mainnet', 'testnet3', 'testnet4', 'signet', 'regtest'];
+
+async function downloadText (page) {
+  const downloaded = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download bs.cfg' }).click();
+  const download = await downloaded;
+  return readFile(await download.path(), 'utf8');
+}
+
+async function importText (page, text) {
+  await page.getByRole('button', { name: 'Import a file' }).click();
+  const dialog = page.getByRole('dialog');
+  await dialog.locator('textarea').first().fill(text);
+  await dialog.getByRole('button', { name: 'Apply', exact: true }).click();
+  await page.keyboard.press('Escape');
+}
+
+for (const network of NETWORKS) {
+  test(`a downloaded file re-imports unchanged on ${network}`, async ({ page }) => {
+    if (network !== 'mainnet') await page.getByRole('combobox').selectOption(network);
+    await page.getByRole('button', { name: 'Apply Wallet server' }).click();
+
+    const first = await downloadText(page);
+    await importText(page, first);
+
+    expect(await downloadText(page)).toBe(first);
+  });
+}
+
+test('a switch to another network writes only that network', async ({ page }) => {
+  // The tree used to keep the old network's chain parameters, milestone and
+  // table counts, so a bare switch wrote dozens of stale values.
+  await page.getByRole('combobox').selectOption('testnet4');
+
+  const text = await downloadText(page);
+  const emitted = text.split('\n').filter((line) => line !== '' && !line.startsWith('#'));
+
+  expect(emitted).toEqual(['[bitcoin]', 'network = testnet4']);
+});
+
+test('a file that names another network imports onto that network', async ({ page }) => {
+  await page.getByRole('combobox').selectOption('regtest');
+  await page.getByRole('button', { name: 'Apply Local admin' }).click();
+  const source = await downloadText(page);
+
+  await page.goto('./');
+  await importText(page, source);
+
+  expect(await downloadText(page)).toBe(source);
+});
