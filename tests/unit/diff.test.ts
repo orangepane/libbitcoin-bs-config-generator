@@ -93,7 +93,8 @@ describe('diffEntries', () => {
     expect(entry.tier).toBe('advanced');
     expect(entry.changed).toBe(true);
     expect(entry.networkScoped).toBe(false);
-    expect(entry.fixedAtCreation).toBe(false);
+    // Chain parameters are captured when the store is created.
+    expect(entry.fixedAtCreation).toBe(true);
   });
 
   it('emits a changed number as a plain decimal', () => {

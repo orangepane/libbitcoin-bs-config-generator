@@ -252,29 +252,38 @@ describe('address-index-disabled', () => {
 
 describe('fixed-at-creation', () => {
   it('notices a changed fixed setting outside a table section', () => {
-    const settings = withChanges({ node: { maximum_height: 840000 } });
+    const settings = withChanges({ database: { interval_depth: 7 } });
     const warning = only(evaluateWarnings(settings, defaults, catalog), 'fixed-at-creation');
 
     expect(warning.severity).toBe('notice');
-    expect(warning.section).toBe('node');
-    expect(warning.key).toBe('maximum_height');
-    expect(warning.message).toContain('node.maximum_height');
+    expect(warning.section).toBe('database');
+    expect(warning.key).toBe('interval_depth');
+    expect(warning.message).toContain('database.interval_depth');
     expect(warning.message).toContain('store is created');
+  });
+
+  it('treats maximum_height as a download limit, not store state', () => {
+    const settings = withChanges({ node: { maximum_height: 840000 } });
+
+    expect(ids(evaluateWarnings(settings, defaults, catalog))).not.toContain('fixed-at-creation');
   });
 
   it('notices each changed fixed setting, in catalog order', () => {
     const settings = withChanges({
       bitcoin: { milestone: GENESIS_MILESTONE },
-      node: { maximum_height: 840000, limited_blocks: true },
+      database: { interval_depth: 7 },
+      node: { silent_start_height: 1, limited_blocks: true },
     });
     const notices = evaluateWarnings(settings, defaults, catalog)
       .filter((warning) => warning.id === 'fixed-at-creation')
       .map((warning) => `${warning.section}.${warning.key}`);
 
+    // Catalog order: [database] precedes [bitcoin] in the reference.
     expect(notices).toEqual([
+      'database.interval_depth',
       'bitcoin.milestone',
       'node.limited_blocks',
-      'node.maximum_height',
+      'node.silent_start_height',
     ]);
   });
 

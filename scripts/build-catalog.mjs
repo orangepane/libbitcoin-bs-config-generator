@@ -31,9 +31,15 @@ const ESSENTIAL = new Set([
 ]);
 
 // Fixed at store creation: changing them later does not rewrite an existing store.
+// The whole [bitcoin] and [forks] sections are captured (network, chain parameters,
+// soft fork activations, milestone, top checkpoint, signet challenge), so they are
+// flagged on the section rather than key by key.
 const FIXED_SETTINGS = new Set([
-  'bitcoin.milestone', 'node.limited_blocks', 'node.maximum_height',
+  'database.interval_depth', 'node.limited_blocks', 'node.provide_filters',
+  'node.silent_start_height',
 ]);
+
+const FIXED_SECTIONS = new Set(['bitcoin', 'forks']);
 
 // Settings whose default depends on the network; the catalog carries mainnet's.
 const NETWORK_SCOPED = new Set(['bitcoin.milestone']);
@@ -145,7 +151,7 @@ function build () {
       section.service = true;
       section.enableKey = 'bind';
     }
-    if (tier === 'table') section.fixedAtCreation = true;
+    if (tier === 'table' || FIXED_SECTIONS.has(name)) section.fixedAtCreation = true;
 
     sections[name] = section;
   }

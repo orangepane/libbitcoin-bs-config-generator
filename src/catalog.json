@@ -161,7 +161,8 @@
           "kind": "integer",
           "default": 11,
           "emit": "whenChanged",
-          "min": 0
+          "min": 0,
+          "fixedAtCreation": true
         },
         "mark_unconfirmable": {
           "key": "mark_unconfirmable",
@@ -1758,8 +1759,7 @@
           "kind": "text",
           "default": "000000000000000000010b93c9ea1c29fea277383f0f7d1f26de8b5802e885ff:950000",
           "emit": "whenChanged",
-          "networkScoped": true,
-          "fixedAtCreation": true
+          "networkScoped": true
         },
         "minimum_work": {
           "key": "minimum_work",
@@ -1869,7 +1869,8 @@
           "min": 0,
           "unit": "seconds"
         }
-      }
+      },
+      "fixedAtCreation": true
     },
     "forks": {
       "key": "forks",
@@ -2129,7 +2130,8 @@
           "default": false,
           "emit": "whenChanged"
         }
-      }
+      },
+      "fixedAtCreation": true
     },
     "wallet": {
       "key": "wallet",
@@ -2322,8 +2324,7 @@
           "kind": "integer",
           "default": 0,
           "emit": "whenChanged",
-          "min": 0,
-          "fixedAtCreation": true
+          "min": 0
         },
         "memory_priority": {
           "key": "memory_priority",
@@ -2370,7 +2371,8 @@
           "tier": "essential",
           "kind": "boolean",
           "default": false,
-          "emit": "whenChanged"
+          "emit": "whenChanged",
+          "fixedAtCreation": true
         },
         "provide_privacy": {
           "key": "provide_privacy",
@@ -2427,7 +2429,8 @@
           "kind": "integer",
           "default": 4294967295,
           "emit": "whenChanged",
-          "min": 0
+          "min": 0,
+          "fixedAtCreation": true
         },
         "thread_priority": {
           "key": "thread_priority",
