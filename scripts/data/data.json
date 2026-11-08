@@ -126,8 +126,8 @@
     },
     "path": {
       "name": "Path",
-      "description": "The blockchain database directory.",
-      "default": "bitcoin",
+      "description": "The base of the network-named blockchain database directory, defaults to the working directory.",
+      "default": "",
       "control": "path"
     },
     "turbo": {

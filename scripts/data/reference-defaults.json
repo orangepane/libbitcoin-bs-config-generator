@@ -17,7 +17,7 @@
     "gpu_scan_minimum": 65536,
     "interval_depth": 11,
     "mark_unconfirmable": true,
-    "path": "bitcoin",
+    "path": "",
     "turbo": true
   },
   "table.candidate": {

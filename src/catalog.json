@@ -6,7 +6,7 @@
     "snapshot": "2026-11-06",
     "defaultsScope": "mainnet",
     "generatedBy": "scripts/build-catalog.mjs from scripts/data/data.json",
-    "seedSha256": "fa6ebb163f2f038e529196e09cf849fa0038451835666bb9371b2abf3ac38acf",
+    "seedSha256": "4dfa5bb9632ce5428f37705a9a72c942f649fc05479cf89625f36db24ebeb6db",
     "sectionCount": 43,
     "settingCount": 462
   },
@@ -166,10 +166,10 @@
         "path": {
           "key": "path",
           "label": "Path",
-          "help": "The blockchain database directory.",
+          "help": "The base of the network-named blockchain database directory, defaults to the working directory.",
           "tier": "essential",
           "kind": "path",
-          "default": "bitcoin",
+          "default": "",
           "emit": "whenChanged"
         },
         "turbo": {
