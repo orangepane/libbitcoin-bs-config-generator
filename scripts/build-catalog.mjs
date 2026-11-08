@@ -41,9 +41,6 @@ const FIXED_SETTINGS = new Set([
 
 const FIXED_SECTIONS = new Set(['bitcoin', 'forks']);
 
-// Settings whose default depends on the network; the catalog carries mainnet's.
-const NETWORK_SCOPED = new Set(['bitcoin.milestone']);
-
 // bs computes these bucket counts from the table's expected count and the
 // installed memory. The shipped number is one machine's result.
 const DERIVED = new Set([
@@ -134,7 +131,6 @@ function build () {
       if (unit) setting.unit = unit;
       if (SECRET_KEYS.has(key)) setting.secret = true;
       if (DERIVED.has(`${name}.${key}`)) setting.derived = true;
-      if (NETWORK_SCOPED.has(`${name}.${key}`) || tier === 'table') setting.networkScoped = true;
       if (FIXED_SETTINGS.has(`${name}.${key}`) || tier === 'table') setting.fixedAtCreation = true;
 
       settings[key] = setting;

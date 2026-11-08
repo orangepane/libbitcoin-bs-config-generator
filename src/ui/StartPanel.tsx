@@ -67,8 +67,8 @@ export function StartPanel ({
           ))}
         </select>
         <p className="row-help">
-          Only the values you change are written. The defaults shown here are the mainnet
-          values; bs applies the rest for the network you pick.
+          Only the values you change are written. The defaults follow the network you pick,
+          so the file carries what bs would not already do.
         </p>
         {network !== 'mainnet' ? (
           <p className="row-help start-network-note">

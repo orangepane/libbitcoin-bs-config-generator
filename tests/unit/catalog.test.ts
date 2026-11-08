@@ -254,12 +254,11 @@ describe('derived settings', () => {
     }
   });
 
-  it('keeps the flag independent of networkScoped and fixedAtCreation', () => {
-    // A table bucket that bs takes literally carries both flags and no derived flag.
-    expect(settingAt('table.duplicate.buckets')).toMatchObject({
-      networkScoped: true,
-      fixedAtCreation: true,
-    });
+  it('keeps the flag independent of fixedAtCreation', () => {
+    // A table bucket that bs takes literally is fixed at creation, and is not derived.
+    const literal = settingAt('table.duplicate.buckets');
+    expect(literal?.fixedAtCreation).toBe(true);
+    expect(literal?.derived).toBeUndefined();
 
     for (const where of DERIVED_SETTINGS) {
       expect(settingAt(where), where).toBeDefined();

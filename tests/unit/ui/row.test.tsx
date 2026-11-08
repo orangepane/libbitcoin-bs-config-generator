@@ -23,7 +23,6 @@ function rowProps (sectionKey: string, key: string, overrides: Partial<RowProps>
     value: defaults[sectionKey][key],
     defaultValue: defaults[sectionKey][key],
     state: 'default',
-    networkScoped: false,
     onChange: () => {},
     onRevert: () => {},
     ...overrides,
@@ -118,11 +117,6 @@ describe('Row', () => {
     expect(screen.getByText('Electrum Server is off. Set Bind to turn it on.')).toHaveClass(
       'row-reason',
     );
-  });
-
-  it('marks a mainnet default when another network is selected', () => {
-    renderRow('network', 'threads', { networkScoped: true });
-    expect(screen.getByText('mainnet default')).toBeInTheDocument();
   });
 
   it('reports focus with section and key', async () => {

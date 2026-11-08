@@ -106,7 +106,6 @@ export function diffEntries (
         comment: fillDescription(setting.help, value, setting.valueHelp),
         tier: setting.tier,
         changed: true,
-        networkScoped: setting.networkScoped === true,
         fixedAtCreation: setting.fixedAtCreation === true || section.fixedAtCreation === true,
       });
     }

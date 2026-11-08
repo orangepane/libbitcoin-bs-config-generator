@@ -18,7 +18,6 @@ export function Row ({
   state,
   reason,
   error,
-  networkScoped,
   onChange,
   onRevert,
   onRowFocus,
@@ -33,7 +32,6 @@ export function Row ({
   const invalid = state === 'invalid' || error !== undefined;
   const changed = !valuesEqual(value, defaultValue);
   const showRevert = changed && !disabled;
-  const showDefaultChip = networkScoped && state === 'default' && !changed;
   const showReason = reason !== undefined && (state === 'disabled' || state === 'fixed');
 
   // Empty is a state: the tree carries no `undefined`, so an unset value
@@ -125,7 +123,6 @@ export function Row ({
       <div className="row-label">
         <label htmlFor={controlId}>{setting.label}</label>
         <code className="row-key">{setting.key}</code>
-        {showDefaultChip ? <span className="row-chip row-default">mainnet default</span> : null}
         {showRevert ? (
           <button type="button" className="row-revert" onClick={onRevert}>
             Revert

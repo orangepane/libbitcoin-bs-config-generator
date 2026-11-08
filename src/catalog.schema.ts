@@ -33,7 +33,6 @@ export const settingSchema = z
     example: z.string().optional(),
     values: z.array(enumValue).min(1).optional(),
     secret: z.boolean().optional(),
-    networkScoped: z.boolean().optional(),
     fixedAtCreation: z.boolean().optional(),
     /** bs computes this count at startup from the expected entries and installed memory. */
     derived: z.boolean().optional(),

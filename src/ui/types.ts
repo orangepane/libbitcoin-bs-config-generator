@@ -22,8 +22,6 @@ export interface RowProps {
   reason?: string;
   /** Plain-language validation message for invalid rows. */
   error?: string;
-  /** True when the value shown is a mainnet default on another network. */
-  networkScoped: boolean;
   onChange: (value: ConfigValue) => void;
   onRevert: () => void;
   /** Bookkeeping only: the row is in the foreground. Must not move the view. */

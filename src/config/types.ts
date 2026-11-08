@@ -26,7 +26,6 @@ export interface DiffEntry {
   comment: string;
   tier: Tier;
   changed: boolean;
-  networkScoped: boolean;
   fixedAtCreation: boolean;
 }
 

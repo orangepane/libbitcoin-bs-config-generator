@@ -92,7 +92,6 @@ describe('diffEntries', () => {
     expect(entry.comment).toBe('Check the BIP54 coinbase threshold before timeout (speedy trial).');
     expect(entry.tier).toBe('advanced');
     expect(entry.changed).toBe(true);
-    expect(entry.networkScoped).toBe(false);
     // Chain parameters are captured when the store is created.
     expect(entry.fixedAtCreation).toBe(true);
   });
@@ -173,7 +172,6 @@ describe('diffEntries', () => {
     );
     const [entry] = entries;
     expect(entry.tier).toBe('table');
-    expect(entry.networkScoped).toBe(true);
     expect(entry.fixedAtCreation).toBe(true);
   });
 

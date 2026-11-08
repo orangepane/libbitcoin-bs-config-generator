@@ -15,8 +15,8 @@ surface and links back there for depth.
 
 ## What it does
 
-- Writes only the settings that differ from their mainnet defaults, each under
-  its `[section]` header and preceded by its catalog description as a comment.
+- Writes only the settings that differ from the selected network's defaults, each
+  under its `[section]` header and preceded by its catalog description as a comment.
 - Covers the bs v4 sections: log, database, store tables, chain parameters,
   node, P2P, outbound and inbound, manual peers, admin, native REST, bitcoind
   JSON-RPC, REST and ZMQ, BTCD, Electrum, Sparrow and Esplora.
@@ -27,9 +27,9 @@ surface and links back there for depth.
 - Shares a configuration as a link: your choices travel in the URL fragment, so
   the reader's own draft is never replaced without their action.
 
-The defaults shown are mainnet defaults. When you select another network the
-page says so, because `bs` derives some values (the milestone checkpoint and
-table sizes) from the network you run.
+The defaults follow the selected network: mainnet, testnet3, testnet4, signet or
+regtest. Each set comes from the values `bs` applies for that chain, and the file
+always names the network, because a file that does not is read as mainnet.
 
 ## Run it locally
 

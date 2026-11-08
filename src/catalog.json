@@ -208,7 +208,6 @@
           "default": 950001,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -220,7 +219,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -241,7 +239,6 @@
           "default": 950001,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -253,7 +250,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -274,7 +270,6 @@
           "default": 1024,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "expected": {
@@ -286,7 +281,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -298,7 +292,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -310,7 +303,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -331,7 +323,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -343,7 +334,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -364,7 +354,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -376,7 +365,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -388,7 +376,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -409,7 +396,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -421,7 +407,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -433,7 +418,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -455,7 +439,6 @@
           "emit": "whenChanged",
           "min": 0,
           "derived": true,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "expected": {
@@ -467,7 +450,6 @@
           "default": 962953,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -479,7 +461,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -491,7 +472,6 @@
           "default": 124220679,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -512,7 +492,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -524,7 +503,6 @@
           "default": 67269346,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -546,7 +524,6 @@
           "emit": "whenChanged",
           "min": 0,
           "derived": true,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "expected": {
@@ -558,7 +535,6 @@
           "default": 3363467251,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -570,7 +546,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -582,7 +557,6 @@
           "default": 1749002971,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -603,7 +577,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -615,7 +588,6 @@
           "default": 1278023220,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -637,7 +609,6 @@
           "emit": "whenChanged",
           "min": 0,
           "derived": true,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "expected": {
@@ -649,7 +620,6 @@
           "default": 3741929086,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -661,7 +631,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -673,7 +642,6 @@
           "default": 336773618,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -695,7 +663,6 @@
           "emit": "whenChanged",
           "min": 0,
           "derived": true,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "expected": {
@@ -707,7 +674,6 @@
           "default": 10000000,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -719,7 +685,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -731,7 +696,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -752,7 +716,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -764,7 +727,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -785,7 +747,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -797,7 +758,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -818,7 +778,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -830,7 +789,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -842,7 +800,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -863,7 +820,6 @@
           "default": 950001,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -875,7 +831,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -887,7 +842,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -908,7 +862,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -920,7 +873,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -941,7 +893,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -953,7 +904,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -974,7 +924,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -986,7 +935,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -1007,7 +955,6 @@
           "default": 950001,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -1019,7 +966,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -1041,7 +987,6 @@
           "emit": "whenChanged",
           "min": 0,
           "derived": true,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -1053,7 +998,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -1075,7 +1019,6 @@
           "emit": "whenChanged",
           "min": 0,
           "derived": true,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "expected": {
@@ -1087,7 +1030,6 @@
           "default": 1359871695,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -1099,7 +1041,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -1111,7 +1052,6 @@
           "default": 870317885,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -1132,7 +1072,6 @@
           "default": 950001,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -1144,7 +1083,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -1156,7 +1094,6 @@
           "default": 54471017,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -1178,7 +1115,6 @@
           "emit": "whenChanged",
           "min": 0,
           "derived": true,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "expected": {
@@ -1190,7 +1126,6 @@
           "default": 10000000,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "rate": {
@@ -1202,7 +1137,6 @@
           "default": 1,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         },
         "size": {
@@ -1214,7 +1148,6 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0,
-          "networkScoped": true,
           "fixedAtCreation": true
         }
       },
@@ -1758,8 +1691,7 @@
           "tier": "essential",
           "kind": "text",
           "default": "000000000000000000010b93c9ea1c29fea277383f0f7d1f26de8b5802e885ff:950000",
-          "emit": "whenChanged",
-          "networkScoped": true
+          "emit": "whenChanged"
         },
         "minimum_work": {
           "key": "minimum_work",

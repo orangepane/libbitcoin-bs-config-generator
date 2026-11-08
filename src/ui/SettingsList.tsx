@@ -16,7 +16,6 @@ interface RowModel {
   state: RowState;
   reason?: string;
   error?: string;
-  networkScoped: boolean;
 }
 
 interface SectionBlock {
@@ -108,7 +107,6 @@ export function SettingsList ({
   const ordered = orderSections(sectionList(catalog));
   const query = search.trim().toLowerCase();
   const searching = query !== '';
-  const network = typeof settings.bitcoin?.network === 'string' ? settings.bitcoin.network : 'mainnet';
 
   // Scroll the linked row into view when the artifact points at it. Keys cannot
   // contain dots, so the last dot separates section from key.
@@ -140,7 +138,6 @@ export function SettingsList ({
         state,
         reason: rowReason(section, state),
         error: errors[`${section.key}.${setting.key}`],
-        networkScoped: network !== 'mainnet' && setting.networkScoped === true,
       });
     }
     rowsBySection.set(section.key, models);
@@ -230,7 +227,7 @@ export function SettingsList ({
     const message = searching
       ? `No settings match “${search.trim()}”.`
       : changedOnly
-        ? 'No settings are changed from their mainnet defaults.'
+        ? 'No settings differ from this network’s defaults.'
         : 'No settings to show.';
     return (
       <div className="settings-list">
@@ -250,7 +247,6 @@ export function SettingsList ({
         state={model.state}
         reason={model.reason}
         error={model.error}
-        networkScoped={model.networkScoped}
         onChange={(value) => onChange(model.section.key, model.setting.key, value)}
         onRevert={() => onRevert(model.section.key, model.setting.key)}
         onRowFocus={onRowFocus}
