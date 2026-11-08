@@ -72,7 +72,7 @@ export function ImportDialog ({ open, errors, unknown, onApply, onClose }: Impor
           value={text}
           rows={12}
           spellCheck={false}
-          placeholder={'[bitcoin]\nnetwork = testnet4'}
+          placeholder={'[electrum]\nbind = 127.0.0.1'}
           onChange={(event) => setText(event.target.value)}
         />
       </div>
