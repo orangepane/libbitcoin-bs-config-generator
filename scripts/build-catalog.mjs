@@ -165,7 +165,7 @@ function build () {
       version: seed.__meta.version,
       referenceUrl: seed.__meta.source,
       snapshot: seed.__meta.snapshot,
-      defaultsScope: 'mainnet',
+      defaultsScope: 'network',
       generatedBy: 'scripts/build-catalog.mjs from scripts/data/data.json',
       seedSha256: createHash('sha256').update(readFileSync(SEED)).digest('hex'),
       sectionCount: Object.keys(sections).length,

@@ -4,7 +4,7 @@
     "version": "v4",
     "referenceUrl": "https://libbitcoin.org/configuration/reference.html",
     "snapshot": "2026-11-06",
-    "defaultsScope": "mainnet",
+    "defaultsScope": "network",
     "generatedBy": "scripts/build-catalog.mjs from scripts/data/data.json",
     "seedSha256": "0e54214ad771f8f15fcaea8a21ccf4435719d090dca32ad3554a03383da96a9c",
     "sectionCount": 43,

@@ -104,9 +104,9 @@ describe('catalog meta', () => {
     expect(settings).toHaveLength(462);
   });
 
-  it('targets bs v4 and scopes every default to mainnet', () => {
+  it('targets bs v4 and carries a defaults tree per network', () => {
     expect(catalog.meta.version).toBe('v4');
-    expect(catalog.meta.defaultsScope).toBe('mainnet');
+    expect(catalog.meta.defaultsScope).toBe('network');
   });
 
   it('stamps the sha256 of the seed it was generated from', async () => {

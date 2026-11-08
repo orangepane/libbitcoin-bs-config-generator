@@ -114,7 +114,7 @@ export const catalogSchema = z
       version: z.string(),
       referenceUrl: z.string().url(),
       snapshot: z.string(),
-      defaultsScope: z.literal('mainnet'),
+      defaultsScope: z.literal('network'),
       generatedBy: z.string(),
       seedSha256: z.string(),
       sectionCount: z.number(),

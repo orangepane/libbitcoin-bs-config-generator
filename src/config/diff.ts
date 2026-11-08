@@ -89,7 +89,11 @@ export function diffEntries (
     for (const setting of Object.values(section.settings)) {
       const value: ConfigValue | undefined | null = values[setting.key];
       if (value === undefined || value === null) continue;
-      if (valuesEqual(value, defaultFor(sectionDefaults, setting))) continue;
+      // The file selects the network; without the line bs runs mainnet, so a
+      // test network is written even though its defaults produce that value.
+      const selectsNetwork = section.key === 'bitcoin' && setting.key === 'network' &&
+        value !== 'mainnet';
+      if (!selectsNetwork && valuesEqual(value, defaultFor(sectionDefaults, setting))) continue;
 
       const lines = emitLines(setting.key, value);
       if (lines.length === 0) continue;

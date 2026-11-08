@@ -1,5 +1,6 @@
 export * from './types';
 export * from './defaults';
+export * from './networks';
 export * from './diff';
 export * from './serialize';
 export * from './parse';

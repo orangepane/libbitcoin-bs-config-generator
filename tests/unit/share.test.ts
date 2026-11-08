@@ -7,18 +7,24 @@ import catalogJson from '../../src/catalog.json';
 import { validateCatalog } from '../../src/catalog.schema';
 import type { Catalog } from '../../src/catalog.schema';
 import { getDefaults, mixDefaults, stripDefaults } from '../../src/config/defaults';
+import { defaultsFor } from '../../src/config/networks';
 import { decodeSettings, encodeSettings, readHash, shareUrl } from '../../src/config/share';
 import type { Settings } from '../../src/config/types';
 
 const catalog: Catalog = validateCatalog(catalogJson);
 const defaults = getDefaults(catalog);
 
+/** The baseline a payload that selects `network` decodes onto. */
+function baseline (network: string) {
+  return defaultsFor(catalog, network);
+}
+
 function settingsWith (sparse: Settings): Settings {
   return mixDefaults(defaults, sparse);
 }
 
 function decoded (raw: string): Settings {
-  const settings = decodeSettings(raw, defaults, catalog);
+  const settings = decodeSettings(raw, catalog);
   if (settings === null) throw new Error(`expected a decodable payload: ${raw}`);
   return settings;
 }
@@ -60,12 +66,12 @@ describe('encodeSettings', () => {
 
 describe('decodeSettings', () => {
   it('round-trips the sparse config', () => {
-    const settings = settingsWith({
+    const settings = mixDefaults(baseline('testnet4'), {
       bitcoin: { network: 'testnet4' },
       outbound: { connections: 8 },
-      electrum: { bind: ['0.0.0.0:8580'] },
+      electrum: { bind: ['127.0.0.1:8580'] },
     });
-    expect(decoded(encodeSettings(settings, defaults))).toEqual(settings);
+    expect(decoded(encodeSettings(settings, baseline('testnet4')))).toEqual(settings);
   });
 
   it('round-trips a non-Latin1 value', () => {
@@ -85,12 +91,12 @@ describe('decodeSettings', () => {
     const payload = { bitcoin: { network: 'signet' }, outbound: { connections: 8 } };
     const raw = legacy(payload);
     expect(raw).toContain('=');
-    expect(decoded(raw)).toEqual(settingsWith(payload));
+    expect(decoded(raw)).toEqual(mixDefaults(baseline('signet'), payload));
   });
 
   it('decodes a percent-escaped legacy payload', () => {
     const raw = legacy({ bitcoin: { network: 'regtest' } });
-    expect(decoded(encodeURIComponent(raw))).toEqual(settingsWith({ bitcoin: { network: 'regtest' } }));
+    expect(decoded(encodeURIComponent(raw))).toEqual(mixDefaults(baseline('regtest'), { bitcoin: { network: 'regtest' } }));
   });
 
   it('ignores keys the catalog does not know', () => {
@@ -110,11 +116,12 @@ describe('decodeSettings', () => {
       outbound: { connections: 'many', seed: 'seed.example:8333' },
       electrum: { connections: 1.5, bind: [1, 2] },
     });
+    const signet = baseline('signet');
     const settings = decoded(raw);
-    expect(settings.outbound.connections).toBe(defaults.outbound.connections);
-    expect(settings.outbound.seed).toEqual(defaults.outbound.seed);
-    expect(settings.electrum.connections).toBe(defaults.electrum.connections);
-    expect(settings.electrum.bind).toEqual(defaults.electrum.bind);
+    expect(settings.outbound.connections).toBe(signet.outbound.connections);
+    expect(settings.outbound.seed).toEqual(signet.outbound.seed);
+    expect(settings.electrum.connections).toBe(signet.electrum.connections);
+    expect(settings.electrum.bind).toEqual(signet.electrum.bind);
     expect(settings.bitcoin.network).toBe('signet');
   });
 
@@ -132,29 +139,29 @@ describe('decodeSettings', () => {
   });
 
   it('returns null when nothing valid could be decoded', () => {
-    expect(decodeSettings('', defaults, catalog)).toBeNull();
-    expect(decodeSettings('!!!!', defaults, catalog)).toBeNull();
-    expect(decodeSettings(legacy('not an object'), defaults, catalog)).toBeNull();
-    expect(decodeSettings(legacy([1, 2, 3]), defaults, catalog)).toBeNull();
-    expect(decodeSettings(legacy(null), defaults, catalog)).toBeNull();
-    expect(decodeSettings(legacy(42), defaults, catalog)).toBeNull();
-    expect(decodeSettings(legacy('a string'), defaults, catalog)).toBeNull();
+    expect(decodeSettings('', catalog)).toBeNull();
+    expect(decodeSettings('!!!!', catalog)).toBeNull();
+    expect(decodeSettings(legacy('not an object'), catalog)).toBeNull();
+    expect(decodeSettings(legacy([1, 2, 3]), catalog)).toBeNull();
+    expect(decodeSettings(legacy(null), catalog)).toBeNull();
+    expect(decodeSettings(legacy(42), catalog)).toBeNull();
+    expect(decodeSettings(legacy('a string'), catalog)).toBeNull();
   });
 
   it('returns null when the payload is not JSON or not UTF-8', () => {
-    expect(decodeSettings(btoa('not json'), defaults, catalog)).toBeNull();
+    expect(decodeSettings(btoa('not json'), catalog)).toBeNull();
     // '_w' is a single 0xff byte: valid base64, invalid UTF-8, invalid JSON.
-    expect(decodeSettings('_w', defaults, catalog)).toBeNull();
+    expect(decodeSettings('_w', catalog)).toBeNull();
   });
 
   it('returns null for a payload whose keys and types are all rejected', () => {
-    expect(decodeSettings(legacy({ nowhere: { mode: 'fast' } }), defaults, catalog)).toBeNull();
-    expect(decodeSettings(legacy({ bitcoin: { network: 42 } }), defaults, catalog)).toBeNull();
+    expect(decodeSettings(legacy({ nowhere: { mode: 'fast' } }), catalog)).toBeNull();
+    expect(decodeSettings(legacy({ bitcoin: { network: 42 } }), catalog)).toBeNull();
   });
 
   it('does not mutate the defaults it merges over', () => {
     const before = JSON.stringify(defaults);
-    decodeSettings(legacy({ bitcoin: { network: 'signet' } }), defaults, catalog);
+    decodeSettings(legacy({ bitcoin: { network: 'signet' } }), catalog);
     expect(JSON.stringify(defaults)).toBe(before);
   });
 
@@ -211,8 +218,11 @@ describe('shareUrl', () => {
   });
 
   it('produces a link that reads back to the same settings', () => {
-    const settings = settingsWith({ bitcoin: { network: 'signet' }, outbound: { seed: ['a:1', 'b:2'] } });
-    const payload = readHash(new URL(shareUrl(settings, defaults, href)).hash);
+    const settings = mixDefaults(baseline('signet'), {
+      bitcoin: { network: 'signet' },
+      outbound: { seed: ['a:1', 'b:2'] },
+    });
+    const payload = readHash(new URL(shareUrl(settings, baseline('signet'), href)).hash);
     expect(payload).not.toBeNull();
     if (payload === null) return;
     expect(decoded(payload)).toEqual(settings);

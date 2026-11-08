@@ -9,7 +9,7 @@ import {
   clone,
   decodeShared,
   evaluateWarnings,
-  getDefaults,
+  defaultsFor,
   parseConf,
   presetById,
   readHash,
@@ -31,7 +31,17 @@ import type { ArtifactTab, CopyState, TierView } from './types';
 // Nothing is written to the URL until Share is pressed.
 
 const catalog: Catalog = parseCatalog(catalogJson);
-const defaults: Settings = getDefaults(catalog);
+
+/** The defaults in force for the network the draft selects. */
+function baseline (settings: Settings): Settings {
+  return defaultsFor(catalog, networkOf(settings));
+}
+
+/** The network a draft runs on, as a token the defaults table knows. */
+function networkOf (settings: Settings): string {
+  const value = settings.bitcoin?.network;
+  return typeof value === 'string' && value !== '' ? value : 'mainnet';
+}
 
 interface Draft {
   settings: Settings;
@@ -85,7 +95,7 @@ function reducer (state: ShellState, action: Action): ShellState {
       };
 
     case 'revert': {
-      const fallback = defaults[action.section]?.[action.key];
+      const fallback = baseline(state.settings)[action.section]?.[action.key];
       if (fallback === undefined) return state;
       return { ...withValue(state, action.section, action.key, clone(fallback)), undo: null };
     }
@@ -94,7 +104,7 @@ function reducer (state: ShellState, action: Action): ShellState {
       const preset = presetById(action.id);
       if (!preset) return state;
       return {
-        settings: applyPreset(defaults, preset, state.settings, catalog),
+        settings: applyPreset(baseline(state.settings), preset, state.settings, catalog),
         presetId: action.id,
         modified: false,
         unknown: [],
@@ -113,7 +123,7 @@ function reducer (state: ShellState, action: Action): ShellState {
 
     case 'reset':
       return {
-        settings: clone(defaults),
+        settings: clone(baseline(state.settings)),
         presetId: null,
         modified: false,
         unknown: [],
@@ -133,7 +143,7 @@ function reducer (state: ShellState, action: Action): ShellState {
  */
 function readInitialState (): ShellState {
   const base: ShellState = {
-    settings: clone(defaults),
+    settings: clone(defaultsFor(catalog, 'mainnet')),
     presetId: null,
     modified: false,
     unknown: [],
@@ -145,7 +155,7 @@ function readInitialState (): ShellState {
   const payload = readHash(window.location.hash);
   if (!payload) return base;
 
-  const decoded = decodeShared(payload, defaults, catalog);
+  const decoded = decodeShared(payload, catalog);
   if (!decoded) return base;
 
   return { ...base, settings: decoded.settings, unknown: decoded.unknown, modified: true };
@@ -201,11 +211,11 @@ export function App () {
   const sheetRef = useModal(sheetOpen);
 
   const artifact = useMemo(
-    () => buildArtifact(state.settings, defaults, catalog, state.unknown),
+    () => buildArtifact(state.settings, baseline(state.settings), catalog, state.unknown),
     [state.settings, state.unknown],
   );
   const warnings = useMemo(
-    () => evaluateWarnings(state.settings, defaults, catalog),
+    () => evaluateWarnings(state.settings, baseline(state.settings), catalog),
     [state.settings],
   );
   const named = useMemo(() => alerts(warnings), [warnings]);
@@ -275,7 +285,7 @@ export function App () {
   }
 
   function applyImport (text: string) {
-    const result = parseConf(text, defaults, catalog);
+    const result = parseConf(text, baseline(state.settings), catalog);
     dispatch({ type: 'import', settings: result.settings, unknown: result.unknown });
     setImportErrors(result.errors);
     setImportUnknown(result.unknown);
@@ -312,7 +322,7 @@ export function App () {
   }
 
   function handleShare () {
-    const url = shareUrl(state.settings, defaults, window.location.href, state.unknown);
+    const url = shareUrl(state.settings, baseline(state.settings), window.location.href, state.unknown);
     window.history.replaceState(null, '', url);
     setShareLink(url);
     setCopyState('idle');
@@ -366,7 +376,7 @@ export function App () {
           ) : (
             <SettingsList
               catalog={catalog}
-              defaults={defaults}
+              defaults={baseline(state.settings)}
               settings={state.settings}
               view={view}
               search={search}
@@ -382,7 +392,7 @@ export function App () {
 
         <ArtifactPane
           artifact={artifact}
-          defaults={defaults}
+          defaults={baseline(state.settings)}
           warnings={warnings}
           unknown={state.unknown}
           tab={tab}
@@ -462,7 +472,7 @@ export function App () {
           </div>
           <ArtifactPane
             artifact={artifact}
-            defaults={defaults}
+            defaults={baseline(state.settings)}
             warnings={warnings}
             unknown={state.unknown}
             tab={tab}

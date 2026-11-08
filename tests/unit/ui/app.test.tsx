@@ -108,7 +108,7 @@ describe('network and presets', () => {
     // The network differs from the mainnet default, so it is emitted.
     expect(diff.getByRole('button', { name: 'network' })).toBeInTheDocument();
     expect(diff.getByRole('button', { name: 'bind' })).toBeInTheDocument();
-    expect(diff.getByText('regtest')).toBeInTheDocument();
+    expect(diff.getByText('regtest', { selector: '.entry-value' })).toBeInTheDocument();
   });
 
   // A card that cannot work for the current chain says so and refuses the click.

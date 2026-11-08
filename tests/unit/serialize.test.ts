@@ -37,7 +37,7 @@ function syntheticCatalog (): Catalog {
       version: 'v4',
       referenceUrl: 'https://example.org/reference.html',
       snapshot: '2026-11-06',
-      defaultsScope: 'mainnet',
+      defaultsScope: 'network',
       generatedBy: 'tests',
       seedSha256: 'test',
       sectionCount: 2,

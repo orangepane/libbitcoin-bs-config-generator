@@ -1,6 +1,7 @@
 import type { Catalog, Kind } from '../catalog';
 import type { ConfigValue, Settings, SparseSettings, UnknownEntry } from './types';
 import { mixDefaults, stripDefaults } from './defaults';
+import { defaultsFor } from './networks';
 
 // Links carry the sparse config only, as UTF-8 bytes in base64url. Reading one
 // never throws and never mutates the defaults; writing one never touches the
@@ -77,7 +78,14 @@ export function encodeSettings (
   defaults: Settings,
   unknown: UnknownEntry[] = [],
 ): string {
-  const payload = { s: stripDefaults(settings, defaults), u: unknown };
+  const sparse = stripDefaults(settings, defaults);
+  // The network selects the defaults, so a link carries it even when the file
+  // would omit it: the reader's baseline is mainnet.
+  const network = settings.bitcoin?.network;
+  if (typeof network === 'string' && network !== 'mainnet') {
+    sparse.bitcoin = { ...(sparse.bitcoin ?? {}), network };
+  }
+  const payload = { s: sparse, u: unknown };
   const bytes = new TextEncoder().encode(JSON.stringify(payload));
   return toBase64(bytes).replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
 }
@@ -128,9 +136,14 @@ export interface SharedState {
  * everything else is ignored silently. Returns null when the payload
  * cannot be decoded at all: bad base64, bad JSON, or a non-object.
  */
+/** The network a sparse config selects; mainnet when it names none. */
+function networkOf (sparse: SparseSettings): string {
+  const value = sparse.bitcoin?.network;
+  return typeof value === 'string' && value !== '' ? value : 'mainnet';
+}
+
 export function decodeShared (
   raw: string,
-  defaults: Settings,
   catalog: Catalog,
 ): SharedState | null {
   if (typeof raw !== 'string' || raw === '') return null;
@@ -178,16 +191,15 @@ export function decodeShared (
   // and applies no reset.
   if (Object.keys(sparse).length === 0 && Object.keys(sparsePayload).length > 0) return null;
 
-  return { settings: mixDefaults(defaults, sparse), unknown };
+  return { settings: mixDefaults(defaultsFor(catalog, networkOf(sparse)), sparse), unknown };
 }
 
 /** The settings alone, for a caller that has no use for the imported extras. */
 export function decodeSettings (
   raw: string,
-  defaults: Settings,
   catalog: Catalog,
 ): Settings | null {
-  return decodeShared(raw, defaults, catalog)?.settings ?? null;
+  return decodeShared(raw, catalog)?.settings ?? null;
 }
 
 /** Read a share payload out of a location hash. Supports `#c=` and legacy `#config=`. */
