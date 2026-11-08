@@ -1,0 +1,102 @@
+{
+  "__meta": {
+    "network": "testnet4",
+    "source": "https://github.com/libbitcoin/libbitcoin.github.io/blob/3575750/configuration/md/testnet4.md",
+    "note": "Settings in which this network differs from the mainnet defaults, as bs prints them."
+  },
+  "bitcoin": {
+    "network": "testnet4",
+    "bip16_activation_time": 1329264000,
+    "bip34_activation_sample": 0,
+    "bip34_activation_threshold": 0,
+    "bip34_enforcement_threshold": 0,
+    "bip34_freeze": 0,
+    "bip65_freeze": 0,
+    "bip66_freeze": 0,
+    "bip9_activation_period": 0,
+    "bip9_bit0_start": 4294967295,
+    "bip9_bit0_threshold": 0,
+    "bip9_bit0_timeout": 0,
+    "bip9_bit1_start": 4294967295,
+    "bip9_bit1_threshold": 0,
+    "bip9_bit1_timeout": 0,
+    "bip9_bit2_activation_height": 0,
+    "bip9_bit2_speedy_trial": false,
+    "bip9_bit2_start": 4294967295,
+    "bip9_bit2_threshold": 0,
+    "bip9_bit2_timeout": 0,
+    "checkpoint": "00000000da84f2bafbbc53dee25a72ae507ff4914b867c565be350b0da8bf043:0",
+    "genesis_block": "0100000000000000000000000000000000000000000000000000000000000000000000004e7b2b9128fe0291db0693af2ae418b767e657cd407e80cb1434221eaea7a07a046f3566ffff001dbb0c78170101000000010000000000000000000000000000000000000000000000000000000000000000ffffffff5504ffff001d01044c4c30332f4d61792f323032342030303030303030303030303030303030303030303165626435386332343439373062336161396437383362623030313031316662653865613865393865303065ffffffff0100f2052a010000002321000000000000000000000000000000000000000000000000000000000000000000ac00000000",
+    "milestone": "0000000002368b1e4ee27e2e85676ae6f9f9e69579b29093e9a82c170bf7cf8a:123613",
+    "minimum_work": "000000000000000000000000000000000000000000000b6a51f415a67c0da307"
+  },
+  "forks": {
+    "block_storm_patch": true,
+    "difficult": false,
+    "time_warp_patch": true
+  },
+  "peer": {
+    "identifier": 675223068
+  },
+  "wallet": {
+    "hd_private_prefix": 70615956,
+    "hd_public_prefix": 70617039,
+    "p2kh_prefix": 111,
+    "p2sh_prefix": 196,
+    "silent_prefix": "tsp",
+    "wif_prefix": 239,
+    "witness_prefix": "tb"
+  },
+  "inbound": {
+    "bind": "0.0.0.0:48333"
+  },
+  "outbound": {
+    "seed": [
+      "seed.testnet4.bitcoin.sprovoost.nl:48333",
+      "seed.testnet4.wiz.biz:48333"
+    ],
+    "connect_batch_size": 10,
+    "connections": 50
+  },
+  "node": {
+    "maximum_concurrency": 100000
+  },
+  "table.header": {
+    "expected": 156456,
+    "size": 17835984
+  },
+  "table.txs": {
+    "buckets": 150001,
+    "size": 604424
+  },
+  "table.tx": {
+    "expected": 14810011,
+    "size": 9478407
+  },
+  "table.ins": {
+    "expected": 33127580,
+    "size": 17226342
+  },
+  "table.outs": {
+    "expected": 57089349,
+    "size": 5138041
+  },
+  "table.input": {
+    "size": 87852864
+  },
+  "table.output": {
+    "size": 20343818
+  },
+  "table.candidate": {
+    "buckets": 150001
+  },
+  "table.confirmed": {
+    "buckets": 150001
+  },
+  "table.state": {
+    "buckets": 150001
+  },
+  "table.scan": {
+    "buckets": 150001
+  }
+}
