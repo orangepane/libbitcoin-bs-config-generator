@@ -98,6 +98,59 @@ describe('interface-without-credentials', () => {
     expect(evaluateWarnings(settings, defaults, catalog)).toEqual([]);
   });
 
+  it('keeps warning until both halves of the keypair are set', () => {
+    const incomplete: Record<string, ConfigValue>[] = [
+      { cert_path: '/etc/bs/esplora.crt' },
+      { key_path: '/etc/bs/esplora.key' },
+      { cert_auth: '/etc/bs/clients' },
+      { key_pass: 'secret' },
+    ];
+
+    for (const extra of incomplete) {
+      const settings = withChanges({ esplora: { bind: ['0.0.0.0:8780'], ...extra } });
+      const fired = evaluateWarnings(settings, defaults, catalog).map((warning) => warning.id);
+
+      expect(fired, Object.keys(extra)[0]).toContain('interface-without-credentials');
+    }
+  });
+
+  it('notices a credential on a clear connection instead of warning', () => {
+    const settings = withChanges({
+      esplora: { bind: ['0.0.0.0:8780'], credential: ['user:password'] },
+    });
+    const warnings = evaluateWarnings(settings, defaults, catalog);
+    const notice = only(warnings, 'interface-credential-without-tls');
+
+    expect(notice.severity).toBe('notice');
+    expect(notice.message).toContain('travels in the clear');
+    expect(warnings.map((warning) => warning.id)).not.toContain('interface-without-credentials');
+    expect(alerts(warnings)).toEqual([]);
+  });
+
+  it('stays quiet with a keypair and a credential together', () => {
+    const settings = withChanges({
+      esplora: {
+        bind: ['0.0.0.0:8780'],
+        credential: ['user:password'],
+        cert_path: '/etc/bs/esplora.crt',
+        key_path: '/etc/bs/esplora.key',
+      },
+    });
+
+    expect(evaluateWarnings(settings, defaults, catalog)).toEqual([]);
+  });
+
+  it('accepts the CurveZMQ keypair for bitcoind_zmq', () => {
+    const base = { bind: ['0.0.0.0:8380'] };
+    const clear = withChanges({ bitcoind_zmq: base });
+    const secured = withChanges({
+      bitcoind_zmq: { ...base, key: 'server-key', cert: ['client-key'] },
+    });
+
+    expect(ids(evaluateWarnings(clear, defaults, catalog))).toContain('interface-without-credentials');
+    expect(evaluateWarnings(secured, defaults, catalog)).toEqual([]);
+  });
+
   it('stays quiet when a service is off', () => {
     const settings = withChanges({ admin: { bind: [] } });
 

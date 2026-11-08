@@ -10,17 +10,15 @@ import type { ConfigValue, Settings, Warning } from './types';
 const MAINNET = 'mainnet';
 const WALLET_SERVICES = ['electrum', 'sparrow', 'esplora'];
 const FILTER_TABLES = ['table.filter_bk', 'table.filter_tx'];
-/** Settings that carry a credential or a TLS keypair. */
-const CREDENTIAL_KEYS = [
-  'password',
-  'credential',
-  'key_pass',
-  'key_path',
-  'cert_path',
-  'cert_auth',
-  'cert',
-  'key',
-];
+/** A login the service checks. CurveZMQ authenticates with a key pair instead. */
+const CREDENTIAL_KEYS = ['credential', 'password'];
+
+/**
+ * The two fields that make a service's `safe` addresses work. `key_pass` and
+ * `cert_auth` modify these and secure nothing on their own.
+ */
+const TLS_PAIR_KEYS = ['cert_path', 'key_path'];
+const CURVE_PAIR_KEYS = ['cert', 'key'];
 
 function valueAt (settings: Settings, section: string, key: string): ConfigValue | undefined {
   const values: Record<string, ConfigValue> | undefined = settings[section];
@@ -84,8 +82,8 @@ function serviceBinds (settings: Settings, section: SectionDef): string[] {
   return bindList(valueAt(settings, section.key, enableKey));
 }
 
-function credentialSettings (section: SectionDef): SettingDef[] {
-  return Object.values(section.settings).filter((setting) => CREDENTIAL_KEYS.includes(setting.key));
+function settingsNamed (section: SectionDef, keys: readonly string[]): SettingDef[] {
+  return Object.values(section.settings).filter((setting) => keys.includes(setting.key));
 }
 
 function renderValue (value: ConfigValue): string {
@@ -116,24 +114,43 @@ function interfaceWithoutCredentials (settings: Settings, catalog: Catalog): War
     const exposed = binds.filter((bind) => !isLoopback(bind));
     if (exposed.length === 0) continue;
 
-    const credentials = credentialSettings(section);
-    if (credentials.length === 0) continue;
-    const filled = credentials.filter(
+    const key = section.enableKey ?? 'bind';
+    const addresses = exposed.join(', ');
+    const pair = settingsNamed(section, section.key === 'bitcoind_zmq' ? CURVE_PAIR_KEYS : TLS_PAIR_KEYS);
+    const secure = pair.length === 2 &&
+      pair.every((setting) => !isUnset(valueAt(settings, section.key, setting.key)));
+
+    if (secure) continue;
+
+    const credentials = settingsNamed(section, CREDENTIAL_KEYS);
+    const credentiated = credentials.some(
       (setting) => !isUnset(valueAt(settings, section.key, setting.key)),
     );
-    if (filled.length > 0) continue;
 
-    const names = credentials.map((setting) => `${section.key}.${setting.key}`);
-    const addresses = exposed.join(', ');
+    if (credentiated) {
+      warnings.push({
+        id: 'interface-credential-without-tls',
+        severity: 'notice',
+        section: section.key,
+        key,
+        message:
+          `${section.key}.${key} listens on ${addresses} without TLS, so the credential travels in the clear. ` +
+          `Set ${section.key}.cert_path and ${section.key}.key_path to encrypt it.`,
+      });
+      continue;
+    }
+
+    const pairNames = pair.map((setting) => `${section.key}.${setting.key}`);
+    const credentialNames = credentials.map((setting) => `${section.key}.${setting.key}`);
     warnings.push({
       id: 'interface-without-credentials',
       severity: 'warning',
       section: section.key,
-      key: section.enableKey ?? 'bind',
+      key,
       message:
-        `${section.key}.${section.enableKey ?? 'bind'} listens on ${addresses}, which other machines can reach, ` +
-        `while ${quantify(names, 'is', 'are')} empty. ` +
-        `Set the TLS or credential fields, or bind ${section.key} to 127.0.0.1.`,
+        `${section.key}.${key} listens on ${addresses}, which other machines can reach, and nothing authenticates the clients. ` +
+        `Set ${quantify(pairNames, 'both', 'both')} for TLS, set ${quantify(credentialNames, 'a credential', 'a credential')}, ` +
+        `or bind ${section.key} to 127.0.0.1.`,
     });
   }
 
