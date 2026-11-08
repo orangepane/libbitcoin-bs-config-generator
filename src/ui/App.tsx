@@ -411,7 +411,6 @@ export function App () {
         </main>
 
         <ArtifactPane
-          verifiedAgainst={catalog.meta.verifiedAgainst}
           artifact={artifact}
           defaults={baseline(state.settings)}
           warnings={warnings}
@@ -443,8 +442,8 @@ export function App () {
 
       <footer className="site-footer">
         <p>
-          Community tool for libbitcoin server v4. Not affiliated with or endorsed by the
-          libbitcoin project.
+          Community tool for bs v4, checked against {catalog.meta.verifiedAgainst.version}.
+          Not affiliated with or endorsed by the libbitcoin project.
         </p>
         <a
           href="https://github.com/orangepane/libbitcoin-bs-config-generator"
@@ -492,8 +491,7 @@ export function App () {
             </button>
           </div>
           <ArtifactPane
-            verifiedAgainst={catalog.meta.verifiedAgainst}
-            artifact={artifact}
+              artifact={artifact}
             defaults={baseline(state.settings)}
             warnings={warnings}
             unknown={state.unknown}
