@@ -6,7 +6,7 @@
     "snapshot": "2026-11-06",
     "defaultsScope": "mainnet",
     "generatedBy": "scripts/build-catalog.mjs from scripts/data/data.json",
-    "seedSha256": "4dfa5bb9632ce5428f37705a9a72c942f649fc05479cf89625f36db24ebeb6db",
+    "seedSha256": "0e54214ad771f8f15fcaea8a21ccf4435719d090dca32ad3554a03383da96a9c",
     "sectionCount": 43,
     "settingCount": 462
   },
@@ -52,6 +52,15 @@
           "tier": "advanced",
           "kind": "boolean",
           "default": true,
+          "emit": "whenChanged"
+        },
+        "objects": {
+          "key": "objects",
+          "label": "Objects",
+          "help": "Enable objects logging.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
           "emit": "whenChanged"
         },
         "path": {
@@ -2211,16 +2220,6 @@
           "tier": "advanced",
           "kind": "decimal",
           "default": 1.5,
-          "emit": "whenChanged",
-          "min": 0
-        },
-        "announcement_cache": {
-          "key": "announcement_cache",
-          "label": "Announcement Cache",
-          "help": "Limit of per channel cached peer block and tx announcements, to avoid replay.",
-          "tier": "advanced",
-          "kind": "integer",
-          "default": 42,
           "emit": "whenChanged",
           "min": 0
         },

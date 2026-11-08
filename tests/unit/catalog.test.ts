@@ -26,8 +26,8 @@ const EXPECTED_TIER_COUNTS: Record<string, number> = {
 };
 
 const EXPECTED_KIND_COUNTS: Record<Kind, number> = {
-  boolean: 79,
-  integer: 257,
+  boolean: 80,
+  integer: 256,
   decimal: 8,
   text: 36,
   path: 30,

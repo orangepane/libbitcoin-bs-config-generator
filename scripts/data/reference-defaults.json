@@ -4,6 +4,7 @@
     "fault": true,
     "maximum_size": 1000000,
     "news": true,
+    "objects": false,
     "path": "",
     "protocol": false,
     "proxy": false,
@@ -253,7 +254,6 @@
   },
   "node": {
     "allowed_deviation": 1.5,
-    "announcement_cache": 42,
     "batch_silent": 1000000,
     "batch_verify": 1000000,
     "compact_missing_percent": 50,

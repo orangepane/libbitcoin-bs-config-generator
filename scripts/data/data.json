@@ -51,6 +51,12 @@
       "default": true,
       "control": "flag"
     },
+    "objects": {
+      "name": "Objects",
+      "description": "Enable objects logging.",
+      "default": false,
+      "control": "flag"
+    },
     "path": {
       "name": "Path",
       "description": "The log files directory.",
@@ -1405,13 +1411,6 @@
       "description": "Allowable underperformance standard deviation (0 disables).",
       "default": 1.5,
       "control": "decimal",
-      "min": 0
-    },
-    "announcement_cache": {
-      "name": "Announcement Cache",
-      "description": "Limit of per channel cached peer block and tx announcements, to avoid replay.",
-      "default": 42,
-      "control": "number",
       "min": 0
     },
     "batch_silent": {
