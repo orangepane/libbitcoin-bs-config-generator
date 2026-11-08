@@ -26,12 +26,12 @@ const EXPECTED_TIER_COUNTS: Record<string, number> = {
 };
 
 const EXPECTED_KIND_COUNTS: Record<Kind, number> = {
-  boolean: 78,
+  boolean: 79,
   integer: 257,
   decimal: 8,
-  text: 33,
-  path: 28,
-  list: 46,
+  text: 36,
+  path: 30,
+  list: 51,
   enum: 1,
 };
 
@@ -69,11 +69,11 @@ function countBy<T extends string> (values: T[]): Record<string, number> {
 }
 
 describe('catalog meta', () => {
-  it('declares the 43 sections and 451 settings it actually carries', () => {
+  it('declares the 43 sections and 462 settings it actually carries', () => {
     expect(catalog.meta.sectionCount).toBe(43);
-    expect(catalog.meta.settingCount).toBe(451);
+    expect(catalog.meta.settingCount).toBe(462);
     expect(sections).toHaveLength(43);
-    expect(settings).toHaveLength(451);
+    expect(settings).toHaveLength(462);
   });
 
   it('targets bs v4 and scopes every default to mainnet', () => {
@@ -172,7 +172,7 @@ describe('settings', () => {
 
   it('gives every setting a default of its kind, with the expected kind counts', () => {
     const matching = settings.filter((setting) => defaultMatchesKind(setting.kind, setting.default));
-    expect(matching).toHaveLength(451);
+    expect(matching).toHaveLength(462);
     expect(countBy(settings.map((setting) => setting.kind))).toEqual(EXPECTED_KIND_COUNTS);
   });
 

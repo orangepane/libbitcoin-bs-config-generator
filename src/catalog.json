@@ -6,9 +6,9 @@
     "snapshot": "2026-11-06",
     "defaultsScope": "mainnet",
     "generatedBy": "scripts/build-catalog.mjs from scripts/data/data.json",
-    "seedSha256": "7b8d9341890d15286d14b2084a12e6c2abee082966ecf161589c3cb471e6948a",
+    "seedSha256": "c5e7753ab786487dc8410235602d0b1307868084bda058586b837ecf2630a1fc",
     "sectionCount": 43,
-    "settingCount": 451
+    "settingCount": 462
   },
   "sections": {
     "log": {
@@ -1823,6 +1823,15 @@
           "min": 0,
           "unit": "seconds"
         },
+        "signet_challenge": {
+          "key": "signet_challenge",
+          "label": "Signet Challenge",
+          "help": "The signet block challenge script.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged"
+        },
         "subsidy_interval": {
           "key": "subsidy_interval",
           "label": "Subsidy Interval",
@@ -2084,6 +2093,15 @@
           "tier": "advanced",
           "kind": "boolean",
           "default": true,
+          "emit": "whenChanged"
+        },
+        "signet": {
+          "key": "signet",
+          "label": "Signet",
+          "help": "Require signet block solutions (signet).",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": false,
           "emit": "whenChanged"
         },
         "time_warp_patch": {
@@ -3282,6 +3300,16 @@
           "emit": "whenChanged",
           "min": 0
         },
+        "credential": {
+          "key": "credential",
+          "label": "Credential",
+          "help": "The 'username:password[:method,...]' authorization (not secure), multiple allowed.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged",
+          "secret": true
+        },
         "default": {
           "key": "default",
           "label": "Default",
@@ -3493,6 +3521,16 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0
+        },
+        "credential": {
+          "key": "credential",
+          "label": "Credential",
+          "help": "The 'username:password[:method,...]' authorization (not secure), multiple allowed.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged",
+          "secret": true
         },
         "default": {
           "key": "default",
@@ -4241,6 +4279,15 @@
           "default": [],
           "emit": "whenChanged"
         },
+        "cert_auth": {
+          "key": "cert_auth",
+          "label": "Certificate Authentication",
+          "help": "The trusted client certificate directory (*.PEM), enables client authentication.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
         "cert_path": {
           "key": "cert_path",
           "label": "Certificate Path",
@@ -4270,6 +4317,16 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0
+        },
+        "credential": {
+          "key": "credential",
+          "label": "Credential",
+          "help": "The 'username:password[:method,...]' authorization (not secure), multiple allowed.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged",
+          "secret": true
         },
         "donation_address": {
           "key": "donation_address",
@@ -4301,6 +4358,16 @@
           "emit": "whenChanged",
           "min": 0,
           "unit": "minutes"
+        },
+        "key_pass": {
+          "key": "key_pass",
+          "label": "Key Pass",
+          "help": "The password to decrypt the server private key file (.PEM), optional.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged",
+          "secret": true
         },
         "key_path": {
           "key": "key_path",
@@ -4514,6 +4581,15 @@
           "default": [],
           "emit": "whenChanged"
         },
+        "cert_auth": {
+          "key": "cert_auth",
+          "label": "Certificate Authentication",
+          "help": "The trusted client certificate directory (*.PEM), enables client authentication.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
         "cert_path": {
           "key": "cert_path",
           "label": "Certificate Path",
@@ -4543,6 +4619,16 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0
+        },
+        "credential": {
+          "key": "credential",
+          "label": "Credential",
+          "help": "The 'username:password[:method,...]' authorization (not secure), multiple allowed.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged",
+          "secret": true
         },
         "donation_address": {
           "key": "donation_address",
@@ -4574,6 +4660,16 @@
           "emit": "whenChanged",
           "min": 0,
           "unit": "minutes"
+        },
+        "key_pass": {
+          "key": "key_pass",
+          "label": "Key Pass",
+          "help": "The password to decrypt the server private key file (.PEM), optional.",
+          "tier": "advanced",
+          "kind": "text",
+          "default": "",
+          "emit": "whenChanged",
+          "secret": true
         },
         "key_path": {
           "key": "key_path",
@@ -4825,6 +4921,16 @@
           "default": 0,
           "emit": "whenChanged",
           "min": 0
+        },
+        "credential": {
+          "key": "credential",
+          "label": "Credential",
+          "help": "The 'username:password[:method,...]' authorization (not secure), multiple allowed.",
+          "tier": "advanced",
+          "kind": "list",
+          "default": [],
+          "emit": "whenChanged",
+          "secret": true
         },
         "expiration_minutes": {
           "key": "expiration_minutes",
