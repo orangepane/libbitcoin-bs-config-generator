@@ -6,7 +6,7 @@
     "snapshot": "2026-11-06",
     "defaultsScope": "network",
     "generatedBy": "scripts/build-catalog.mjs from scripts/data/data.json",
-    "seedSha256": "0e54214ad771f8f15fcaea8a21ccf4435719d090dca32ad3554a03383da96a9c",
+    "seedSha256": "a58773a79b5dcacfe2e8af8082cc59b1d1fa2775952d4022240816473a8b3e38",
     "sectionCount": 43,
     "settingCount": 462
   },
@@ -1754,7 +1754,7 @@
         "milestone": {
           "key": "milestone",
           "label": "Milestone",
-          "help": "A block presumed to be valid but not required to be present.",
+          "help": "The block from which bs verifies identity; above it blocks are fully validated.",
           "tier": "essential",
           "kind": "text",
           "default": "000000000000000000010b93c9ea1c29fea277383f0f7d1f26de8b5802e885ff:950000",
@@ -2758,7 +2758,7 @@
         "user_agent": {
           "key": "user_agent",
           "label": "User Agent",
-          "help": "The node user agent string.",
+          "help": "The node user agent string; empty uses the build's own value.",
           "tier": "advanced",
           "kind": "text",
           "default": "/libbitcoin:4.0.10255/",
@@ -4556,7 +4556,7 @@
         "server_name": {
           "key": "server_name",
           "label": "Server Name",
-          "help": "String returned by server.version.",
+          "help": "The name this service returns from server.version; empty uses the build's own value.",
           "tier": "advanced",
           "kind": "text",
           "default": "/libbitcoin:4.0.10255/",
@@ -4858,7 +4858,7 @@
         "server_name": {
           "key": "server_name",
           "label": "Server Name",
-          "help": "String returned by server.version.",
+          "help": "The name this service returns from server.version; empty uses the build's own value.",
           "tier": "advanced",
           "kind": "text",
           "default": "/libbitcoin:4.0.10255/",

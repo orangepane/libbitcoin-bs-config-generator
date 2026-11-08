@@ -167,7 +167,7 @@ function milestoneWithMaximumHeight (settings: Settings, defaults: Settings): Wa
     key: 'maximum_height',
     message:
       'bitcoin.milestone and node.maximum_height are both set: node.maximum_height stops the download at its height, ' +
-      'while bitcoin.milestone starts validation at its block. ' +
+      'and bs verifies identity from the milestone block upward. ' +
       'If the milestone block is above node.maximum_height, the node never reaches it.',
   }];
 }

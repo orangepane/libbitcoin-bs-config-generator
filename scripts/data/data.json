@@ -1106,7 +1106,7 @@
     },
     "milestone": {
       "name": "Milestone",
-      "description": "A block presumed to be valid but not required to be present.",
+      "description": "The block from which bs verifies identity; above it blocks are fully validated.",
       "default": "000000000000000000010b93c9ea1c29fea277383f0f7d1f26de8b5802e885ff:950000",
       "control": "text"
     },
@@ -1769,7 +1769,7 @@
     },
     "user_agent": {
       "name": "User Agent",
-      "description": "The node user agent string.",
+      "description": "The node user agent string; empty uses the build's own value.",
       "default": "/libbitcoin:4.0.10255/",
       "control": "text"
     },
@@ -2964,7 +2964,7 @@
     },
     "server_name": {
       "name": "Server Name",
-      "description": "String returned by server.version.",
+      "description": "The name this service returns from server.version; empty uses the build's own value.",
       "default": "/libbitcoin:4.0.10255/",
       "control": "text"
     }
@@ -3165,7 +3165,7 @@
     },
     "server_name": {
       "name": "Server Name",
-      "description": "String returned by server.version.",
+      "description": "The name this service returns from server.version; empty uses the build's own value.",
       "default": "/libbitcoin:4.0.10255/",
       "control": "text"
     }
