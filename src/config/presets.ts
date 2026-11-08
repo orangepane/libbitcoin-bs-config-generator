@@ -52,7 +52,7 @@ export const PRESETS: Preset[] = [
     id: 'tor-privacy',
     title: 'Tor privacy',
     rationale:
-      'Route outbound connections through a local Tor SOCKS proxy and gossip only over Tor.',
+      'Route outbound connections through a local Tor SOCKS proxy, gossip only Tor addresses, and listen only on loopback. Set inbound.self to your own onion address so the node advertises it.',
     config: torPrivacy,
   },
   {

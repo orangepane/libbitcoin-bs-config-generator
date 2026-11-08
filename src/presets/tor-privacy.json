@@ -2,12 +2,11 @@
   "outbound": {
     "socks": "127.0.0.1:9050"
   },
-  "peer": {
-    "gossip_tor": true,
-    "gossip_ipv4": false,
-    "gossip_ipv6": false
+  "inbound": {
+    "bind": ["127.0.0.1"]
   },
-  "node": {
-    "provide_privacy": true
+  "peer": {
+    "gossip_ipv4": false,
+    "gossip_tor": true
   }
 }
