@@ -15,14 +15,12 @@ const catalog: Catalog = validateCatalog(catalogJson);
 const defaults = getDefaults(catalog);
 
 /** Mainnet default milestone: the checkpoint a non-mainnet store must not use. */
-const MAINNET_MILESTONE = String(defaults.bitcoin.milestone);
 /** The genesis checkpoint, a real value that is not the mainnet default. */
 const GENESIS_MILESTONE =
   '000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f:0';
 
 const KNOWN_IDS = [
   'interface-without-credentials',
-  'milestone-network-mismatch',
   'milestone-with-maximum-height',
   'filters-without-buckets',
   'address-index-disabled',
@@ -165,34 +163,17 @@ describe('interface-without-credentials', () => {
   });
 });
 
-describe('milestone-network-mismatch', () => {
-  it('rates a mismatched milestone as a danger, not advice', () => {
-    const settings = withChanges({ bitcoin: { network: 'testnet3' } });
-    const warning = only(evaluateWarnings(settings, defaults, catalog), 'milestone-network-mismatch');
+describe('network selection', () => {
+  it('warns no milestone mismatch when the network changes', () => {
+    // bs applies the new network's defaults, so its milestone comes with them.
+    const warnings = evaluateWarnings(
+      withChanges({ bitcoin: { network: 'testnet3' } }),
+      defaults,
+      catalog,
+    );
 
-    expect(warning.severity).toBe('danger');
-    expect(warning.message).toContain('bitcoin.network');
-    expect(warning.message).toContain('bitcoin.milestone');
-    expect(warning.message).toContain('testnet3');
-    expect(warning.message).not.toContain(MAINNET_MILESTONE);
-  });
-
-  it('stays quiet when the milestone is set for the new network', () => {
-    const settings = withChanges({
-      bitcoin: { network: 'testnet4', milestone: GENESIS_MILESTONE },
-    });
-    const fired = ids(evaluateWarnings(settings, defaults, catalog));
-
-    expect(fired).not.toContain('milestone-network-mismatch');
-  });
-
-  it('notices a milestone that changes while the network stays mainnet', () => {
-    const settings = withChanges({ bitcoin: { milestone: GENESIS_MILESTONE } });
-    const warning = only(evaluateWarnings(settings, defaults, catalog), 'milestone-network-mismatch');
-
-    expect(warning.severity).toBe('notice');
-    expect(warning.message).toContain('bitcoin.network');
-    expect(warning.message).toContain('bitcoin.milestone');
+    expect(ids(warnings)).toEqual(['fixed-at-creation']);
+    expect(warnings[0].key).toBe('network');
   });
 });
 
@@ -363,13 +344,11 @@ describe('warning shape and purity', () => {
     const fired = ids(evaluateWarnings(fixture(), defaults, catalog));
 
     expect(fired).toContain('interface-without-credentials');
-    expect(fired).toContain('milestone-network-mismatch');
     expect(fired).toContain('filters-without-buckets');
     expect(fired).toContain('address-index-disabled');
     expect(fired).toContain('fixed-at-creation');
 
-    // The milestone rules are exclusive: an unchanged milestone is a network
-    // mismatch, a changed one is a maximum-height comparison.
+    // The milestone rule covers the maximum-height comparison alone.
     const bothMilestones = withChanges({
       bitcoin: { milestone: GENESIS_MILESTONE },
       node: { maximum_height: 800000 },
@@ -437,7 +416,11 @@ describe('alerts', () => {
     expect(notes.every((warning) => warning.severity !== 'notice')).toBe(false);
     expect(alerts(notes)).toEqual([]);
 
-    const risk = evaluateWarnings(withChanges({ bitcoin: { network: 'testnet3' } }), defaults, catalog);
-    expect(alerts(risk).map((warning) => warning.id)).toContain('milestone-network-mismatch');
+    const risk = evaluateWarnings(
+      withChanges({ electrum: { bind: ['0.0.0.0:50001'] } }),
+      defaults,
+      catalog,
+    );
+    expect(alerts(risk).map((warning) => warning.id)).toContain('interface-without-credentials');
   });
 });

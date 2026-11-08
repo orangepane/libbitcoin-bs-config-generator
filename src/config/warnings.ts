@@ -7,7 +7,6 @@ import type { ConfigValue, Settings, Warning } from './types';
 // The one module allowed to name settings directly: a rule is a fact about
 // `bs` that the generated catalog cannot carry.
 
-const MAINNET = 'mainnet';
 const WALLET_SERVICES = ['electrum', 'sparrow', 'esplora'];
 const FILTER_TABLES = ['table.filter_bk', 'table.filter_tx'];
 /** A login the service checks. CurveZMQ authenticates with a key pair instead. */
@@ -151,43 +150,6 @@ function interfaceWithoutCredentials (settings: Settings, catalog: Catalog): War
         `${section.key}.${key} listens on ${addresses}, which other machines can reach, and nothing authenticates the clients. ` +
         `Set ${quantify(pairNames, 'both', 'both')} for TLS, set ${quantify(credentialNames, 'a credential', 'a credential')}, ` +
         `or bind ${section.key} to 127.0.0.1.`,
-    });
-  }
-
-  return warnings;
-}
-
-function milestoneNetworkMismatch (
-  settings: Settings,
-  defaults: Settings,
-): Warning[] {
-  const network = valueAt(settings, 'bitcoin', 'network');
-  if (typeof network !== 'string') return [];
-
-  const networkChanged = isChanged(settings, defaults, 'bitcoin', 'network');
-  const milestoneChanged = isChanged(settings, defaults, 'bitcoin', 'milestone');
-  const warnings: Warning[] = [];
-
-  if (networkChanged && !milestoneChanged) {
-    warnings.push({
-      id: 'milestone-network-mismatch',
-      severity: 'danger',
-      section: 'bitcoin',
-      key: 'milestone',
-      message:
-        `bitcoin.network is ${network} while bitcoin.milestone is still the mainnet checkpoint, ` +
-        `so the node would start validating from a block that is not on the ${network} chain. ` +
-        `Set bitcoin.milestone to a checkpoint on ${network} before the store is created.`,
-    });
-  } else if (!networkChanged && milestoneChanged) {
-    warnings.push({
-      id: 'milestone-network-mismatch',
-      severity: 'notice',
-      section: 'bitcoin',
-      key: 'milestone',
-      message:
-        `bitcoin.milestone differs from the mainnet checkpoint while bitcoin.network is still ${MAINNET}. ` +
-        'Confirm the block is on mainnet, because validation starts there and a checkpoint from another chain will not sync.',
     });
   }
 
@@ -343,7 +305,6 @@ export function evaluateWarnings (
 ): Warning[] {
   return [
     ...interfaceWithoutCredentials(settings, catalog),
-    ...milestoneNetworkMismatch(settings, defaults),
     ...milestoneWithMaximumHeight(settings, defaults),
     ...filtersWithoutBuckets(settings),
     ...addressIndexDisabled(settings, catalog),

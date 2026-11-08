@@ -129,13 +129,13 @@ describe('network and presets', () => {
 
   // A note is a fact about the store's lifecycle. It never borrows the word
   // "warning", and it never stands between the reader and the file.
-  it('counts notes as notes, not as warnings', async () => {
+  it('counts notes separately from warnings', async () => {
     const user = userEvent.setup();
     render(<App />);
 
     await user.click(screen.getByRole('button', { name: 'Apply Full validation from genesis' }));
 
-    expect(screen.getByText('2 notes')).toBeInTheDocument();
+    expect(screen.getByText('1 note')).toBeInTheDocument();
     expect(screen.queryByText(/^\d+ warnings?$/)).toBeNull();
   });
 

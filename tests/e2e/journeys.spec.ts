@@ -11,7 +11,7 @@ test.beforeEach(async ({ page }) => {
 // A note is not a risk. Nothing stands between the reader and a normal save.
 test('a note does not interrupt the download', async ({ page }) => {
   await page.getByRole('button', { name: 'Apply Full validation from genesis' }).click();
-  await expect(page.getByText('2 notes')).toBeVisible();
+  await expect(page.getByText('1 note')).toBeVisible();
 
   const downloaded = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Download bs.cfg' }).click();
