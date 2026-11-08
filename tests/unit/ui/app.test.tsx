@@ -141,9 +141,13 @@ describe('network and presets', () => {
 
   it('counts a real check as a warning', async () => {
     const user = userEvent.setup();
-    render(<App />);
+    const { container } = render(<App />);
 
-    await user.click(screen.getByRole('button', { name: 'Apply Wallet server' }));
+    await user.click(screen.getByRole('button', { name: 'All' }));
+    const row = container.querySelector('[data-row="electrum.bind"]') as HTMLElement;
+    await user.click(within(row).getByRole('button', { name: 'Bind' }));
+    await user.type(within(row).getByLabelText('Entry 1'), '0.0.0.0:50001');
+    await user.tab();
 
     expect(screen.getByText('1 warning')).toBeInTheDocument();
     expect(screen.queryByText(/^\d+ notes?$/)).toBeNull();

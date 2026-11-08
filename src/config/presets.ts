@@ -17,21 +17,21 @@ export const PRESETS: Preset[] = [
     id: 'wallet-server',
     title: 'Wallet server',
     rationale:
-      'Serve Electrum wallets on port 8580. The bind is all interfaces, so allow the port before exposing it.',
+      'Electrum wallets are served on the local machine; set electrum.bind to 0.0.0.0 to accept clients from another host.',
     config: walletServer,
   },
   {
     id: 'sparrow-server',
     title: 'Sparrow server',
     rationale:
-      'Serve Sparrow wallets on port 8680, including silent payment scans.',
+      'Sparrow wallets, including silent payment scans, stay on the local machine until sparrow.bind admits another host.',
     config: sparrowServer,
   },
   {
     id: 'explorer-backend',
     title: 'Explorer backend',
     rationale:
-      'Serve Esplora on port 8780 and the native explorer on 8180, both on all interfaces.',
+      'Esplora and the native explorer stay on the local machine; widen esplora.bind and native.bind to serve another machine.',
     config: explorerBackend,
   },
   {

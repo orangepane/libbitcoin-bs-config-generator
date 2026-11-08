@@ -20,15 +20,13 @@ test('a note does not interrupt the download', async ({ page }) => {
   await expect(page.getByRole('dialog')).toHaveCount(0);
 });
 
-test('preset to downloaded file in three interactions', async ({ page }) => {
+test('preset to downloaded file in two interactions', async ({ page }) => {
   await page.getByRole('button', { name: 'Apply Wallet server' }).click();
-  await page.getByRole('button', { name: 'Download bs.cfg' }).click();
 
-  // The preset exposes an interface on all addresses without TLS: the warning is
-  // read once more before saving, and does not block it.
-  await expect(page.getByRole('dialog')).toContainText('electrum.bind');
+  // The preset listens on loopback, so nothing stands between the reader and
+  // the file.
   const downloaded = page.waitForEvent('download');
-  await page.getByRole('button', { name: 'Download anyway' }).click();
+  await page.getByRole('button', { name: 'Download bs.cfg' }).click();
   const download = await downloaded;
 
   expect(download.suggestedFilename()).toBe('bs.cfg');
@@ -38,7 +36,7 @@ test('preset to downloaded file in three interactions', async ({ page }) => {
 
   const text = await readFile(path, 'utf8');
   expect(text).toContain('[electrum]');
-  expect(text).toContain('bind = 0.0.0.0:8580');
+  expect(text).toContain('bind = 127.0.0.1');
   expect(text).toContain('# IP address to bind (empty disables).');
 });
 
