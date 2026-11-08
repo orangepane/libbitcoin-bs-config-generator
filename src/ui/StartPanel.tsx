@@ -72,9 +72,8 @@ export function StartPanel ({
         </p>
         {network !== 'mainnet' ? (
           <p className="row-help start-network-note">
-            Create the store for {network} once before the first start:{' '}
-            <code>bs -n {network}</code>. Settings that apply at store creation cannot be
-            changed afterwards.
+            The store is created for {network} on first run. Settings that apply at store
+            creation cannot be changed afterwards.
           </p>
         ) : null}
       </section>

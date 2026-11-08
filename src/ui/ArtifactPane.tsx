@@ -322,13 +322,9 @@ export function ArtifactPane ({
 
       <div className="next-steps">
         <h3 className="next-steps-title">Run it</h3>
-        {artifact.network !== 'mainnet' ? (
-          <p>
-            Create the store for {artifact.network} once: <code>bs -n {artifact.network}</code>
-          </p>
-        ) : null}
         <p>
-          Then start bs with this file: <code>bs --config bs.cfg</code>
+          <code>bs --config bs.cfg</code> runs bs with this file and creates the store on first
+          run.
         </p>
       </div>
 

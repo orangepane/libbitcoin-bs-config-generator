@@ -149,14 +149,18 @@ describe('network and presets', () => {
     expect(screen.queryByText(/^\d+ notes?$/)).toBeNull();
   });
 
-  // The store command lives in the panel, not in a warning.
-  it('states the store command in the panel, not as a warning', async () => {
+  // The store note is a fact about the network's store; it is not a warning and
+  // it teaches no command.
+  it('states the store lifetime in the panel, not as a warning', async () => {
     const user = userEvent.setup();
     render(<App />);
 
     await user.selectOptions(screen.getByRole('combobox'), 'testnet3');
     const panel = within(screen.getByRole('region', { name: 'Network' }));
-    expect(panel.getByText(/bs -n testnet3/)).toBeInTheDocument();
+    expect(
+      panel.getByText(/The store is created for testnet3 on first run/),
+    ).toBeInTheDocument();
+    expect(panel.queryByText(/bs -n/)).toBeNull();
 
     await user.click(screen.getByRole('tab', { name: /^Warnings/ }));
     const warnings = within(screen.getByRole('tabpanel'));

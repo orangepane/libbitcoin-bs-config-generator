@@ -48,8 +48,7 @@ hand.
 ## Next steps after downloading
 
 ```bash
-bs -n testnet4          # first run on a non-mainnet network creates its store
-bs --config bs.cfg      # run with the file you generated
+bs --config bs.cfg      # run with the file you generated; the first run creates its store
 bs --settings           # print every setting and its current value
 ```
 
