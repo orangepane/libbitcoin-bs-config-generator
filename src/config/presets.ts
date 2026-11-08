@@ -81,8 +81,8 @@ export function presetById (id: string): Preset | undefined {
 /**
  * A preset is a starting point: defaults overlaid with the preset's sparse config.
  *
- * The network is a frame around the file, not part of what a preset chooses, so
- * a preset that does not name the network keeps the one already selected.
+ * The network frames the file: a preset chooses settings inside it, so one that
+ * does not name the network keeps the one already selected.
  */
 export function applyPreset (
   defaults: Settings,

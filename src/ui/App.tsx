@@ -219,7 +219,7 @@ export function App () {
     return state.modified ? 'Edited from the defaults' : 'Starting from defaults';
   }, [state.presetId, state.modified]);
 
-  // Copy feedback is a label, not an animation.
+  // Copy feedback shows as a text label.
   useEffect(() => {
     if (copyState === 'idle') return;
     const timer = window.setTimeout(() => setCopyState('idle'), 3000);
@@ -306,7 +306,7 @@ export function App () {
 
   function handleDownload () {
     setCopyState('idle');
-    // A note is a fact, not a risk: it does not stand between the reader and the file.
+    // A note states a fact about the store; the file is still produced.
     if (named.length === 0) saveFile();
     else setDownloadOpen(true);
   }

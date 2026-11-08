@@ -125,7 +125,7 @@ export interface SharedState {
  *
  * Both the envelope `{ s, u }` and the older plain sparse object are accepted.
  * Only keys the catalog knows, with a value the catalog's kind allows, are kept;
- * everything else is ignored rather than reported. Returns null when the payload
+ * everything else is ignored silently. Returns null when the payload
  * cannot be decoded at all: bad base64, bad JSON, or a non-object.
  */
 export function decodeShared (
@@ -175,7 +175,7 @@ export function decodeShared (
 
   // An empty payload is a real link: it says "all defaults". A payload that
   // carried keys but none of them survived is a link from another catalog,
-  // and is ignored rather than applied as a reset.
+  // and applies no reset.
   if (Object.keys(sparse).length === 0 && Object.keys(sparsePayload).length > 0) return null;
 
   return { settings: mixDefaults(defaults, sparse), unknown };

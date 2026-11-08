@@ -5,7 +5,7 @@ import type { ConfigValue, Settings, Warning } from './types';
 // Derived lint rules. Pure: nothing here writes settings or blocks a download.
 //
 // The one module allowed to name settings directly: a rule is a fact about
-// `bs`, not a fact the generated catalog carries.
+// `bs` that the generated catalog cannot carry.
 
 const MAINNET = 'mainnet';
 const WALLET_SERVICES = ['electrum', 'sparrow', 'esplora'];
@@ -313,7 +313,7 @@ function outOfRange (settings: Settings, catalog: Catalog): Warning[] {
  */
 /**
  * The checks worth naming before a file is saved: everything except notes. A note
- * is a fact about the store's lifecycle, not a risk, so it stays in the tab.
+ * describes the store's lifecycle, so it stays in the tab.
  */
 export function alerts (warnings: readonly Warning[]): Warning[] {
   return warnings.filter((warning) => warning.severity !== 'notice');

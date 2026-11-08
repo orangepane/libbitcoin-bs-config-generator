@@ -36,8 +36,8 @@ export function Row ({
   const showDefaultChip = networkScoped && state === 'default' && !changed;
   const showReason = reason !== undefined && (state === 'disabled' || state === 'fixed');
 
-  // Empty is a state, not zero: the tree carries no `undefined`, so an unset
-  // value crosses this boundary as a widened value.
+  // Empty is a state: the tree carries no `undefined`, so an unset value
+  // crosses this boundary as a widened value.
   const emit = (next: ConfigValue | undefined) => onChange(next as ConfigValue);
 
   function control (): ReactNode {

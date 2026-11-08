@@ -35,7 +35,7 @@ const FIXED_SETTINGS = new Set([
   'bitcoin.milestone', 'node.limited_blocks', 'node.maximum_height',
 ]);
 
-// Settings whose catalog default is the mainnet value, not a universal one.
+// Settings whose default depends on the network; the catalog carries mainnet's.
 const NETWORK_SCOPED = new Set(['bitcoin.milestone']);
 
 // bs computes these bucket counts from the table's expected count and the

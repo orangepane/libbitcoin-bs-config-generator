@@ -4,7 +4,7 @@ import { useModal } from '../useModal';
 import type { ImportDialogProps } from '../types';
 import { MAX_IMPORT_BYTES } from '../../config';
 
-// Nothing replaces the draft until Apply. Unknown keys are kept, not dropped.
+// Nothing replaces the draft until Apply. Unknown keys survive the import.
 
 /** Open a native dialog on mount, close it when the caller says so. */
 export function ImportDialog ({ open, errors, unknown, onApply, onClose }: ImportDialogProps) {

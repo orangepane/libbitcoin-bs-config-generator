@@ -8,7 +8,7 @@ export type Settings = Record<string, Record<string, ConfigValue>>;
 /** Settings with values equal to the default removed. */
 export type SparseSettings = Settings;
 
-/** A key from an imported file that the catalog does not know. Kept, not dropped. */
+/** A key from an imported file that the catalog does not know. Kept as written. */
 export interface UnknownEntry {
   section: string;
   key: string;

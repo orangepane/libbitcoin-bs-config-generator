@@ -126,7 +126,7 @@ export function SettingsList ({
     const sectionDefaults = defaults[section.key] ?? {};
     const models: RowModel[] = [];
     for (const setting of settingList(section)) {
-      // An unset value (cleared number) is kept, not replaced by the default.
+      // A value the user cleared stays cleared; the default returns on reset.
       const value = Object.prototype.hasOwnProperty.call(sectionValues, setting.key)
         ? sectionValues[setting.key]
         : sectionDefaults[setting.key];

@@ -1,6 +1,6 @@
-// Typing never commits: the field can be emptied and an out-of-range value is
-// reported rather than clamped. An external change of the committed value
-// replaces the draft.
+// Typing never commits: the field can be emptied, and an out-of-range value is
+// reported so the row and the file can name it. An external change of the
+// committed value replaces the draft.
 import { useState } from 'react';
 
 export interface NumberFieldProps {
