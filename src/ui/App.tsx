@@ -8,12 +8,14 @@ import {
   buildArtifact,
   clone,
   decodeShared,
-  evaluateWarnings,
   defaultsFor,
+  evaluateWarnings,
+  mixDefaults,
   parseConf,
   presetById,
   readHash,
   shareUrl,
+  stripDefaults,
 } from '../config';
 import type { ConfigValue, Settings, UnknownEntry } from '../config';
 import { Header } from './Header';
@@ -79,6 +81,20 @@ function snapshot (state: ShellState): Draft {
   };
 }
 
+/**
+ * A network change re-bases the draft: values the user chose survive, values
+ * that were only the old network's defaults give way to the new ones. Without
+ * this the tree keeps mainnet's chain parameters under a testnet's name.
+ */
+function rebase (current: Settings, next: Settings): Settings {
+  const chosen = stripDefaults(current, baseline(current));
+  const network = next.bitcoin?.network;
+  const sparse: Settings = typeof network === 'string'
+    ? { ...chosen, bitcoin: { ...(chosen.bitcoin ?? {}), network } }
+    : chosen;
+  return mixDefaults(baseline(next), sparse);
+}
+
 function withValue (state: ShellState, section: string, key: string, value: ConfigValue): ShellState {
   const values = { ...(state.settings[section] ?? {}) };
   values[key] = value;
@@ -87,12 +103,16 @@ function withValue (state: ShellState, section: string, key: string, value: Conf
 
 function reducer (state: ShellState, action: Action): ShellState {
   switch (action.type) {
-    case 'set':
+    case 'set': {
+      const changed = withValue(state, action.section, action.key, action.value);
+      const selectsNetwork = action.section === 'bitcoin' && action.key === 'network';
       return {
-        ...withValue(state, action.section, action.key, action.value),
+        ...changed,
+        settings: selectsNetwork ? rebase(state.settings, changed.settings) : changed.settings,
         modified: true,
         undo: null,
       };
+    }
 
     case 'revert': {
       const fallback = baseline(state.settings)[action.section]?.[action.key];
