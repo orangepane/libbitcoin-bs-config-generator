@@ -26,9 +26,10 @@ function describeScalar (
 }
 
 /**
- * The description for a value: `{}` interpolated for scalars, valueHelp resolved
- * when the catalog has an entry for the value, and list elements described one by
- * one and joined with `, `. Never throws; a missing help string yields ''.
+ * The description for a value: `{}` interpolated, and valueHelp resolved when the
+ * catalog has an entry for the value. A list is described once, since every
+ * element shares the setting's help and a repeated sentence reads as a typo.
+ * Never throws; a missing help string yields ''.
  */
 export function fillDescription (
   help: string | undefined,
@@ -38,10 +39,8 @@ export function fillDescription (
   const base = typeof help === 'string' ? help : '';
 
   if (Array.isArray(value)) {
-    return value
-      .filter((element) => typeof element === 'string' && element !== '')
-      .map((element) => describeScalar(base, element, valueHelp))
-      .join(', ');
+    const first = value.find((element) => typeof element === 'string' && element !== '');
+    return typeof first === 'string' ? describeScalar(base, first, valueHelp) : base;
   }
 
   if (value === undefined || value === null) return base;

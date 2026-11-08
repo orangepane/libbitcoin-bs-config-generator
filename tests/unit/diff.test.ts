@@ -47,12 +47,12 @@ describe('fillDescription', () => {
     expect(fillDescription('{} connections', true, { true: 'Yes' })).toBe('Yes');
   });
 
-  it('describes each list element and joins them with a comma', () => {
-    expect(fillDescription('A peer {}.', ['one:1', 'two:2'])).toBe('A peer one:1., A peer two:2.');
-    expect(fillDescription('A host.', ['a', 'b'], { a: 'Host a.' })).toBe('Host a., A host.');
+  it('describes a list once, interpolating its first element', () => {
+    expect(fillDescription('A peer {}.', ['one:1', 'two:2'])).toBe('A peer one:1.');
+    expect(fillDescription('A host.', ['a', 'b'], { a: 'Host a.' })).toBe('Host a.');
   });
 
-  it('drops empty list elements before describing them', () => {
+  it('skips an empty first element', () => {
     expect(fillDescription('A peer {}.', ['', 'one:1', ''])).toBe('A peer one:1.');
   });
 
@@ -227,5 +227,34 @@ describe('diffEntries', () => {
       const value: ConfigValue = entry.value;
       expect(['boolean', 'number', 'string', 'object']).toContain(typeof value);
     }
+  });
+});
+
+describe('list descriptions', () => {
+  it('describes a list once, however many elements it has', () => {
+    const entries = diffEntries(
+      settingsWith({
+        admin: { credential: ['username:password', 'username2:password2'] },
+      }),
+      defaults,
+      catalog,
+    );
+    const [entry] = entries;
+
+    expect(entry.lines).toEqual([
+      'credential = username:password',
+      'credential = username2:password2',
+    ]);
+    expect(entry.comment.match(/authorization/g)).toHaveLength(1);
+  });
+
+  it('describes a bind list once', () => {
+    const entries = diffEntries(
+      settingsWith({ inbound: { bind: ['0.0.0.0:8333', '[::]:8333'] } }),
+      defaults,
+      catalog,
+    );
+
+    expect(entries[0].comment.match(/IP address to bind/g)).toHaveLength(1);
   });
 });
