@@ -5,12 +5,12 @@
     "referenceUrl": "https://libbitcoin.org/configuration/reference.html",
     "snapshot": "2026-11-06",
     "verifiedAgainst": {
-      "date": "2026-11-08",
-      "serverCommit": "c99e607"
+      "date": "2026-11-10",
+      "serverCommit": "ee1ec847"
     },
     "defaultsScope": "network",
     "generatedBy": "scripts/build-catalog.mjs from scripts/data/data.json",
-    "seedSha256": "47133178bbb27f1a2a08721980390d6b6f6762d5600a2d69b97f2313d0585a29",
+    "seedSha256": "66e8267704f8a53cb39ff2419b3dfccab00da40ed96a20a45eaa236dfcef80d5",
     "sectionCount": 43,
     "settingCount": 462
   },
