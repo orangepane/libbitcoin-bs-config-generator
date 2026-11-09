@@ -115,7 +115,7 @@ function interfaceWithoutCredentials (settings: Settings, catalog: Catalog): War
 
     const key = section.enableKey ?? 'bind';
     const addresses = exposed.join(', ');
-    const pair = settingsNamed(section, section.key === 'bitcoind_zmq' ? CURVE_PAIR_KEYS : TLS_PAIR_KEYS);
+    const pair = settingsNamed(section, section.key === 'zmq' ? CURVE_PAIR_KEYS : TLS_PAIR_KEYS);
     const secure = pair.length === 2 &&
       pair.every((setting) => !isUnset(valueAt(settings, section.key, setting.key)));
 

@@ -13,7 +13,7 @@ const SEED = 'scripts/data/data.json';
 const OUT = 'src/catalog.json';
 
 const SERVICE_SECTIONS = new Set([
-  'admin', 'native', 'bitcoind', 'bitcoind_zmq', 'btcd', 'electrum', 'sparrow', 'esplora',
+  'admin', 'native', 'bitcoind', 'zmq', 'btcd', 'electrum', 'sparrow', 'esplora',
 ]);
 
 // Every key here is either needed by a preset or named by a warning rule.

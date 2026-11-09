@@ -448,7 +448,7 @@
     "subversion": "/libbitcoin:server/",
     "version": 0.0
   },
-  "bitcoind_zmq": {
+  "zmq": {
     "bind": [],
     "cert": [],
     "connect_timeout_seconds": 0,

@@ -138,11 +138,11 @@ describe('interface-without-credentials', () => {
     expect(evaluateWarnings(settings, defaults, catalog)).toEqual([]);
   });
 
-  it('accepts the CurveZMQ keypair for bitcoind_zmq', () => {
+  it('accepts the CurveZMQ keypair for zmq', () => {
     const base = { bind: ['0.0.0.0:8380'] };
-    const clear = withChanges({ bitcoind_zmq: base });
+    const clear = withChanges({ zmq: base });
     const secured = withChanges({
-      bitcoind_zmq: { ...base, key: 'server-key', cert: ['client-key'] },
+      zmq: { ...base, key: 'server-key', cert: ['client-key'] },
     });
 
     expect(ids(evaluateWarnings(clear, defaults, catalog))).toContain('interface-without-credentials');

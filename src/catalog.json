@@ -5,13 +5,12 @@
     "referenceUrl": "https://libbitcoin.org/configuration/reference.html",
     "snapshot": "2026-11-06",
     "verifiedAgainst": {
-      "version": "4.0.10444",
       "date": "2026-11-08",
       "serverCommit": "c99e607"
     },
     "defaultsScope": "network",
     "generatedBy": "scripts/build-catalog.mjs from scripts/data/data.json",
-    "seedSha256": "c7ca3ea4785770e2b60e19d3e57ee59cd7e97c65f93bafd74d50f63131c7bee5",
+    "seedSha256": "47133178bbb27f1a2a08721980390d6b6f6762d5600a2d69b97f2313d0585a29",
     "sectionCount": 43,
     "settingCount": 462
   },
@@ -3859,9 +3858,9 @@
       "service": true,
       "enableKey": "bind"
     },
-    "bitcoind_zmq": {
-      "key": "bitcoind_zmq",
-      "title": "Bitcoind ZMQ",
+    "zmq": {
+      "key": "zmq",
+      "title": "ZMQ notifications",
       "summary": "The bitcoind ZMQ notification interface.",
       "tier": "service",
       "settings": {

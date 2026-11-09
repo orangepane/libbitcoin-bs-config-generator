@@ -442,8 +442,13 @@ export function App () {
 
       <footer className="site-footer">
         <p>
-          Community tool for bs v4, checked against {catalog.meta.verifiedAgainst.version}.
-          Not affiliated with or endorsed by the libbitcoin project.
+          Community tool for bs v4, checked against{' '}
+          <a
+            href={`https://github.com/libbitcoin/libbitcoin-server/commit/${catalog.meta.verifiedAgainst.serverCommit}`}
+          >
+            libbitcoin-server {catalog.meta.verifiedAgainst.serverCommit}
+          </a>
+          . Not affiliated with or endorsed by the libbitcoin project.
         </p>
         <a
           href="https://github.com/orangepane/libbitcoin-bs-config-generator"
