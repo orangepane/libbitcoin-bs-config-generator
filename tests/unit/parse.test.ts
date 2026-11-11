@@ -60,16 +60,16 @@ describe('parseConf: structure', () => {
   });
 
   it('keeps a # inside a value, because comments are full lines only', () => {
-    const result = parseConf('[database]\npath = /srv/bs#2\n', defaults, catalog);
+    const result = parseConf('[folders]\nroot = /srv/bs#2\n', defaults, catalog);
 
-    expect(result.settings.database.path).toBe('/srv/bs#2');
+    expect(result.settings.folders.root).toBe('/srv/bs#2');
     expect(result.errors).toEqual([]);
   });
 
   it('splits on the first = only', () => {
-    const result = parseConf('[database]\npath = /srv/a=b\n', defaults, catalog);
+    const result = parseConf('[folders]\nroot = /srv/a=b\n', defaults, catalog);
 
-    expect(result.settings.database.path).toBe('/srv/a=b');
+    expect(result.settings.folders.root).toBe('/srv/a=b');
   });
 
   it('trims surrounding whitespace from keys and values', () => {
@@ -190,13 +190,13 @@ describe('parseConf: value kinds', () => {
 
   it('keeps text and path values as written', () => {
     const result = parseConf(
-      '[bitcoin]\nmilestone = abc:1\n[database]\npath = /var/lib/bs\n',
+      '[bitcoin]\nmilestone = abc:1\n[folders]\nroot = /var/lib/bs\n',
       defaults,
       catalog,
     );
 
     expect(result.settings.bitcoin.milestone).toBe('abc:1');
-    expect(result.settings.database.path).toBe('/var/lib/bs');
+    expect(result.settings.folders.root).toBe('/var/lib/bs');
     expect(result.errors).toEqual([]);
   });
 });

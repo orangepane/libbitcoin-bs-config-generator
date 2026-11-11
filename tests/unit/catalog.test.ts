@@ -19,18 +19,18 @@ const fixture = fixtureJson as Record<string, Record<string, ConfigValue>>;
 // The three views are built on this mix, so a change to it is a design change,
 // not a data refresh.
 const EXPECTED_TIER_COUNTS: Record<string, number> = {
-  essential: 10,
+  essential: 11,
   service: 8,
   advanced: 1,
   table: 24,
 };
 
 const EXPECTED_KIND_COUNTS: Record<Kind, number> = {
-  boolean: 80,
+  boolean: 82,
   integer: 256,
   decimal: 8,
   text: 36,
-  path: 30,
+  path: 32,
   list: 51,
   enum: 1,
 };
@@ -97,11 +97,11 @@ function countBy<T extends string> (values: T[]): Record<string, number> {
 }
 
 describe('catalog meta', () => {
-  it('declares the 43 sections and 462 settings it actually carries', () => {
-    expect(catalog.meta.sectionCount).toBe(43);
-    expect(catalog.meta.settingCount).toBe(462);
-    expect(sections).toHaveLength(43);
-    expect(settings).toHaveLength(462);
+  it('declares the 44 sections and 466 settings it actually carries', () => {
+    expect(catalog.meta.sectionCount).toBe(44);
+    expect(catalog.meta.settingCount).toBe(466);
+    expect(sections).toHaveLength(44);
+    expect(settings).toHaveLength(466);
   });
 
   it('targets bs v4 and carries a defaults tree per network', () => {
@@ -125,7 +125,7 @@ describe('catalog validation', () => {
     const broken = JSON.parse(JSON.stringify(catalogJson)) as {
       sections: Record<string, { settings: Record<string, { help?: string }> }>;
     };
-    delete broken.sections.log.settings.path.help;
+    delete broken.sections.folders.settings.root.help;
     expect(() => validateCatalog(broken)).toThrow();
   });
 
@@ -133,7 +133,7 @@ describe('catalog validation', () => {
     const broken = JSON.parse(JSON.stringify(catalogJson)) as {
       sections: Record<string, { settings: Record<string, { default: unknown }> }>;
     };
-    broken.sections.log.settings.path.default = 7;
+    broken.sections.folders.settings.root.default = 7;
     expect(() => validateCatalog(broken)).toThrow();
   });
 
@@ -200,7 +200,7 @@ describe('settings', () => {
 
   it('gives every setting a default of its kind, with the expected kind counts', () => {
     const matching = settings.filter((setting) => defaultMatchesKind(setting.kind, setting.default));
-    expect(matching).toHaveLength(462);
+    expect(matching).toHaveLength(466);
     expect(countBy(settings.map((setting) => setting.kind))).toEqual(EXPECTED_KIND_COUNTS);
   });
 

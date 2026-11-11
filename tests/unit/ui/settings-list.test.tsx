@@ -70,7 +70,7 @@ describe('SettingsList', () => {
     );
 
     expect(row(container, 'node', 'maximum_height')).not.toBeNull();
-    expect(row(container, 'log', 'path')).toBeNull();
+    expect(row(container, 'folders', 'root')).toBeNull();
   });
 
   it('filters on label and help text as well as the key', async () => {
@@ -93,10 +93,10 @@ describe('SettingsList', () => {
     );
 
     expect(row(container, 'node', 'maximum_height')).not.toBeNull();
-    expect(row(container, 'log', 'path')).toBeNull();
+    expect(row(container, 'folders', 'root')).toBeNull();
 
     rerender(<Harness initial={initial} view="essentials" changedOnly={false} />);
-    expect(row(container, 'log', 'path')).not.toBeNull();
+    expect(row(container, 'folders', 'root')).not.toBeNull();
   });
 
   it('restores the exact default on revert', async () => {

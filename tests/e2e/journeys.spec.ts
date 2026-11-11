@@ -42,9 +42,9 @@ test('preset to downloaded file in two interactions', async ({ page }) => {
 
 test('an out-of-range value is named in the row and in the download', async ({ page }) => {
   await page.getByRole('button', { name: 'All', exact: true }).click();
-  await page.getByRole('searchbox', { name: 'Search settings' }).fill('maximum_size');
+  await page.getByRole('searchbox', { name: 'Search settings' }).fill('limit');
 
-  const row = page.locator('[data-row="log.maximum_size"]');
+  const row = page.locator('[data-row="log.limit"]');
   await expect(row).toBeVisible();
 
   const input = row.getByRole('textbox');
@@ -55,7 +55,7 @@ test('an out-of-range value is named in the row and in the download', async ({ p
   await expect(row).toContainText('Must be at least 0');
 
   await page.getByRole('button', { name: 'Download bs.cfg' }).click();
-  await expect(page.getByRole('dialog')).toContainText('log.maximum_size is -5');
+  await expect(page.getByRole('dialog')).toContainText('log.limit is -5');
   await expect(page.getByRole('button', { name: 'Download anyway' })).toBeEnabled();
 });
 

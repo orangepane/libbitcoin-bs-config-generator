@@ -5,26 +5,124 @@
     "referenceUrl": "https://libbitcoin.org/configuration/reference.html",
     "snapshot": "2026-11-06",
     "verifiedAgainst": {
-      "date": "2026-11-10",
-      "serverCommit": "ee1ec847"
+      "date": "2026-11-11",
+      "serverCommit": "1318235d"
     },
     "defaultsScope": "network",
     "generatedBy": "scripts/build-catalog.mjs from scripts/data/data.json",
-    "seedSha256": "66e8267704f8a53cb39ff2419b3dfccab00da40ed96a20a45eaa236dfcef80d5",
-    "sectionCount": 43,
-    "settingCount": 462
+    "seedSha256": "8a2487c00d9f09ad39558a098f772f28c2dc4ffaa852f281dfb642313e0bcd16",
+    "sectionCount": 44,
+    "settingCount": 466
   },
   "sections": {
+    "folders": {
+      "key": "folders",
+      "title": "Folders",
+      "summary": "Where the network directory, store, logs and web roots live.",
+      "tier": "essential",
+      "settings": {
+        "admin": {
+          "key": "admin",
+          "label": "Admin",
+          "help": "The admin web site directory, relative to the network directory, defaults to embedded pages.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "console": {
+          "key": "console",
+          "label": "Console",
+          "help": "The console log files directory, relative to the network directory, defaults to it.",
+          "tier": "essential",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "events": {
+          "key": "events",
+          "label": "Events",
+          "help": "The events log directory, relative to the network directory, defaults to it.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "native": {
+          "key": "native",
+          "label": "Native",
+          "help": "The native web site directory, relative to the network directory, defaults to embedded pages.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "peers": {
+          "key": "peers",
+          "label": "Peers",
+          "help": "The peer address cache directory, relative to the network directory, defaults to it.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "root": {
+          "key": "root",
+          "label": "Root",
+          "help": "The base of the network-named directory, defaults to the working directory.",
+          "tier": "essential",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "store": {
+          "key": "store",
+          "label": "Store",
+          "help": "The store directory, relative to the network directory, defaults to 'store'.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        },
+        "symbols": {
+          "key": "symbols",
+          "label": "Symbols",
+          "help": "Windows only: the symbols (.pdb) directory, relative to the network directory, defaults to 'symbols'.",
+          "tier": "advanced",
+          "kind": "path",
+          "default": "",
+          "emit": "whenChanged"
+        }
+      }
+    },
     "log": {
       "key": "log",
       "title": "Log",
-      "summary": "Which kinds of events are logged, and where log files are written.",
+      "summary": "Which kinds of events are logged, and whether and where log files are written.",
       "tier": "essential",
       "settings": {
         "application": {
           "key": "application",
           "label": "Application",
           "help": "Enable application logging.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "console": {
+          "key": "console",
+          "label": "Console",
+          "help": "Write the console log to a pair of rotated log files.",
+          "tier": "advanced",
+          "kind": "boolean",
+          "default": true,
+          "emit": "whenChanged"
+        },
+        "events": {
+          "key": "events",
+          "label": "Events",
+          "help": "Write events to the events log file.",
           "tier": "advanced",
           "kind": "boolean",
           "default": true,
@@ -39,9 +137,9 @@
           "default": true,
           "emit": "whenChanged"
         },
-        "maximum_size": {
-          "key": "maximum_size",
-          "label": "Maximum Size",
+        "limit": {
+          "key": "limit",
+          "label": "Limit",
           "help": "The maximum byte size of each pair of rotated log files.",
           "tier": "advanced",
           "kind": "integer",
@@ -65,15 +163,6 @@
           "tier": "advanced",
           "kind": "boolean",
           "default": false,
-          "emit": "whenChanged"
-        },
-        "path": {
-          "key": "path",
-          "label": "Path",
-          "help": "The log files directory.",
-          "tier": "essential",
-          "kind": "path",
-          "default": "",
           "emit": "whenChanged"
         },
         "protocol": {
@@ -121,15 +210,6 @@
           "default": true,
           "emit": "whenChanged"
         },
-        "symbols": {
-          "key": "symbols",
-          "label": "Symbols",
-          "help": "Path to a directory containing Windows symbol (.pdb) files.",
-          "tier": "advanced",
-          "kind": "path",
-          "default": "",
-          "emit": "whenChanged"
-        },
         "verbose": {
           "key": "verbose",
           "label": "Verbose",
@@ -144,7 +224,7 @@
     "database": {
       "key": "database",
       "title": "Database",
-      "summary": "The store: its directory and store-wide options.",
+      "summary": "Options that apply to the whole store.",
       "tier": "essential",
       "settings": {
         "gpu_scan_minimum": {
@@ -175,15 +255,6 @@
           "tier": "advanced",
           "kind": "boolean",
           "default": true,
-          "emit": "whenChanged"
-        },
-        "path": {
-          "key": "path",
-          "label": "Path",
-          "help": "The base of the network-named blockchain database directory, defaults to the working directory.",
-          "tier": "essential",
-          "kind": "path",
-          "default": "",
           "emit": "whenChanged"
         },
         "turbo": {
@@ -2216,7 +2287,7 @@
         "delay_inbound": {
           "key": "delay_inbound",
           "label": "Delay Inbound",
-          "help": "Block inbound peer/client (excluding admin/native) until current.",
+          "help": "Block inbound peer/client (excluding admin) until current.",
           "tier": "advanced",
           "kind": "boolean",
           "default": true,
@@ -2316,7 +2387,7 @@
           "help": "Provide opportunistic connection encryption.",
           "tier": "essential",
           "kind": "boolean",
-          "default": false,
+          "default": true,
           "emit": "whenChanged"
         },
         "provide_witness": {
@@ -2661,15 +2732,6 @@
           "emit": "whenChanged",
           "min": 0,
           "unit": "minutes"
-        },
-        "path": {
-          "key": "path",
-          "label": "Path",
-          "help": "The peer address cache file directory.",
-          "tier": "advanced",
-          "kind": "path",
-          "default": "",
-          "emit": "whenChanged"
         },
         "protocol_maximum": {
           "key": "protocol_maximum",
@@ -3363,15 +3425,6 @@
           "default": [],
           "emit": "whenChanged"
         },
-        "path": {
-          "key": "path",
-          "label": "Path",
-          "help": "The required root path of source files to be served.",
-          "tier": "advanced",
-          "kind": "path",
-          "default": "",
-          "emit": "whenChanged"
-        },
         "rate_limit": {
           "key": "rate_limit",
           "label": "Rate Limit",
@@ -3583,15 +3636,6 @@
           "tier": "advanced",
           "kind": "list",
           "default": [],
-          "emit": "whenChanged"
-        },
-        "path": {
-          "key": "path",
-          "label": "Path",
-          "help": "The required root path of source files to be served.",
-          "tier": "advanced",
-          "kind": "path",
-          "default": "",
           "emit": "whenChanged"
         },
         "rate_limit": {

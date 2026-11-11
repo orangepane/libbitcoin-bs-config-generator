@@ -22,17 +22,82 @@
     "source": "https://libbitcoin.org/configuration/reference.html",
     "snapshot": "2026-11-06",
     "verifiedAgainst": {
-      "date": "2026-11-10",
-      "serverCommit": "ee1ec847"
+      "date": "2026-11-11",
+      "serverCommit": "1318235d"
+    }
+  },
+  "folders": {
+    "section": "Folders",
+    "description": "Where the network directory, store, logs and web roots live.",
+    "advanced": false,
+    "admin": {
+      "name": "Admin",
+      "description": "The admin web site directory, relative to the network directory, defaults to embedded pages.",
+      "default": "",
+      "control": "path"
+    },
+    "console": {
+      "name": "Console",
+      "description": "The console log files directory, relative to the network directory, defaults to it.",
+      "default": "",
+      "control": "path"
+    },
+    "events": {
+      "name": "Events",
+      "description": "The events log directory, relative to the network directory, defaults to it.",
+      "default": "",
+      "control": "path"
+    },
+    "native": {
+      "name": "Native",
+      "description": "The native web site directory, relative to the network directory, defaults to embedded pages.",
+      "default": "",
+      "control": "path"
+    },
+    "peers": {
+      "name": "Peers",
+      "description": "The peer address cache directory, relative to the network directory, defaults to it.",
+      "default": "",
+      "control": "path"
+    },
+    "root": {
+      "name": "Root",
+      "description": "The base of the network-named directory, defaults to the working directory.",
+      "default": "",
+      "control": "path"
+    },
+    "store": {
+      "name": "Store",
+      "description": "The store directory, relative to the network directory, defaults to 'store'.",
+      "default": "",
+      "control": "path"
+    },
+    "symbols": {
+      "name": "Symbols",
+      "description": "Windows only: the symbols (.pdb) directory, relative to the network directory, defaults to 'symbols'.",
+      "default": "",
+      "control": "path"
     }
   },
   "log": {
     "section": "Log",
-    "description": "Which kinds of events are logged, and where log files are written.",
+    "description": "Which kinds of events are logged, and whether and where log files are written.",
     "advanced": false,
     "application": {
       "name": "Application",
       "description": "Enable application logging.",
+      "default": true,
+      "control": "flag"
+    },
+    "console": {
+      "name": "Console",
+      "description": "Write the console log to a pair of rotated log files.",
+      "default": true,
+      "control": "flag"
+    },
+    "events": {
+      "name": "Events",
+      "description": "Write events to the events log file.",
       "default": true,
       "control": "flag"
     },
@@ -42,8 +107,8 @@
       "default": true,
       "control": "flag"
     },
-    "maximum_size": {
-      "name": "Maximum Size",
+    "limit": {
+      "name": "Limit",
       "description": "The maximum byte size of each pair of rotated log files.",
       "default": 1000000,
       "control": "number",
@@ -60,12 +125,6 @@
       "description": "Enable objects logging.",
       "default": false,
       "control": "flag"
-    },
-    "path": {
-      "name": "Path",
-      "description": "The log files directory.",
-      "default": "",
-      "control": "path"
     },
     "protocol": {
       "name": "Protocol",
@@ -97,12 +156,6 @@
       "default": true,
       "control": "flag"
     },
-    "symbols": {
-      "name": "Symbols",
-      "description": "Path to a directory containing Windows symbol (.pdb) files.",
-      "default": "",
-      "control": "path"
-    },
     "verbose": {
       "name": "Verbose",
       "description": "Enable verbose logging.",
@@ -112,7 +165,7 @@
   },
   "database": {
     "section": "Database",
-    "description": "The store: its directory and store-wide options.",
+    "description": "Options that apply to the whole store.",
     "advanced": false,
     "gpu_scan_minimum": {
       "name": "GPU Scan Minimum",
@@ -133,12 +186,6 @@
       "description": "Save unconfirmable block state (prevents revalidation).",
       "default": true,
       "control": "flag"
-    },
-    "path": {
-      "name": "Path",
-      "description": "The base of the network-named blockchain database directory, defaults to the working directory.",
-      "default": "",
-      "control": "path"
     },
     "turbo": {
       "name": "Turbo",
@@ -1454,7 +1501,7 @@
     },
     "delay_inbound": {
       "name": "Delay Inbound",
-      "description": "Block inbound peer/client (excluding admin/native) until current.",
+      "description": "Block inbound peer/client (excluding admin) until current.",
       "default": true,
       "control": "flag"
     },
@@ -1520,7 +1567,7 @@
     "provide_privacy": {
       "name": "Provide Privacy",
       "description": "Provide opportunistic connection encryption.",
-      "default": false,
+      "default": true,
       "control": "flag"
     },
     "provide_witness": {
@@ -1750,12 +1797,6 @@
       "default": 120,
       "control": "number",
       "min": 0
-    },
-    "path": {
-      "name": "Path",
-      "description": "The peer address cache file directory.",
-      "default": "",
-      "control": "path"
     },
     "protocol_maximum": {
       "name": "Protocol Maximum",
@@ -2221,12 +2262,6 @@
       "default": [],
       "control": "list"
     },
-    "path": {
-      "name": "Path",
-      "description": "The required root path of source files to be served.",
-      "default": "",
-      "control": "path"
-    },
     "rate_limit": {
       "name": "Rate Limit",
       "description": "The send rate limit in bytes per second (0 uses the network setting).",
@@ -2366,12 +2401,6 @@
       "description": "The allowed origin (see CORS) (empty disables).",
       "default": [],
       "control": "list"
-    },
-    "path": {
-      "name": "Path",
-      "description": "The required root path of source files to be served.",
-      "default": "",
-      "control": "path"
     },
     "rate_limit": {
       "name": "Rate Limit",

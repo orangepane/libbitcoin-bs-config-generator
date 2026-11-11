@@ -17,7 +17,7 @@ surface and links back there for depth.
 
 - Writes only the settings that differ from the selected network's defaults, each
   under its `[section]` header and preceded by its catalog description as a comment.
-- Covers the bs v4 sections: log, database, store tables, chain parameters,
+- Covers the bs v4 sections: folders, log, database, store tables, chain parameters,
   node, P2P, outbound and inbound, manual peers, admin, native REST, bitcoind
   JSON-RPC, REST and ZMQ, BTCD, Electrum, Sparrow and Esplora.
 - Imports an existing `bs.cfg` and re-exports it, keeping keys the catalog does

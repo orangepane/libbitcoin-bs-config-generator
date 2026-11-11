@@ -1,24 +1,33 @@
 {
+  "folders": {
+    "admin": "",
+    "console": "",
+    "events": "",
+    "native": "",
+    "peers": "",
+    "root": "",
+    "store": "",
+    "symbols": ""
+  },
   "log": {
     "application": true,
+    "console": true,
+    "events": true,
     "fault": true,
-    "maximum_size": 1000000,
+    "limit": 1000000,
     "news": true,
     "objects": false,
-    "path": "",
     "protocol": false,
     "proxy": false,
     "quitting": false,
     "remote": true,
     "session": true,
-    "symbols": "",
     "verbose": false
   },
   "database": {
     "gpu_scan_minimum": 65536,
     "interval_depth": 11,
     "mark_unconfirmable": true,
-    "path": "",
     "turbo": true
   },
   "table.candidate": {
@@ -269,7 +278,7 @@
     "minimum_fee_rate": 1e-06,
     "provide_blocks": true,
     "provide_filters": false,
-    "provide_privacy": false,
+    "provide_privacy": true,
     "provide_witness": true,
     "require_blocks": true,
     "require_witness": true,
@@ -308,7 +317,6 @@
     "identifier": 3652501241,
     "invalid_services": 268435632,
     "maximum_skew_minutes": 120,
-    "path": "",
     "protocol_maximum": 70016,
     "protocol_minimum": 31800,
     "user_agent": "/libbitcoin:4.0.10255/",
@@ -394,7 +402,6 @@
     "maximum_request": 4000000,
     "minimum_buffer": 4096,
     "origin": [],
-    "path": "",
     "rate_limit": 0,
     "safe": [],
     "server": "libbitcoin/4"
@@ -418,7 +425,6 @@
     "maximum_request": 4000000,
     "minimum_buffer": 4096,
     "origin": [],
-    "path": "",
     "rate_limit": 0,
     "safe": [],
     "server": "libbitcoin/4",

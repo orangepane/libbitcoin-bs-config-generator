@@ -16,13 +16,12 @@ const SERVICE_SECTIONS = new Set([
   'admin', 'native', 'bitcoind', 'zmq', 'btcd', 'electrum', 'sparrow', 'esplora',
 ]);
 
-// Every key here is either needed by a preset or named by a warning rule.
-// Anything else lives in All settings.
+// Advanced settings promoted to Essentials.
 const ESSENTIAL = new Set([
   'bitcoin.network', 'bitcoin.milestone',
-  'database.path',
+  'folders.root', 'folders.console',
   'node.limited_blocks', 'node.maximum_height', 'node.provide_filters', 'node.provide_privacy',
-  'log.path', 'log.verbose',
+  'log.verbose',
   'network.threads',
   'peer.gossip_tor', 'peer.gossip_ipv4', 'peer.gossip_ipv6',
   'outbound.connections', 'outbound.current_connections', 'outbound.socks',
