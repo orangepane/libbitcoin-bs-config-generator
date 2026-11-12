@@ -5,12 +5,12 @@
     "referenceUrl": "https://libbitcoin.org/configuration/reference.html",
     "snapshot": "2026-11-06",
     "verifiedAgainst": {
-      "date": "2026-11-11",
-      "serverCommit": "1318235d"
+      "date": "2026-11-12",
+      "serverCommit": "f475369b"
     },
     "defaultsScope": "network",
     "generatedBy": "scripts/build-catalog.mjs from scripts/data/data.json",
-    "seedSha256": "8a2487c00d9f09ad39558a098f772f28c2dc4ffaa852f281dfb642313e0bcd16",
+    "seedSha256": "0bac638598b940d0c7d6b50af764b8db585006aa90e0aca7e3f568a5cad455d5",
     "sectionCount": 44,
     "settingCount": 466
   },
@@ -2299,7 +2299,7 @@
           "help": "Fee estimation horizon, limited to 1008 (0 disables).",
           "tier": "advanced",
           "kind": "integer",
-          "default": 0,
+          "default": 1008,
           "emit": "whenChanged",
           "min": 0
         },

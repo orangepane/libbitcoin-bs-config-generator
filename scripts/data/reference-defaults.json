@@ -269,7 +269,7 @@
     "compact_timeout_seconds": 10,
     "currency_window_minutes": 1440,
     "delay_inbound": true,
-    "fee_estimate_horizon": 0,
+    "fee_estimate_horizon": 1008,
     "limited_blocks": false,
     "maximum_concurrency": 50000,
     "maximum_height": 0,

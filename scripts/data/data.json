@@ -22,8 +22,8 @@
     "source": "https://libbitcoin.org/configuration/reference.html",
     "snapshot": "2026-11-06",
     "verifiedAgainst": {
-      "date": "2026-11-11",
-      "serverCommit": "1318235d"
+      "date": "2026-11-12",
+      "serverCommit": "f475369b"
     }
   },
   "folders": {
@@ -1508,7 +1508,7 @@
     "fee_estimate_horizon": {
       "name": "Fee Estimate Horizon",
       "description": "Fee estimation horizon, limited to 1008 (0 disables).",
-      "default": 0,
+      "default": 1008,
       "control": "number",
       "min": 0
     },
