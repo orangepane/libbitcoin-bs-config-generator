@@ -8,6 +8,10 @@ that explains itself line by line.
 
 Live at <https://orangepane.github.io/libbitcoin-bs-config-generator/>.
 
+The catalog follows a shipped `bs`: currently `libbitcoin-server` `f475369b`
+(`v4.0.3627-preview`), linked in the footer. When `bs` ships a new setting, it
+shows up here.
+
 `bs` is a Bitcoin full node and query server. How it works, what it costs to
 run, and what every setting means are documented at
 [libbitcoin.org](https://libbitcoin.org); this page exposes the configuration
