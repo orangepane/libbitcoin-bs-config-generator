@@ -26,6 +26,7 @@ const KNOWN_IDS = [
   'address-index-disabled',
   'fixed-at-creation',
   'unknown-key-rejected',
+  'unknown-section-rejected',
 ];
 
 function withChanges (changes: Record<string, Record<string, ConfigValue>>): Settings {
@@ -407,47 +408,85 @@ describe('warning shape and purity', () => {
   });
 });
 
-describe('unknown keys', () => {
+describe('unknown sections and keys', () => {
   const entry = (section: string, key: string): UnknownEntry => ({ section, key, values: ['1'] });
 
   it('is quiet while the import carried nothing unknown', () => {
     expect(evaluateWarnings(defaults, defaults, catalog, [])).toEqual([]);
   });
 
-  it('names the key, the refusal and the two ways out', () => {
+  it('blames the header when the whole section is unknown', () => {
+    const warning = only(
+      evaluateWarnings(
+        defaults, defaults, catalog,
+        [entry('bitcoin-core', 'bind'), entry('bitcoin-core', 'connections')],
+      ),
+      'unknown-section-rejected',
+    );
+
+    expect(warning.severity).toBe('warning');
+    expect(warning.message).toContain('no [bitcoin-core] section');
+    expect(warning.message).toContain("bs won't start a file");
+    expect(warning.message).toContain('The lines stay in your download');
+    expect(warning.message).toContain('correct the header');
+    expect(warning.message).toContain('delete the section');
+  });
+
+  it('keeps the key warning for a stray key in a known section', () => {
     const warning = only(
       evaluateWarnings(defaults, defaults, catalog, [entry('outbound', 'nonsense')]),
       'unknown-key-rejected',
     );
 
-    expect(warning.severity).toBe('warning');
     expect(warning.message).toContain('outbound.nonsense is not a key');
-    expect(warning.message).toContain("bs won't start a file");
-    expect(warning.message).toContain("doesn't recognize");
-    expect(warning.message).toContain('The line stays in your download');
-    expect(warning.message).toContain('unless your bs accepts it');
+    expect(warning.message).toContain('delete it unless your bs accepts it');
   });
 
-  it('speaks of more than one key in the plural', () => {
+  it('emits both warnings when a file carries both problems', () => {
+    const warnings = evaluateWarnings(
+      defaults, defaults, catalog,
+      [entry('bitcoin-core', 'bind'), entry('outbound', 'nonsense')],
+    );
+
+    expect(ids(warnings)).toEqual(['unknown-section-rejected', 'unknown-key-rejected']);
+  });
+
+  it('speaks of more than one section in the plural', () => {
     const warning = only(
-      evaluateWarnings(defaults, defaults, catalog, [entry('future', 'mode'), entry('node', 'junk')]),
+      evaluateWarnings(
+        defaults, defaults, catalog,
+        [entry('bitcoin-core', 'bind'), entry('future', 'mode')],
+      ),
+      'unknown-section-rejected',
+    );
+
+    expect(warning.message).toContain('no [bitcoin-core] or [future] sections');
+    expect(warning.message).toContain('correct the headers');
+    expect(warning.message).toContain('delete the sections');
+  });
+
+  it('speaks of more than one stray key in the plural', () => {
+    const warning = only(
+      evaluateWarnings(
+        defaults, defaults, catalog,
+        [entry('outbound', 'nonsense'), entry('log', 'junk')],
+      ),
       'unknown-key-rejected',
     );
 
-    expect(warning.message).toContain('future.mode and node.junk are not keys');
-    expect(warning.message).toContain('The lines stay in your download');
+    expect(warning.message).toContain('outbound.nonsense and log.junk are not keys');
   });
 
-  it('caps the list and counts the rest', () => {
-    const keys = Array.from({ length: 7 }, (_, index) => entry('future', `key${index}`));
+  it('caps each list and counts the rest', () => {
+    const sections = Array.from({ length: 7 }, (_, index) => entry(`future${index}`, 'mode'));
     const warning = only(
-      evaluateWarnings(defaults, defaults, catalog, keys),
-      'unknown-key-rejected',
+      evaluateWarnings(defaults, defaults, catalog, sections),
+      'unknown-section-rejected',
     );
 
-    expect(warning.message).toContain('future.key4');
-    expect(warning.message).not.toContain('future.key5');
-    expect(warning.message).toContain('and 2 more');
+    expect(warning.message).toContain('[future4]');
+    expect(warning.message).not.toContain('[future5]');
+    expect(warning.message).toContain('and 2 more sections');
   });
 });
 

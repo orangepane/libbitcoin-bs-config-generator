@@ -98,6 +98,12 @@ function joinAnd (items: string[]): string {
   return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`;
 }
 
+/** "a", "a or b", "a, b or c", for lists under a negation. */
+function joinOr (items: string[]): string {
+  if (items.length <= 1) return items[0] ?? '';
+  return `${items.slice(0, -1).join(', ')} or ${items[items.length - 1]}`;
+}
+
 function quantify (items: string[], singular: string, plural: string): string {
   return `${joinAnd(items)} ${items.length === 1 ? singular : plural}`;
 }
@@ -300,26 +306,69 @@ function outOfRange (settings: Settings, catalog: Catalog): Warning[] {
  * names a build that will not start it. The names are capped: a hostile import
  * can carry hundreds, and the warning reads the same either way.
  */
-const UNKNOWN_KEY_CAP = 5;
+const UNKNOWN_CAP = 5;
 
-function unknownKeysRejected (unknown: readonly UnknownEntry[]): Warning[] {
+/** "a, b and c", capped, with the remainder counted. */
+function nameList (names: string[], conjunction = 'and'): string {
+  const shown = names.slice(0, UNKNOWN_CAP);
+  const rest = names.length - shown.length;
+  if (rest === 0) return conjunction === 'or' ? joinOr(shown) : joinAnd(shown);
+  return `${shown.join(', ')} and ${rest} more`;
+}
+
+/**
+ * Names the import kept that the target build does not declare. bs rejects the
+ * whole file for any one of them, and the repair differs by cause: an unknown
+ * section is usually a header to correct, a stray key in a known section is a
+ * line to delete.
+ */
+function unknownRejected (unknown: readonly UnknownEntry[], catalog: Catalog): Warning[] {
   if (unknown.length === 0) return [];
 
-  const names = unknown.map((entry) => `${entry.section}.${entry.key}`);
-  const shown = names.slice(0, UNKNOWN_KEY_CAP);
-  const rest = names.length - shown.length;
-  const list = joinAnd(shown) + (rest > 0 ? ` and ${rest} more` : '');
-  const one = names.length === 1;
+  const sections: string[] = [];
+  const keys: string[] = [];
+  const seen = new Set<string>();
+  for (const entry of unknown) {
+    if (catalog.sections[entry.section] === undefined) {
+      if (!seen.has(entry.section)) {
+        seen.add(entry.section);
+        sections.push(entry.section);
+      }
+    } else {
+      keys.push(`${entry.section}.${entry.key}`);
+    }
+  }
 
-  return [{
-    id: 'unknown-key-rejected',
-    severity: 'warning',
-    message:
-      `${list} ${one ? 'is not a key' : 'are not keys'} the bs version behind this tool knows. ` +
-      `bs won't start a file carrying ${one ? 'a key' : 'keys'} it doesn't recognize. ` +
-      `The ${one ? 'line stays' : 'lines stay'} in your download; delete ${one ? 'it' : 'them'} ` +
-      `unless your bs accepts ${one ? 'it' : 'them'}.`,
-  }];
+  const warnings: Warning[] = [];
+
+  if (sections.length > 0) {
+    const one = sections.length === 1;
+    const lines = unknown.filter((entry) => seen.has(entry.section));
+    warnings.push({
+      id: 'unknown-section-rejected',
+      severity: 'warning',
+      message:
+        `The bs version behind this tool has no ${nameList(sections.map((section) => `[${section}]`), 'or')} ${one ? 'section' : 'sections'}. ` +
+        `bs won't start a file carrying ${one ? 'a section' : 'sections'} it doesn't recognize. ` +
+        `The ${lines.length === 1 ? 'line stays' : 'lines stay'} in your download; correct the ${one ? 'header' : 'headers'} ` +
+        `if your bs knows ${one ? 'it' : 'them'} under another name, or delete the ${one ? 'section' : 'sections'}.`,
+    });
+  }
+
+  if (keys.length > 0) {
+    const one = keys.length === 1;
+    warnings.push({
+      id: 'unknown-key-rejected',
+      severity: 'warning',
+      message:
+        `${nameList(keys)} ${one ? 'is not a key' : 'are not keys'} the bs version behind this tool knows. ` +
+        `bs won't start a file carrying ${one ? 'a key' : 'keys'} it doesn't recognize. ` +
+        `The ${one ? 'line stays' : 'lines stay'} in your download; delete ${one ? 'it' : 'them'} ` +
+        `unless your bs accepts ${one ? 'it' : 'them'}.`,
+    });
+  }
+
+  return warnings;
 }
 
 export function alerts (warnings: readonly Warning[]): Warning[] {
@@ -339,6 +388,6 @@ export function evaluateWarnings (
     ...addressIndexDisabled(settings, catalog),
     ...outOfRange(settings, catalog),
     ...fixedAtCreation(settings, defaults, catalog),
-    ...unknownKeysRejected(unknown),
+    ...unknownRejected(unknown, catalog),
   ];
 }
