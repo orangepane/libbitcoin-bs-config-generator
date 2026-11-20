@@ -235,8 +235,8 @@ export function App () {
     [state.settings, state.unknown],
   );
   const warnings = useMemo(
-    () => evaluateWarnings(state.settings, baseline(state.settings), catalog),
-    [state.settings],
+    () => evaluateWarnings(state.settings, baseline(state.settings), catalog, state.unknown),
+    [state.settings, state.unknown],
   );
   const named = useMemo(() => alerts(warnings), [warnings]);
   const errors = useMemo(() => deriveErrors(state.settings), [state.settings]);

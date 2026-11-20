@@ -1,6 +1,6 @@
 import type { Catalog, SectionDef, SettingDef } from '../catalog';
 import { valuesEqual } from './defaults';
-import type { ConfigValue, Settings, Warning } from './types';
+import type { ConfigValue, Settings, UnknownEntry, Warning } from './types';
 
 // Derived lint rules. Pure: nothing here writes settings or blocks a download.
 //
@@ -294,6 +294,34 @@ function outOfRange (settings: Settings, catalog: Catalog): Warning[] {
  * The checks worth naming before a file is saved: everything except notes. A note
  * describes the store's lifecycle, so it stays in the tab.
  */
+/**
+ * Keys the import kept but the catalog does not know. bs declares every option
+ * it reads and rejects the file otherwise, so a download that carries these
+ * names a build that will not start it. The names are capped: a hostile import
+ * can carry hundreds, and the warning reads the same either way.
+ */
+const UNKNOWN_KEY_CAP = 5;
+
+function unknownKeysRejected (unknown: readonly UnknownEntry[]): Warning[] {
+  if (unknown.length === 0) return [];
+
+  const names = unknown.map((entry) => `${entry.section}.${entry.key}`);
+  const shown = names.slice(0, UNKNOWN_KEY_CAP);
+  const rest = names.length - shown.length;
+  const list = joinAnd(shown) + (rest > 0 ? ` and ${rest} more` : '');
+  const one = names.length === 1;
+
+  return [{
+    id: 'unknown-key-rejected',
+    severity: 'warning',
+    message:
+      `${list} ${one ? 'is not a key' : 'are not keys'} the bs version behind this tool knows. ` +
+      `bs won't start a file carrying ${one ? 'a key' : 'keys'} it doesn't recognize. ` +
+      `The ${one ? 'line stays' : 'lines stay'} in your download; delete ${one ? 'it' : 'them'} ` +
+      `unless your bs accepts ${one ? 'it' : 'them'}.`,
+  }];
+}
+
 export function alerts (warnings: readonly Warning[]): Warning[] {
   return warnings.filter((warning) => warning.severity !== 'notice');
 }
@@ -302,6 +330,7 @@ export function evaluateWarnings (
   settings: Settings,
   defaults: Settings,
   catalog: Catalog,
+  unknown: readonly UnknownEntry[] = [],
 ): Warning[] {
   return [
     ...interfaceWithoutCredentials(settings, catalog),
@@ -310,5 +339,6 @@ export function evaluateWarnings (
     ...addressIndexDisabled(settings, catalog),
     ...outOfRange(settings, catalog),
     ...fixedAtCreation(settings, defaults, catalog),
+    ...unknownKeysRejected(unknown),
   ];
 }

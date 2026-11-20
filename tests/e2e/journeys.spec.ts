@@ -144,6 +144,15 @@ for (const network of NETWORKS) {
   });
 }
 
+test('an imported unknown key warns that bs will refuse the file', async ({ page }) => {
+  await importText(page, '[future]\nmode = full\n');
+
+  await page.getByRole('tab', { name: 'Warnings' }).click();
+  const panel = page.getByRole('tabpanel');
+  await expect(panel).toContainText('future.mode is not a key');
+  await expect(panel).toContainText("bs won't start a file");
+});
+
 test('a switch to another network writes only that network', async ({ page }) => {
   // The tree used to keep the old network's chain parameters, milestone and
   // table counts, so a bare switch wrote dozens of stale values.

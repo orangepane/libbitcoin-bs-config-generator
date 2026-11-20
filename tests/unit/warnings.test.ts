@@ -9,7 +9,7 @@ import { validateCatalog } from '../../src/catalog.schema';
 import { getDefaults, mixDefaults } from '../../src/config/defaults';
 import { alerts, evaluateWarnings } from '../../src/config/warnings';
 import type { Catalog } from '../../src/catalog.schema';
-import type { ConfigValue, Settings, Warning } from '../../src/config/types';
+import type { ConfigValue, Settings, UnknownEntry, Warning } from '../../src/config/types';
 
 const catalog: Catalog = validateCatalog(catalogJson);
 const defaults = getDefaults(catalog);
@@ -25,6 +25,7 @@ const KNOWN_IDS = [
   'filters-without-buckets',
   'address-index-disabled',
   'fixed-at-creation',
+  'unknown-key-rejected',
 ];
 
 function withChanges (changes: Record<string, Record<string, ConfigValue>>): Settings {
@@ -403,6 +404,50 @@ describe('warning shape and purity', () => {
     expect(milestone?.message).toContain('bitcoin.milestone');
     expect(milestone?.message).toContain('node.maximum_height');
     expect(index?.message).toContain('table.outs.buckets');
+  });
+});
+
+describe('unknown keys', () => {
+  const entry = (section: string, key: string): UnknownEntry => ({ section, key, values: ['1'] });
+
+  it('is quiet while the import carried nothing unknown', () => {
+    expect(evaluateWarnings(defaults, defaults, catalog, [])).toEqual([]);
+  });
+
+  it('names the key, the refusal and the two ways out', () => {
+    const warning = only(
+      evaluateWarnings(defaults, defaults, catalog, [entry('outbound', 'nonsense')]),
+      'unknown-key-rejected',
+    );
+
+    expect(warning.severity).toBe('warning');
+    expect(warning.message).toContain('outbound.nonsense is not a key');
+    expect(warning.message).toContain("bs won't start a file");
+    expect(warning.message).toContain("doesn't recognize");
+    expect(warning.message).toContain('The line stays in your download');
+    expect(warning.message).toContain('unless your bs accepts it');
+  });
+
+  it('speaks of more than one key in the plural', () => {
+    const warning = only(
+      evaluateWarnings(defaults, defaults, catalog, [entry('future', 'mode'), entry('node', 'junk')]),
+      'unknown-key-rejected',
+    );
+
+    expect(warning.message).toContain('future.mode and node.junk are not keys');
+    expect(warning.message).toContain('The lines stay in your download');
+  });
+
+  it('caps the list and counts the rest', () => {
+    const keys = Array.from({ length: 7 }, (_, index) => entry('future', `key${index}`));
+    const warning = only(
+      evaluateWarnings(defaults, defaults, catalog, keys),
+      'unknown-key-rejected',
+    );
+
+    expect(warning.message).toContain('future.key4');
+    expect(warning.message).not.toContain('future.key5');
+    expect(warning.message).toContain('and 2 more');
   });
 });
 
